@@ -1,4 +1,14 @@
 {
     "english": "english",
-    "russian": "russian"
+    "russian": "russian",
+    "Metadata": {
+        "title": "OperaClass.Net"
+    },
+    "Header": {
+        "toggle-menu": "toggle menu",
+        "pianists": "pianists",
+        "news": "news",
+        "join-us": "join us",
+        "donate": "donate"
+    }
 }

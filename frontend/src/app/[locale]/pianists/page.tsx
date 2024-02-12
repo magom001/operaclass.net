@@ -1,19 +1,44 @@
+import { Link } from "@/i18n";
 import { unstable_setRequestLocale } from "next-intl/server";
-import Link from "next/link";
+import { PageParams } from "../layout";
 
-interface PageProps {
-  params: {
-    locale: "en" | "ru";
-  };
+async function getPianists() {
+  return [
+    {
+      id: "1",
+      firstName: "John",
+      lastName: "Doe",
+      city: "Moscow",
+      country: "Russia",
+      sex: "m",
+    },
+    {
+      id: "2",
+      firstName: "Jane",
+      lastName: "Doe",
+      city: "Moscow",
+      country: "Russia",
+      sex: "f",
+    },
+  ];
 }
 
-export default function Page({ params: { locale } }: PageProps) {
+export default async function Page({ params: { locale } }: PageParams) {
   unstable_setRequestLocale(locale);
 
+  const pianists = await getPianists();
+
   return (
-    <>
-      <h1>Hi from second page!</h1>
-      <Link href={`/${locale}`}>second page</Link>
-    </>
+    <article>
+      <ul>
+        {pianists.map((p) => (
+          <li key={p.id}>
+            <Link href={`/pianists/${p.id}`}>
+              {p.firstName} {p.lastName}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }

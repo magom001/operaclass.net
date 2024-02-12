@@ -1,4 +1,14 @@
 {
     "english": "английский",
-    "russian": "русский"
+    "russian": "русский",
+    "Metadata": {
+        "title": "OperaClass.Net"
+    },
+    "Header": {
+        "toggle-menu": "открыть меню",
+        "pianists": "концертмейстеры",
+        "news": "новости",
+        "join-us": "присоединиться",
+        "donate": "помочь"
+    }
 }
