@@ -1,5 +1,5 @@
 import "../globals.css";
-import { locales } from "@/i18n";
+import { Locale, locales } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Header from "../../components/Header";
 import {
@@ -28,7 +28,7 @@ export function generateStaticParams() {
 
 export interface PageParams<T = {}> {
   params: T & {
-    locale: (typeof locales)[number];
+    locale: Locale;
   };
 }
 

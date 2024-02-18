@@ -1,41 +1,24 @@
-import { Link } from "@/i18n";
+import { Link, Locale } from "@/i18n";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { PageParams } from "../layout";
+import { PianistPreview } from "./PianistPreview";
+import { getPianistsPreview } from "@/services/pianists";
 
-async function getPianists() {
-  return [
-    {
-      id: "1",
-      firstName: "John",
-      lastName: "Doe",
-      city: "Moscow",
-      country: "Russia",
-      sex: "m",
-    },
-    {
-      id: "2",
-      firstName: "Jane",
-      lastName: "Doe",
-      city: "Moscow",
-      country: "Russia",
-      sex: "f",
-    },
-  ];
+async function getPianists(locale: Locale) {
+  return getPianistsPreview(locale);
 }
 
 export default async function Page({ params: { locale } }: PageParams) {
   unstable_setRequestLocale(locale);
 
-  const pianists = await getPianists();
+  const pianists = await getPianists(locale);
 
   return (
     <article>
-      <ul>
+      <ul className="p-4 grid grid-cols-1 grid-flow-row space-y-2">
         {pianists.map((p) => (
           <li key={p.id}>
-            <Link href={`/pianists/${p.id}`}>
-              {p.firstName} {p.lastName}
-            </Link>
+            <PianistPreview pianist={p} />
           </li>
         ))}
       </ul>

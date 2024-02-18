@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_pianist_you_tube_links",
+  "info": {
+    "displayName": "YouTubeLink",
+    "icon": "play"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    }
+  }
+}
