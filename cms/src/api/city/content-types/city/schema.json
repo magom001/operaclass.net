@@ -4,7 +4,8 @@
   "info": {
     "singularName": "city",
     "pluralName": "cities",
-    "displayName": "City"
+    "displayName": "City",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -30,6 +31,15 @@
       "relation": "oneToMany",
       "target": "api::pianist.pianist",
       "mappedBy": "city"
+    },
+    "code": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "required": true
     }
   }
 }

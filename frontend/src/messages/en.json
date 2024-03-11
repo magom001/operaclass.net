@@ -4,6 +4,14 @@
     "Metadata": {
         "title": "OperaClass.Net"
     },
+    "Common": {
+        "close": "close",
+        "apply": "apply"
+    },
+    "Filters": {
+        "city": "city",
+        "open-filters": "open filters"
+    },
     "Header": {
         "toggle-menu": "toggle menu",
         "pianists": "pianists",

@@ -21,12 +21,11 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  // `locales` is just an array of all of
-  // our supported locales: `["en-US", "ar-EG"]`
   return locales.map((locale) => ({ locale }));
 }
 
-export interface PageParams<T = {}> {
+export interface PageParams<T = {}, S = {}> {
+  searchParams: S;
   params: T & {
     locale: Locale;
   };

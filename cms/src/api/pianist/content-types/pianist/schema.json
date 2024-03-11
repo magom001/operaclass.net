@@ -40,6 +40,30 @@
       "relation": "manyToOne",
       "target": "api::city.city",
       "inversedBy": "pianists"
+    },
+    "sex": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "male",
+        "female"
+      ],
+      "required": true,
+      "default": "male"
+    },
+    "rating": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "required": false,
+      "default": 0,
+      "type": "integer"
     }
   }
 }

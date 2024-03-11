@@ -4,6 +4,14 @@
     "Metadata": {
         "title": "OperaClass.Net"
     },
+    "Common": {
+        "close": "закрыть",
+        "apply": "применить"
+    },
+    "Filters": {
+        "city": "город",
+        "open-filters": "открыть фильтры"
+    },
     "Header": {
         "toggle-menu": "открыть меню",
         "pianists": "концертмейстеры",

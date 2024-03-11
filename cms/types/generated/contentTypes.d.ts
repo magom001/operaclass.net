@@ -514,6 +514,10 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
     releasedAt: Attribute.DateTime;
     scheduledAt: Attribute.DateTime;
     timezone: Attribute.String;
+    status: Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Attribute.Required;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -568,6 +572,7 @@ export interface PluginContentReleasesReleaseAction
       'manyToOne',
       'plugin::content-releases.release'
     >;
+    isEntryValid: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -789,6 +794,7 @@ export interface ApiCityCity extends Schema.CollectionType {
     singularName: 'city';
     pluralName: 'cities';
     displayName: 'City';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -812,6 +818,13 @@ export interface ApiCityCity extends Schema.CollectionType {
       'oneToMany',
       'api::pianist.pianist'
     >;
+    code: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
@@ -862,6 +875,21 @@ export interface ApiPianistPianist extends Schema.CollectionType {
       'manyToOne',
       'api::city.city'
     >;
+    sex: Attribute.Enumeration<['male', 'female']> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Attribute.DefaultTo<'male'>;
+    rating: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

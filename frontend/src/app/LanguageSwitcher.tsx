@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "@/i18n";
+import { useParams } from "next/navigation";
 
 interface Props {
   className?: string;
@@ -9,6 +10,7 @@ interface Props {
 export default function LanguageSwitcher({ className }: Props) {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
 
   return (
     <ul
@@ -17,7 +19,7 @@ export default function LanguageSwitcher({ className }: Props) {
       <li className="px-4">
         <button
           type="button"
-          onClick={() => router.push(pathname, { locale: "en" })}
+          onClick={() => router.replace(pathname, { locale: "en" })}
         >
           EN
         </button>
@@ -25,7 +27,7 @@ export default function LanguageSwitcher({ className }: Props) {
       <li className="px-4">
         <button
           type="button"
-          onClick={() => router.push(pathname, { locale: "ru" })}
+          onClick={() => router.replace(pathname, { locale: "ru" })}
         >
           РУ
         </button>

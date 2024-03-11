@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-gray-950 text-white fixed top-0 left-0 right-0 h-[64px] flex items-center justify-between px-8 z-50">
+      <header className="bg-gray-950 shadow-md text-white fixed top-0 left-0 right-0 h-[var(--header-height)] flex items-center justify-between px-8 z-50">
         <Link className="text-xl" href="/">
           OperaClass.Net
         </Link>
@@ -53,9 +53,9 @@ export default function Header() {
       </header>
       <div
         onClick={toggleOpened}
-        className="fixed inset-0 bg-transparent z-30"
+        className="fixed inset-0 backdrop-blur-sm bg-transparent z-30"
         hidden={!opened}
-      ></div>
+      />
       <aside
         aria-hidden={!opened}
         tabIndex={-1}
