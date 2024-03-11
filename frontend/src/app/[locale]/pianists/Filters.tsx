@@ -2,6 +2,7 @@
 
 import { Chip } from "@/components/Chip";
 import { City } from "@/services/cities";
+import { Experience } from "@/services/experiences";
 import { Language } from "@/services/languages";
 import { AdjustmentsVerticalIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
@@ -16,9 +17,10 @@ import { useEffect, useReducer, useRef, useState } from "react";
 interface Props {
   cities: City[];
   languages: Language[];
+  experiences: Experience[];
 }
 
-export function Filters({ cities, languages }: Props) {
+export function Filters({ cities, languages, experiences }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const [isOpened, toggleIsOpened] = useReducer((state) => !state, false);
@@ -36,6 +38,9 @@ export function Filters({ cities, languages }: Props) {
   const searchParams = useSearchParams();
 
   const [selectedCities, setCities] = useState(searchParams.getAll("city"));
+  const [selectedExperiences, setExperiences] = useState(
+    searchParams.getAll("experience")
+  );
   const [spokenLanguages, setSpokenLanguages] = useState(
     searchParams.getAll("speaks")
   );
@@ -53,6 +58,7 @@ export function Filters({ cities, languages }: Props) {
     params.delete("city");
     params.delete("speaks");
     params.delete("reads");
+    params.delete("experience");
 
     for (const city of selectedCities) {
       params.append("city", city);
@@ -64,6 +70,10 @@ export function Filters({ cities, languages }: Props) {
 
     for (const alpha2 of readsLanguages) {
       params.append("reads", alpha2);
+    }
+
+    for (const code of selectedExperiences) {
+      params.append("experience", code);
     }
 
     console.log(btoa(params.toString()));
@@ -177,6 +187,37 @@ export function Filters({ cities, languages }: Props) {
                     }
                   >
                     {language.name}
+                  </Chip>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="capitalize font-thin">{t("Filters.experience")}</h2>
+            <div>
+              {experiences.map((experience) => (
+                <button
+                  key={experience.code}
+                  role="button"
+                  onClick={() => {
+                    if (selectedExperiences.includes(experience.code)) {
+                      setExperiences(
+                        selectedExperiences.filter((c) => c !== experience.code)
+                      );
+                    } else {
+                      setExperiences([...selectedExperiences, experience.code]);
+                    }
+                  }}
+                >
+                  <Chip
+                    className={
+                      selectedExperiences.includes(experience.code)
+                        ? "bg-sky-700 !text-white"
+                        : ""
+                    }
+                  >
+                    {experience.name}
                   </Chip>
                 </button>
               ))}

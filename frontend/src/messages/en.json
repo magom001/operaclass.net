@@ -12,7 +12,11 @@
         "city": "city",
         "open-filters": "open filters",
         "fluently-speak": "fluently speak",
-        "reads": "music reading"
+        "reads": "music reading",
+        "experience": "experience"
+    },
+    "Pianists": {
+        "no-profiles-found": "No profiles found"
     },
     "Header": {
         "toggle-menu": "toggle menu",

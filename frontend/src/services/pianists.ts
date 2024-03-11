@@ -48,13 +48,14 @@ export interface SearchParams {
   city?: string | string[];
   speaks?: string | string[];
   reads?: string | string[];
+  experience?: string | string[];
 }
 
 export async function getPianistsPreview(
   locale: Locale,
   searchParams: SearchParams
 ): Promise<PianistPreview[]> {
-  const { city, speaks = [], reads = [] } = searchParams;
+  const { city, speaks = [], reads = [], experience = [] } = searchParams;
 
   const spokenLanguagesFilter = (Array.isArray(speaks) ? speaks : [speaks]).map(
     (alpha2) => ({
@@ -76,6 +77,16 @@ export async function getPianistsPreview(
     })
   );
 
+  const experiencesFilter = (
+    Array.isArray(experience) ? experience : [experience]
+  ).map((code) => ({
+    experiences: {
+      code: {
+        $eq: code,
+      },
+    },
+  }));
+
   const query = qs.stringify(
     {
       locale,
@@ -86,7 +97,11 @@ export async function getPianistsPreview(
             $in: city,
           },
         },
-        $and: [...spokenLanguagesFilter, ...readLanguagesFilter],
+        $and: [
+          ...spokenLanguagesFilter,
+          ...readLanguagesFilter,
+          ...experiencesFilter,
+        ],
       },
     },
     {
@@ -102,6 +117,8 @@ export async function getPianistsPreview(
   });
 
   const data: Response<ResponseData> = await response.json();
+
+  console.log("data", data);
 
   return data.data.map((p) => {
     const preview = p.attributes.previewVideo?.url;

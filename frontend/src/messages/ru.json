@@ -12,7 +12,11 @@
         "city": "город",
         "open-filters": "открыть фильтры",
         "fluently-speak": "свободно говорю",
-        "reads": "чтение-произношение"
+        "reads": "чтение-произношение",
+        "experience": "опыт"
+    },
+    "Pianists": {
+        "no-profiles-found": "Профили не найдены"
     },
     "Header": {
         "toggle-menu": "открыть меню",
