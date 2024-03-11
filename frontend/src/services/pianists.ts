@@ -1,6 +1,7 @@
 import type { Locale } from "@/i18n";
 import qs from "qs";
 import { host, token, Response } from "./config";
+import { Language } from "./languages";
 
 export interface PianistPreview {
   id: number;
@@ -10,6 +11,7 @@ export interface PianistPreview {
   previewVideo?: {
     url: string;
   };
+  speaks: Language[];
 }
 
 interface ResponseData {
@@ -25,6 +27,17 @@ interface ResponseData {
         };
       };
     };
+    speaks: {
+      data: [
+        {
+          id: number;
+          attributes: {
+            name: string;
+            alpha2: string;
+          };
+        }
+      ];
+    };
     previewVideo?: {
       url: string;
     };
@@ -33,13 +46,14 @@ interface ResponseData {
 
 export interface SearchParams {
   city: string[];
+  speaks: string | string[];
 }
 
 export async function getPianistsPreview(
   locale: Locale,
   searchParams: SearchParams
 ): Promise<PianistPreview[]> {
-  const { city } = searchParams;
+  const { city, speaks } = searchParams;
 
   const query = qs.stringify(
     {
@@ -51,6 +65,13 @@ export async function getPianistsPreview(
             $in: city,
           },
         },
+        $and: (Array.isArray(speaks) ? speaks : [speaks]).map((alpha2) => ({
+          speaks: {
+            alpha2: {
+              $eq: alpha2,
+            },
+          },
+        })),
       },
     },
     {
@@ -69,11 +90,17 @@ export async function getPianistsPreview(
 
   return data.data.map((p) => {
     const preview = p.attributes.previewVideo?.url;
+    const speaks = p.attributes.speaks.data.map((s) => ({
+      name: s.attributes.name,
+      alpha2: s.attributes.alpha2,
+    }));
+
     return {
       id: p.id,
       fullName: p.attributes.fullName,
       city: p.attributes.city.data.attributes.name,
       sex: p.attributes.sex,
+      speaks,
       previewVideo: preview
         ? {
             url: preview,

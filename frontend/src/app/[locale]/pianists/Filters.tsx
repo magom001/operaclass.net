@@ -2,6 +2,7 @@
 
 import { Chip } from "@/components/Chip";
 import { City } from "@/services/cities";
+import { Language } from "@/services/languages";
 import { AdjustmentsVerticalIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
 import {
@@ -14,9 +15,10 @@ import { useEffect, useReducer, useRef, useState } from "react";
 
 interface Props {
   cities: City[];
+  languages: Language[];
 }
 
-export function Filters({ cities }: Props) {
+export function Filters({ cities, languages }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const [isOpened, toggleIsOpened] = useReducer((state) => !state, false);
@@ -32,7 +34,12 @@ export function Filters({ cities }: Props) {
   }, [isOpened]);
 
   const searchParams = useSearchParams();
+
   const [selectedCities, setCities] = useState(searchParams.getAll("city"));
+  const [selectedLanguages, setLanguages] = useState(
+    searchParams.getAll("speaks")
+  );
+
   const pathname = usePathname();
   const { replace } = useRouter();
   const t = useTranslations();
@@ -41,10 +48,17 @@ export function Filters({ cities }: Props) {
     const params = new URLSearchParams(searchParams);
 
     params.delete("city");
+    params.delete("speaks");
 
     for (const city of selectedCities) {
       params.append("city", city);
     }
+
+    for (const alpha2 of selectedLanguages) {
+      params.append("speaks", alpha2);
+    }
+
+    console.log(btoa(params.toString()));
 
     replace(`${pathname}?${params.toString()}`);
 
@@ -96,7 +110,41 @@ export function Filters({ cities }: Props) {
               ))}
             </div>
           </div>
+
+          <div>
+            <h2 className="capitalize font-thin">
+              {t("Filters.fluently-speak")}
+            </h2>
+            <div>
+              {languages.map((language) => (
+                <button
+                  key={language.alpha2}
+                  role="button"
+                  onClick={() => {
+                    if (selectedLanguages.includes(language.alpha2)) {
+                      setLanguages(
+                        selectedLanguages.filter((c) => c !== language.alpha2)
+                      );
+                    } else {
+                      setLanguages([...selectedLanguages, language.alpha2]);
+                    }
+                  }}
+                >
+                  <Chip
+                    className={
+                      selectedLanguages.includes(language.alpha2)
+                        ? "bg-sky-700 !text-white"
+                        : ""
+                    }
+                  >
+                    {language.name}
+                  </Chip>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
+
         <div className="sticky bottom-0 flex items-center justify-center h-12 bg-gradient-to-b from-transparent to-white">
           <button
             role="button"

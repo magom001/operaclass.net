@@ -10,7 +10,8 @@
     },
     "Filters": {
         "city": "город",
-        "open-filters": "открыть фильтры"
+        "open-filters": "открыть фильтры",
+        "fluently-speak": "свободно говорю"
     },
     "Header": {
         "toggle-menu": "открыть меню",

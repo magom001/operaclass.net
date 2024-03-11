@@ -10,7 +10,8 @@
     },
     "Filters": {
         "city": "city",
-        "open-filters": "open filters"
+        "open-filters": "open filters",
+        "fluently-speak": "fluently speak"
     },
     "Header": {
         "toggle-menu": "toggle menu",

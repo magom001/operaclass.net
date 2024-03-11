@@ -64,6 +64,11 @@
       "required": false,
       "default": 0,
       "type": "integer"
+    },
+    "speaks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language"
     }
   }
 }
