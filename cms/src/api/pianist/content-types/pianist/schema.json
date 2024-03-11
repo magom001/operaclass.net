@@ -69,6 +69,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::language.language"
+    },
+    "reads": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language"
     }
   }
 }

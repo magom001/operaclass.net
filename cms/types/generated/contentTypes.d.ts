@@ -951,6 +951,11 @@ export interface ApiPianistPianist extends Schema.CollectionType {
       'oneToMany',
       'api::language.language'
     >;
+    reads: Attribute.Relation<
+      'api::pianist.pianist',
+      'oneToMany',
+      'api::language.language'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

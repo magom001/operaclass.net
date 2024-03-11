@@ -11,7 +11,8 @@
     "Filters": {
         "city": "город",
         "open-filters": "открыть фильтры",
-        "fluently-speak": "свободно говорю"
+        "fluently-speak": "свободно говорю",
+        "reads": "чтение-произношение"
     },
     "Header": {
         "toggle-menu": "открыть меню",

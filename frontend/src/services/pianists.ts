@@ -45,15 +45,36 @@ interface ResponseData {
 }
 
 export interface SearchParams {
-  city: string[];
-  speaks: string | string[];
+  city?: string | string[];
+  speaks?: string | string[];
+  reads?: string | string[];
 }
 
 export async function getPianistsPreview(
   locale: Locale,
   searchParams: SearchParams
 ): Promise<PianistPreview[]> {
-  const { city, speaks } = searchParams;
+  const { city, speaks = [], reads = [] } = searchParams;
+
+  const spokenLanguagesFilter = (Array.isArray(speaks) ? speaks : [speaks]).map(
+    (alpha2) => ({
+      speaks: {
+        alpha2: {
+          $eq: alpha2,
+        },
+      },
+    })
+  );
+
+  const readLanguagesFilter = (Array.isArray(reads) ? reads : [reads]).map(
+    (alpha2) => ({
+      reads: {
+        alpha2: {
+          $eq: alpha2,
+        },
+      },
+    })
+  );
 
   const query = qs.stringify(
     {
@@ -65,13 +86,7 @@ export async function getPianistsPreview(
             $in: city,
           },
         },
-        $and: (Array.isArray(speaks) ? speaks : [speaks]).map((alpha2) => ({
-          speaks: {
-            alpha2: {
-              $eq: alpha2,
-            },
-          },
-        })),
+        $and: [...spokenLanguagesFilter, ...readLanguagesFilter],
       },
     },
     {

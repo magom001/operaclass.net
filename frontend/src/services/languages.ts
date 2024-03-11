@@ -16,7 +16,7 @@ interface ResponseData {
 
 export async function getLanguages(locale: Locale): Promise<Language[]> {
   const response = await fetch(
-    `${host}/api/languages?locale=${locale}&fields[0]=name&fields[1]=alpha2`,
+    `${host}/api/languages?locale=${locale}&fields[0]=name&fields[1]=alpha2&sort=name`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

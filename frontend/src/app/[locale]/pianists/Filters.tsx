@@ -36,8 +36,11 @@ export function Filters({ cities, languages }: Props) {
   const searchParams = useSearchParams();
 
   const [selectedCities, setCities] = useState(searchParams.getAll("city"));
-  const [selectedLanguages, setLanguages] = useState(
+  const [spokenLanguages, setSpokenLanguages] = useState(
     searchParams.getAll("speaks")
+  );
+  const [readsLanguages, setReadsLanguages] = useState(
+    searchParams.getAll("reads")
   );
 
   const pathname = usePathname();
@@ -49,13 +52,18 @@ export function Filters({ cities, languages }: Props) {
 
     params.delete("city");
     params.delete("speaks");
+    params.delete("reads");
 
     for (const city of selectedCities) {
       params.append("city", city);
     }
 
-    for (const alpha2 of selectedLanguages) {
+    for (const alpha2 of spokenLanguages) {
       params.append("speaks", alpha2);
+    }
+
+    for (const alpha2 of readsLanguages) {
+      params.append("reads", alpha2);
     }
 
     console.log(btoa(params.toString()));
@@ -81,7 +89,7 @@ export function Filters({ cities, languages }: Props) {
             <XMarkIcon className="h-8 w-8" />
           </button>
         </div>
-        <div className="p-4">
+        <div className="p-4 grid grid-flow-row space-y-4">
           <div>
             <h2 className="capitalize font-thin">{t("Filters.city")}</h2>
             <div>
@@ -121,18 +129,49 @@ export function Filters({ cities, languages }: Props) {
                   key={language.alpha2}
                   role="button"
                   onClick={() => {
-                    if (selectedLanguages.includes(language.alpha2)) {
-                      setLanguages(
-                        selectedLanguages.filter((c) => c !== language.alpha2)
+                    if (spokenLanguages.includes(language.alpha2)) {
+                      setSpokenLanguages(
+                        spokenLanguages.filter((c) => c !== language.alpha2)
                       );
                     } else {
-                      setLanguages([...selectedLanguages, language.alpha2]);
+                      setSpokenLanguages([...spokenLanguages, language.alpha2]);
                     }
                   }}
                 >
                   <Chip
                     className={
-                      selectedLanguages.includes(language.alpha2)
+                      spokenLanguages.includes(language.alpha2)
+                        ? "bg-sky-700 !text-white"
+                        : ""
+                    }
+                  >
+                    {language.name}
+                  </Chip>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="capitalize font-thin">{t("Filters.reads")}</h2>
+            <div>
+              {languages.map((language) => (
+                <button
+                  key={language.alpha2}
+                  role="button"
+                  onClick={() => {
+                    if (readsLanguages.includes(language.alpha2)) {
+                      setReadsLanguages(
+                        readsLanguages.filter((c) => c !== language.alpha2)
+                      );
+                    } else {
+                      setReadsLanguages([...readsLanguages, language.alpha2]);
+                    }
+                  }}
+                >
+                  <Chip
+                    className={
+                      readsLanguages.includes(language.alpha2)
                         ? "bg-sky-700 !text-white"
                         : ""
                     }
