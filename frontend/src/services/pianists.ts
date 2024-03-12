@@ -1,6 +1,6 @@
 import type { Locale } from "@/i18n";
 import qs from "qs";
-import { host, token, Response } from "./config";
+import { host, token, Response, MetaData } from "./config";
 import { Language } from "./languages";
 
 export interface PianistPreview {
@@ -51,11 +51,17 @@ export interface SearchParams {
   experience?: string | string[];
 }
 
+export interface Pagination {
+  page?: number;
+}
+
 export async function getPianistsPreview(
   locale: Locale,
-  searchParams: SearchParams
-): Promise<PianistPreview[]> {
+  searchParams: SearchParams,
+  pagination: Pagination = {}
+): Promise<{ data: PianistPreview[]; meta: MetaData }> {
   const { city, speaks = [], reads = [], experience = [] } = searchParams;
+  const { page = 1 } = pagination;
 
   const spokenLanguagesFilter = (Array.isArray(speaks) ? speaks : [speaks]).map(
     (alpha2) => ({
@@ -89,6 +95,9 @@ export async function getPianistsPreview(
 
   const query = qs.stringify(
     {
+      pagination: {
+        page,
+      },
       locale,
       sort: ["rating:desc"],
       filters: {
@@ -116,11 +125,10 @@ export async function getPianistsPreview(
     },
   });
 
-  const data: Response<ResponseData> = await response.json();
+  const result: Response<ResponseData> = await response.json();
+  const { meta, data } = result;
 
-  console.log("data", data);
-
-  return data.data.map((p) => {
+  const transformed = data.map((p) => {
     const preview = p.attributes.previewVideo?.url;
     const speaks = p.attributes.speaks.data.map((s) => ({
       name: s.attributes.name,
@@ -140,4 +148,6 @@ export async function getPianistsPreview(
         : undefined,
     } satisfies PianistPreview;
   });
+
+  return { data: transformed, meta };
 }

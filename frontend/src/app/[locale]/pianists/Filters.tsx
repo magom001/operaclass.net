@@ -6,13 +6,8 @@ import { Experience } from "@/services/experiences";
 import { Language } from "@/services/languages";
 import { AdjustmentsVerticalIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
-import {
-  useParams,
-  usePathname,
-  useSearchParams,
-  useRouter,
-} from "next/navigation";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef } from "react";
+import { useFilters } from "./hooks";
 
 interface Props {
   cities: City[];
@@ -20,7 +15,11 @@ interface Props {
   experiences: Experience[];
 }
 
-export function Filters({ cities, languages, experiences }: Props) {
+export function Filters({
+  cities: allCities,
+  languages: allLanguages,
+  experiences: allExperiences,
+}: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const [isOpened, toggleIsOpened] = useReducer((state) => !state, false);
@@ -35,50 +34,22 @@ export function Filters({ cities, languages, experiences }: Props) {
     }
   }, [isOpened]);
 
-  const searchParams = useSearchParams();
+  const {
+    cities,
+    toggleCity,
+    speaks,
+    toggleSpeaks,
+    reads,
+    toggleReads,
+    experiences,
+    toggleExperience,
+    applyFilters,
+  } = useFilters();
 
-  const [selectedCities, setCities] = useState(searchParams.getAll("city"));
-  const [selectedExperiences, setExperiences] = useState(
-    searchParams.getAll("experience")
-  );
-  const [spokenLanguages, setSpokenLanguages] = useState(
-    searchParams.getAll("speaks")
-  );
-  const [readsLanguages, setReadsLanguages] = useState(
-    searchParams.getAll("reads")
-  );
-
-  const pathname = usePathname();
-  const { replace } = useRouter();
   const t = useTranslations();
 
   function handleSearch() {
-    const params = new URLSearchParams(searchParams);
-
-    params.delete("city");
-    params.delete("speaks");
-    params.delete("reads");
-    params.delete("experience");
-
-    for (const city of selectedCities) {
-      params.append("city", city);
-    }
-
-    for (const alpha2 of spokenLanguages) {
-      params.append("speaks", alpha2);
-    }
-
-    for (const alpha2 of readsLanguages) {
-      params.append("reads", alpha2);
-    }
-
-    for (const code of selectedExperiences) {
-      params.append("experience", code);
-    }
-
-    console.log(btoa(params.toString()));
-
-    replace(`${pathname}?${params.toString()}`);
+    applyFilters();
 
     toggleIsOpened();
   }
@@ -103,23 +74,17 @@ export function Filters({ cities, languages, experiences }: Props) {
           <div>
             <h2 className="capitalize font-thin">{t("Filters.city")}</h2>
             <div>
-              {cities.map((city) => (
+              {allCities.map((city) => (
                 <button
                   key={city.code}
                   role="button"
                   onClick={() => {
-                    if (selectedCities.includes(city.code)) {
-                      setCities(selectedCities.filter((c) => c !== city.code));
-                    } else {
-                      setCities([...selectedCities, city.code]);
-                    }
+                    toggleCity(city.code);
                   }}
                 >
                   <Chip
                     className={
-                      selectedCities.includes(city.code)
-                        ? "bg-sky-700 !text-white"
-                        : ""
+                      cities.includes(city.code) ? "bg-sky-700 !text-white" : ""
                     }
                   >
                     {city.name}
@@ -131,26 +96,20 @@ export function Filters({ cities, languages, experiences }: Props) {
 
           <div>
             <h2 className="capitalize font-thin">
-              {t("Filters.fluently-speak")}
+              {t("Filters.fluently-speak")} (?)
             </h2>
             <div>
-              {languages.map((language) => (
+              {allLanguages.map((language) => (
                 <button
                   key={language.alpha2}
                   role="button"
                   onClick={() => {
-                    if (spokenLanguages.includes(language.alpha2)) {
-                      setSpokenLanguages(
-                        spokenLanguages.filter((c) => c !== language.alpha2)
-                      );
-                    } else {
-                      setSpokenLanguages([...spokenLanguages, language.alpha2]);
-                    }
+                    toggleSpeaks(language.alpha2);
                   }}
                 >
                   <Chip
                     className={
-                      spokenLanguages.includes(language.alpha2)
+                      speaks.includes(language.alpha2)
                         ? "bg-sky-700 !text-white"
                         : ""
                     }
@@ -165,23 +124,17 @@ export function Filters({ cities, languages, experiences }: Props) {
           <div>
             <h2 className="capitalize font-thin">{t("Filters.reads")}</h2>
             <div>
-              {languages.map((language) => (
+              {allLanguages.map((language) => (
                 <button
                   key={language.alpha2}
                   role="button"
                   onClick={() => {
-                    if (readsLanguages.includes(language.alpha2)) {
-                      setReadsLanguages(
-                        readsLanguages.filter((c) => c !== language.alpha2)
-                      );
-                    } else {
-                      setReadsLanguages([...readsLanguages, language.alpha2]);
-                    }
+                    toggleReads(language.alpha2);
                   }}
                 >
                   <Chip
                     className={
-                      readsLanguages.includes(language.alpha2)
+                      reads.includes(language.alpha2)
                         ? "bg-sky-700 !text-white"
                         : ""
                     }
@@ -196,23 +149,17 @@ export function Filters({ cities, languages, experiences }: Props) {
           <div>
             <h2 className="capitalize font-thin">{t("Filters.experience")}</h2>
             <div>
-              {experiences.map((experience) => (
+              {allExperiences.map((experience) => (
                 <button
                   key={experience.code}
                   role="button"
                   onClick={() => {
-                    if (selectedExperiences.includes(experience.code)) {
-                      setExperiences(
-                        selectedExperiences.filter((c) => c !== experience.code)
-                      );
-                    } else {
-                      setExperiences([...selectedExperiences, experience.code]);
-                    }
+                    toggleExperience(experience.code);
                   }}
                 >
                   <Chip
                     className={
-                      selectedExperiences.includes(experience.code)
+                      experiences.includes(experience.code)
                         ? "bg-sky-700 !text-white"
                         : ""
                     }
@@ -238,6 +185,7 @@ export function Filters({ cities, languages, experiences }: Props) {
       <button
         title={t("Filters.open-filters")}
         role="button"
+        type="button"
         className="bg-black text-white p-2 rounded-full opacity-50 fixed bottom-14 right-6 z-2 shadow-lg"
         onClick={toggleIsOpened}
       >

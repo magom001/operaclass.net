@@ -1,7 +1,7 @@
 export const host = "http://127.0.0.1:1337";
 export const token = process.env.API_TOKEN;
 
-interface MetaData {
+export interface MetaData {
   pagination: {
     page: number;
     pageSize: number;

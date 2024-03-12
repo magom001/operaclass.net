@@ -12,6 +12,7 @@ import { PianistPreview } from "./PianistPreview";
 import { NextIntlClientProvider } from "next-intl";
 import { getLanguages } from "@/services/languages";
 import { getExperiences } from "@/services/experiences";
+import { PianistsList } from "./PianistsList";
 
 async function getPianists(locale: Locale, searchParams: SearchParams) {
   return getPianistsPreview(locale, searchParams);
@@ -33,6 +34,7 @@ export default async function Page({
     getExperiences(locale),
   ]);
 
+  console.log("xxx", pianists);
   return (
     <article>
       <NextIntlClientProvider messages={messages}>
@@ -42,14 +44,8 @@ export default async function Page({
           experiences={experiences}
         />
       </NextIntlClientProvider>
-      {pianists.length ? (
-        <ul className="p-2 grid grid-cols-1 landscape:grid-cols-2 grid-flow-row space-y-2 space-x-1">
-          {pianists.map((p) => (
-            <li key={p.id}>
-              <PianistPreview pianist={p} />
-            </li>
-          ))}
-        </ul>
+      {pianists.data.length ? (
+        <PianistsList pianists={pianists.data} pagination={pianists.meta} />
       ) : (
         <div className="p-2">{t("no-profiles-found")}</div>
       )}
