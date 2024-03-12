@@ -84,6 +84,14 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::goal.goal"
+    },
+    "bio": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "blocks"
     }
   }
 }

@@ -1065,6 +1065,12 @@ export interface ApiPianistPianist extends Schema.CollectionType {
       'oneToMany',
       'api::goal.goal'
     >;
+    bio: Attribute.Blocks &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

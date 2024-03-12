@@ -2,6 +2,7 @@ import type { Locale } from "@/i18n";
 import qs from "qs";
 import { host, token, Response, MetaData } from "./config";
 import { Language } from "./languages";
+import { Block } from "./types";
 
 export interface PianistPreview {
   id: number;
@@ -11,10 +12,9 @@ export interface PianistPreview {
   previewVideo?: {
     url: string;
   };
-  speaks: Language[];
 }
 
-interface ResponseData {
+interface PianistsPreviewResponseData {
   id: number;
   attributes: {
     fullName: string;
@@ -26,17 +26,6 @@ interface ResponseData {
           name: string;
         };
       };
-    };
-    speaks: {
-      data: [
-        {
-          id: number;
-          attributes: {
-            name: string;
-            alpha2: string;
-          };
-        }
-      ];
     };
     previewVideo?: {
       url: string;
@@ -113,6 +102,15 @@ export async function getPianistsPreview(
       pagination: {
         page,
       },
+      fields: ["fullName", "sex"],
+      populate: {
+        city: {
+          fields: ["name", "code"],
+        },
+        previewVideo: {
+          fields: ["url"],
+        },
+      },
       locale,
       sort: ["rating:desc"],
       filters: {
@@ -134,29 +132,25 @@ export async function getPianistsPreview(
     }
   );
 
-  const response = await fetch(`${host}/api/pianists?${query}&populate=*`, {
+  const response = await fetch(`${host}/api/pianists?${query}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
   });
 
-  const result: Response<ResponseData> = await response.json();
+  const result: Response<PianistsPreviewResponseData> = await response.json();
+
   const { meta, data } = result;
 
   const transformed = data.map((p) => {
     const preview = p.attributes.previewVideo?.url;
-    const speaks = p.attributes.speaks.data.map((s) => ({
-      name: s.attributes.name,
-      alpha2: s.attributes.alpha2,
-    }));
 
     return {
       id: p.id,
       fullName: p.attributes.fullName,
       city: p.attributes.city.data.attributes.name,
       sex: p.attributes.sex,
-      speaks,
       previewVideo: preview
         ? {
             url: preview,
@@ -166,4 +160,109 @@ export async function getPianistsPreview(
   });
 
   return { data: transformed, meta };
+}
+
+interface PianistResponseData {
+  id: number;
+  attributes: {
+    fullName: string;
+    sex: "male" | "female";
+    previewVideo: null | { url: string };
+    bio: Block[];
+    city: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      };
+    };
+    reads: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      }[];
+    };
+    speaks: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      }[];
+    };
+    goals: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      }[];
+    };
+    experiences: {
+      data: {
+        attributes: {
+          name: string;
+        };
+      }[];
+    };
+  };
+}
+
+interface Pianist {
+  fullName: string;
+  city: string;
+  bio: Block[];
+  reads: string[];
+  speaks: string[];
+  goals: string[];
+  experiences: string[];
+  previewVideo: null | {
+    url: string;
+  };
+}
+
+export async function getPianistById(
+  locale: Locale,
+  id: string
+): Promise<Pianist> {
+  const query = qs.stringify({
+    fields: ["fullName", "sex", "bio"],
+    locale,
+    populate: {
+      previewVideo: {
+        fields: ["url"],
+      },
+      city: {
+        fields: ["name"],
+      },
+      reads: {
+        fields: ["name"],
+      },
+      speaks: {
+        fields: ["name"],
+      },
+      goals: {
+        fields: ["name"],
+      },
+      experiences: {
+        fields: ["name"],
+      },
+    },
+  });
+
+  const response = await fetch(`${host}/api/pianists/${id}?${query}`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+  });
+
+  const { data }: { data: PianistResponseData } = await response.json();
+
+  return {
+    fullName: data.attributes.fullName,
+    city: data.attributes.city.data.attributes.name,
+    bio: data.attributes.bio,
+    reads: data.attributes.reads.data.map((l) => l.attributes.name),
+    speaks: data.attributes.speaks.data.map((l) => l.attributes.name),
+    goals: data.attributes.goals.data.map((l) => l.attributes.name),
+    experiences: data.attributes.experiences.data.map((l) => l.attributes.name),
+    previewVideo: data.attributes.previewVideo,
+  };
 }

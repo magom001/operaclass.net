@@ -6,7 +6,8 @@
     },
     "Common": {
         "close": "закрыть",
-        "apply": "применить"
+        "apply": "применить",
+        "expand": "подробнее"
     },
     "Filters": {
         "city": "город",
@@ -15,6 +16,13 @@
         "reads": "чтение-произношение",
         "experience": "опыт",
         "goals": "для чего"
+    },
+    "Pianist": {
+        "about-me": "обо мне",
+        "i-speak": "свободно говорю на",
+        "i-read": "перевод/произношение",
+        "experience": "опыт",
+        "goals": "цели"
     },
     "Pianists": {
         "no-profiles-found": "Профили не найдены"

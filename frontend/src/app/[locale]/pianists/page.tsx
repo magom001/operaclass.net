@@ -8,7 +8,6 @@ import {
 } from "next-intl/server";
 import { PageParams } from "../layout";
 import { Filters } from "./Filters";
-import { PianistPreview } from "./PianistPreview";
 import { NextIntlClientProvider } from "next-intl";
 import { getLanguages } from "@/services/languages";
 import { getExperiences } from "@/services/experiences";
@@ -26,7 +25,6 @@ export default async function Page({
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations("Pianists");
-  console.log(messages["Common"]);
 
   const [pianists, cities, languages, experiences, goals] = await Promise.all([
     getPianists(locale, searchParams),
