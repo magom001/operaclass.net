@@ -894,6 +894,51 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
   };
 }
 
+export interface ApiGoalGoal extends Schema.CollectionType {
+  collectionName: 'goals';
+  info: {
+    singularName: 'goal';
+    pluralName: 'goals';
+    displayName: 'Goal';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    code: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::goal.goal', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::goal.goal', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::goal.goal',
+      'oneToMany',
+      'api::goal.goal'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiLanguageLanguage extends Schema.CollectionType {
   collectionName: 'languages';
   info: {
@@ -1015,6 +1060,11 @@ export interface ApiPianistPianist extends Schema.CollectionType {
       'oneToMany',
       'api::experience.experience'
     >;
+    goals: Attribute.Relation<
+      'api::pianist.pianist',
+      'oneToMany',
+      'api::goal.goal'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1059,6 +1109,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::city.city': ApiCityCity;
       'api::experience.experience': ApiExperienceExperience;
+      'api::goal.goal': ApiGoalGoal;
       'api::language.language': ApiLanguageLanguage;
       'api::pianist.pianist': ApiPianistPianist;
     }

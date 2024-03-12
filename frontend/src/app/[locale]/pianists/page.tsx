@@ -13,6 +13,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLanguages } from "@/services/languages";
 import { getExperiences } from "@/services/experiences";
 import { PianistsList } from "./PianistsList";
+import { getGoals } from "@/services/goals";
 
 async function getPianists(locale: Locale, searchParams: SearchParams) {
   return getPianistsPreview(locale, searchParams);
@@ -27,21 +28,22 @@ export default async function Page({
   const t = await getTranslations("Pianists");
   console.log(messages["Common"]);
 
-  const [pianists, cities, languages, experiences] = await Promise.all([
+  const [pianists, cities, languages, experiences, goals] = await Promise.all([
     getPianists(locale, searchParams),
     getCities(locale),
     getLanguages(locale),
     getExperiences(locale),
+    getGoals(locale),
   ]);
 
-  console.log("xxx", pianists);
   return (
     <article>
       <NextIntlClientProvider messages={messages}>
         <Filters
           cities={cities}
-          languages={languages}
           experiences={experiences}
+          goals={goals}
+          languages={languages}
         />
       </NextIntlClientProvider>
       {pianists.data.length ? (

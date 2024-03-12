@@ -6,6 +6,7 @@ interface State {
   experiences: string[];
   speaks: string[];
   reads: string[];
+  goals: string[];
 }
 
 function reducer(state: State, action: { key: keyof State; payload: string }) {
@@ -30,6 +31,7 @@ export function useFilters() {
     experiences: searchParams.getAll("experience"),
     speaks: searchParams.getAll("speaks"),
     reads: searchParams.getAll("reads"),
+    goals: searchParams.getAll("goal"),
   }));
 
   const toggleCity = useCallback(
@@ -60,6 +62,13 @@ export function useFilters() {
     [dispatch]
   );
 
+  const toggleGoals = useCallback(
+    (goal: string) => {
+      dispatch({ key: "goals", payload: goal });
+    },
+    [dispatch]
+  );
+
   function applyFilters() {
     const params = new URLSearchParams(searchParams);
 
@@ -67,6 +76,7 @@ export function useFilters() {
     params.delete("speaks");
     params.delete("reads");
     params.delete("experience");
+    params.delete("goal");
 
     for (const city of state.cities) {
       params.append("city", city);
@@ -84,6 +94,10 @@ export function useFilters() {
       params.append("experience", code);
     }
 
+    for (const goal of state.goals) {
+      params.append("goal", goal);
+    }
+
     replace(`${pathname}?${params.toString()}`);
   }
 
@@ -92,6 +106,8 @@ export function useFilters() {
     experiences: state.experiences,
     speaks: state.speaks,
     reads: state.reads,
+    goals: state.goals,
+    toggleGoals,
     toggleCity,
     toggleExperience,
     toggleSpeaks,

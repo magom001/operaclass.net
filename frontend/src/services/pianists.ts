@@ -49,6 +49,7 @@ export interface SearchParams {
   speaks?: string | string[];
   reads?: string | string[];
   experience?: string | string[];
+  goal?: string | string[];
 }
 
 export interface Pagination {
@@ -60,7 +61,13 @@ export async function getPianistsPreview(
   searchParams: SearchParams,
   pagination: Pagination = {}
 ): Promise<{ data: PianistPreview[]; meta: MetaData }> {
-  const { city, speaks = [], reads = [], experience = [] } = searchParams;
+  const {
+    city,
+    speaks = [],
+    reads = [],
+    experience = [],
+    goal = [],
+  } = searchParams;
   const { page = 1 } = pagination;
 
   const spokenLanguagesFilter = (Array.isArray(speaks) ? speaks : [speaks]).map(
@@ -82,6 +89,14 @@ export async function getPianistsPreview(
       },
     })
   );
+
+  const goalFilter = (Array.isArray(goal) ? goal : [goal]).map((code) => ({
+    goals: {
+      code: {
+        $eq: code,
+      },
+    },
+  }));
 
   const experiencesFilter = (
     Array.isArray(experience) ? experience : [experience]
@@ -110,6 +125,7 @@ export async function getPianistsPreview(
           ...spokenLanguagesFilter,
           ...readLanguagesFilter,
           ...experiencesFilter,
+          ...goalFilter,
         ],
       },
     },

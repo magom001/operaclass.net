@@ -79,6 +79,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::experience.experience"
+    },
+    "goals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::goal.goal"
     }
   }
 }

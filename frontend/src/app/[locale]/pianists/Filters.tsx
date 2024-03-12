@@ -8,17 +8,20 @@ import { AdjustmentsVerticalIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
 import { useEffect, useReducer, useRef } from "react";
 import { useFilters } from "./hooks";
+import { Goal } from "@/services/goals";
 
 interface Props {
   cities: City[];
   languages: Language[];
   experiences: Experience[];
+  goals: Goal[];
 }
 
 export function Filters({
   cities: allCities,
   languages: allLanguages,
   experiences: allExperiences,
+  goals: allGoals,
 }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -41,6 +44,8 @@ export function Filters({
     toggleSpeaks,
     reads,
     toggleReads,
+    goals,
+    toggleGoals,
     experiences,
     toggleExperience,
     applyFilters,
@@ -165,6 +170,29 @@ export function Filters({
                     }
                   >
                     {experience.name}
+                  </Chip>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="capitalize font-thin">{t("Filters.goals")}</h2>
+            <div>
+              {allGoals.map((goal) => (
+                <button
+                  key={goal.code}
+                  role="button"
+                  onClick={() => {
+                    toggleGoals(goal.code);
+                  }}
+                >
+                  <Chip
+                    className={
+                      goals.includes(goal.code) ? "bg-sky-700 !text-white" : ""
+                    }
+                  >
+                    {goal.name}
                   </Chip>
                 </button>
               ))}
