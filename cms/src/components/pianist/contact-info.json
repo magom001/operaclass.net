@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_pianist_contact_infos",
+  "info": {
+    "displayName": "ContactInfo",
+    "icon": "phone",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "telegram",
+        "whatsapp",
+        "phone",
+        "email",
+        "facebook",
+        "instagram",
+        "vk",
+        "url",
+        "linkedin"
+      ],
+      "required": true
+    },
+    "data": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

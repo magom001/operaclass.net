@@ -92,6 +92,16 @@
         }
       },
       "type": "blocks"
+    },
+    "contacts": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "pianist.contact-info"
     }
   }
 }

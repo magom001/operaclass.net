@@ -8,6 +8,7 @@ import { getPianistById } from "@/services/pianists";
 import { BlockRenderer } from "@/components/BlockRenderer";
 import { BioViewer } from "./BioViewer";
 import { NextIntlClientProvider } from "next-intl";
+import { ContactInfo } from "./ContactInfo";
 
 interface PageProps {
   slug: string;
@@ -31,13 +32,20 @@ export default async function Page({
           src={`${pianist.previewVideo.url}?controls=1`}
         />
       ) : null}
-      <div className="sticky top-[var(--header-height)]">
+      <div className="sticky top-[var(--header-height)] z-10">
         <div className="bg-white">
           <h1 className="text-3xl antialiased">{pianist.fullName}</h1>
           <p className="text-sm font-thin antialiased">{pianist.city}</p>
         </div>
         <div className="h-3 bg-gradient-to-b from-white to-transparent" />
       </div>
+
+      {pianist.contacts && (
+        <div className="mb-3">
+          <ContactInfo contacts={pianist.contacts} />
+        </div>
+      )}
+
       <div className="mb-3">
         <h3 className="first-letter:capitalize text-lg mb-1">
           {t("Pianist.about-me")}:

@@ -204,9 +204,26 @@ interface PianistResponseData {
         };
       }[];
     };
+    contacts: {
+      type: ContactInfo["type"];
+      data: string;
+    }[];
   };
 }
 
+export interface ContactInfo {
+  type:
+    | "email"
+    | "phone"
+    | "whatsapp"
+    | "telegram"
+    | "facebook"
+    | "instagram"
+    | "linkedin"
+    | "url"
+    | "vk";
+  data: string;
+}
 interface Pianist {
   fullName: string;
   city: string;
@@ -218,6 +235,7 @@ interface Pianist {
   previewVideo: null | {
     url: string;
   };
+  contacts?: ContactInfo[];
 }
 
 export async function getPianistById(
@@ -230,6 +248,9 @@ export async function getPianistById(
     populate: {
       previewVideo: {
         fields: ["url"],
+      },
+      contacts: {
+        fields: ["type", "data"],
       },
       city: {
         fields: ["name"],
@@ -264,5 +285,9 @@ export async function getPianistById(
     goals: data.attributes.goals.data.map((l) => l.attributes.name),
     experiences: data.attributes.experiences.data.map((l) => l.attributes.name),
     previewVideo: data.attributes.previewVideo,
+    contacts: data.attributes.contacts?.map((c) => ({
+      type: c.type,
+      data: c.data,
+    })),
   };
 }
