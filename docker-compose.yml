@@ -21,15 +21,15 @@ services:
       - "5050:80"
     restart: always
 
-  strapi:
-    container_name: strapi
-    build:
-      context: ./cms
-      dockerfile: Dockerfile
-    env_file:
-      - ./.env
-    ports:
-      - "1337:1337"
-    restart: always
-    depends_on:
-      - postgres
+  # strapi:
+  #   container_name: strapi
+  #   build:
+  #     context: ./cms
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - ./.env
+  #   ports:
+  #     - "1337:1337"
+  #   restart: always
+  #   depends_on:
+  #     - postgres

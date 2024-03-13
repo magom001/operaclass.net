@@ -945,6 +945,7 @@ export interface ApiLanguageLanguage extends Schema.CollectionType {
     singularName: 'language';
     pluralName: 'languages';
     displayName: 'Language';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -966,7 +967,7 @@ export interface ApiLanguageLanguage extends Schema.CollectionType {
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }> &
       Attribute.SetMinMaxLength<{
