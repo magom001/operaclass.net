@@ -1,0 +1,36 @@
+name: Trigger auto deployment for samovar-api
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: [main]
+    paths:
+      - "**"
+      - ".github/workflows/deployment.yml"
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  docker_build_push_acr:
+    name: Build and push Strapi CMS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v4
+
+      - name: ACR login
+        uses: azure/docker-login@v1
+        with:
+          login-server: samovardcr.azurecr.io
+          username: ${{ secrets.SAMOVARAPI_REGISTRY_USERNAME }}
+          password: ${{ secrets.SAMOVARAPI_REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cms
+          push: true
+          tags: samovardcr.azurecr.io/cms:${{ github.sha }}
