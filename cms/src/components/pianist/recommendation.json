@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_pianist_recommendations",
+  "info": {
+    "displayName": "Recommendation",
+    "icon": "manyToMany"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "profileLink": {
+      "type": "string"
+    }
+  }
+}

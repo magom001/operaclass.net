@@ -7,13 +7,15 @@
     "Common": {
         "close": "close",
         "apply": "apply",
-        "expand": "expand"
+        "expand": "expand",
+        "reset": "reset",
+        "all": "all"
     },
     "Filters": {
         "city": "city",
         "open-filters": "open filters",
         "fluently-speak": "fluently speak",
-        "reads": "music reading",
+        "reads": "translation/pronunciation",
         "experience": "experience",
         "goals": "goals"
     },
@@ -22,7 +24,8 @@
         "i-speak": "I am fluent in",
         "i-read": "translation/pronunciation",
         "experience": "experience",
-        "goals": "goals"
+        "goals": "goals",
+        "recommendations": "recommendations"
     },
     "Pianists": {
         "no-profiles-found": "No profiles found"

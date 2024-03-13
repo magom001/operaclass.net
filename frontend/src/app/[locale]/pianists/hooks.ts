@@ -9,7 +9,34 @@ interface State {
   goals: string[];
 }
 
-function reducer(state: State, action: { key: keyof State; payload: string }) {
+interface ActionToggle {
+  type: "toggle";
+  key: keyof State;
+  payload: string;
+}
+
+interface ActionReset {
+  type: "reset";
+  key?: keyof State;
+}
+
+type Action = ActionToggle | ActionReset;
+
+function reducer(state: State, action: Action) {
+  if (action.type === "reset") {
+    if (action.key) {
+      return { ...state, [action.key]: [] };
+    }
+
+    return {
+      cities: [],
+      experiences: [],
+      speaks: [],
+      reads: [],
+      goals: [],
+    };
+  }
+
   if (state[action.key].includes(action.payload)) {
     state[action.key] = state[action.key].filter(
       (item) => item !== action.payload
@@ -36,35 +63,46 @@ export function useFilters() {
 
   const toggleCity = useCallback(
     (city: string) => {
-      dispatch({ key: "cities", payload: city });
+      dispatch({ key: "cities", payload: city, type: "toggle" });
     },
     [dispatch]
   );
 
   const toggleExperience = useCallback(
     (experience: string) => {
-      dispatch({ key: "experiences", payload: experience });
+      dispatch({ key: "experiences", payload: experience, type: "toggle" });
     },
     [dispatch]
   );
 
   const toggleSpeaks = useCallback(
     (speaks: string) => {
-      dispatch({ key: "speaks", payload: speaks });
+      dispatch({ key: "speaks", payload: speaks, type: "toggle" });
     },
     [dispatch]
   );
 
   const toggleReads = useCallback(
     (reads: string) => {
-      dispatch({ key: "reads", payload: reads });
+      dispatch({ key: "reads", payload: reads, type: "toggle" });
     },
     [dispatch]
   );
 
   const toggleGoals = useCallback(
     (goal: string) => {
-      dispatch({ key: "goals", payload: goal });
+      dispatch({ key: "goals", payload: goal, type: "toggle" });
+    },
+    [dispatch]
+  );
+
+  const resetFilters = useCallback(() => {
+    dispatch({ type: "reset" });
+  }, [dispatch]);
+
+  const resetFilter = useCallback(
+    (key?: keyof State) => {
+      dispatch({ type: "reset", key });
     },
     [dispatch]
   );
@@ -113,5 +151,7 @@ export function useFilters() {
     toggleSpeaks,
     toggleReads,
     applyFilters,
+    resetFilters,
+    resetFilter,
   };
 }

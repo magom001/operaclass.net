@@ -30,7 +30,7 @@
       "repeatable": false,
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "component": "pianist.you-tube-link"
@@ -102,6 +102,16 @@
         }
       },
       "component": "pianist.contact-info"
+    },
+    "recommendations": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "pianist.recommendation"
     }
   }
 }

@@ -30,7 +30,7 @@ export function PianistPreview({
         />
       )}
       <Link
-        href={`${id}`}
+        href={`${id}/`}
         className="grid grid-cols-[1fr_auto] grid-rows-1 pt-2 text-gray-950 items-center"
       >
         <div className="flex flex-col">

@@ -204,6 +204,10 @@ interface PianistResponseData {
         };
       }[];
     };
+    recommendations: {
+      name: string;
+      profileLink: string;
+    }[];
     contacts: {
       type: ContactInfo["type"];
       data: string;
@@ -224,14 +228,21 @@ export interface ContactInfo {
     | "vk";
   data: string;
 }
+
+interface Recommendation {
+  name: string;
+  profileLink: string;
+}
+
 interface Pianist {
   fullName: string;
   city: string;
-  bio: Block[];
-  reads: string[];
-  speaks: string[];
-  goals: string[];
-  experiences: string[];
+  bio?: Block[];
+  reads?: string[];
+  speaks?: string[];
+  goals?: string[];
+  experiences?: string[];
+  recommendations?: Recommendation[];
   previewVideo: null | {
     url: string;
   };
@@ -267,6 +278,9 @@ export async function getPianistById(
       experiences: {
         fields: ["name"],
       },
+      recommendations: {
+        fields: ["name", "profileLink"],
+      },
     },
   });
 
@@ -285,6 +299,7 @@ export async function getPianistById(
     goals: data.attributes.goals.data.map((l) => l.attributes.name),
     experiences: data.attributes.experiences.data.map((l) => l.attributes.name),
     previewVideo: data.attributes.previewVideo,
+    recommendations: data.attributes.recommendations,
     contacts: data.attributes.contacts?.map((c) => ({
       type: c.type,
       data: c.data,

@@ -26,6 +26,18 @@ export interface PianistContactInfo extends Schema.Component {
   };
 }
 
+export interface PianistRecommendation extends Schema.Component {
+  collectionName: 'components_pianist_recommendations';
+  info: {
+    displayName: 'Recommendation';
+    icon: 'manyToMany';
+  };
+  attributes: {
+    name: Attribute.String;
+    profileLink: Attribute.String;
+  };
+}
+
 export interface PianistYouTubeLink extends Schema.Component {
   collectionName: 'components_pianist_you_tube_links';
   info: {
@@ -41,6 +53,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'pianist.contact-info': PianistContactInfo;
+      'pianist.recommendation': PianistRecommendation;
       'pianist.you-tube-link': PianistYouTubeLink;
     }
   }

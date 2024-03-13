@@ -9,7 +9,7 @@ import facebookIcon from "./images/facebook.svg";
 
 export function ContactInfo({ contacts }: { contacts: ContactInfoType[] }) {
   return (
-    <div className="relative overflow-x-auto max-w-full flex flex-row justify-center px-2">
+    <div className="relative overflow-x-auto max-w-full flex flex-row justify-center px-2 pb-2">
       <ul className="flex flex-row flex-nowrap items-center justify-start">
         {contacts.map((contact, i) => (
           <li key={i} className="flex-shrink-0 px-2">
@@ -43,15 +43,15 @@ function getLink(contact: ContactInfoType) {
 
 function getIcon(contact: ContactInfoType) {
   if (contact.type === "email") {
-    return <EnvelopeIcon className="w-[48px] h-[48px]" />;
+    return <EnvelopeIcon className="w-[36px] h-[36px]" />;
   }
 
   if (contact.type === "phone") {
-    return <PhoneIcon className="w-[48px] h-[48px] text-current" />;
+    return <PhoneIcon className="w-[36px] h-[36px] text-current" />;
   }
 
   if (contact.type === "url") {
-    return <LinkIcon className="w-[48px] h-[48px]" />;
+    return <LinkIcon className="w-[36px] h-[36px]" />;
   }
 
   let src = "";
@@ -76,7 +76,7 @@ function getIcon(contact: ContactInfoType) {
       break;
   }
 
-  return <img className="w-[48px] h-[48px]" src={src} alt="icon" />;
+  return <img className="w-[36px] h-[36px]" src={src} alt="icon" />;
 }
 
 function ContactInfoEntry(contact: ContactInfoType) {

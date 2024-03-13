@@ -5,7 +5,6 @@ import {
 } from "next-intl/server";
 import { PageParams } from "../../layout";
 import { getPianistById } from "@/services/pianists";
-import { BlockRenderer } from "@/components/BlockRenderer";
 import { BioViewer } from "./BioViewer";
 import { NextIntlClientProvider } from "next-intl";
 import { ContactInfo } from "./ContactInfo";
@@ -34,70 +33,102 @@ export default async function Page({
       ) : null}
       <div className="sticky top-[var(--header-height)] z-10">
         <div className="bg-white">
-          <h1 className="text-3xl antialiased">{pianist.fullName}</h1>
+          <h1 className="text-3xl antialiased font-bold">{pianist.fullName}</h1>
           <p className="text-sm font-thin antialiased">{pianist.city}</p>
         </div>
         <div className="h-3 bg-gradient-to-b from-white to-transparent" />
       </div>
 
-      {pianist.contacts && (
+      {pianist.contacts && pianist.contacts.length > 0 && (
         <div className="mb-3">
           <ContactInfo contacts={pianist.contacts} />
         </div>
       )}
 
-      <div className="mb-3">
-        <h3 className="first-letter:capitalize text-lg mb-1">
-          {t("Pianist.about-me")}:
-        </h3>
-        <NextIntlClientProvider messages={messages}>
-          <BioViewer bio={pianist.bio} />
-        </NextIntlClientProvider>
-      </div>
+      {pianist.bio && pianist.bio.length > 0 && (
+        <div className="mb-3">
+          <h3 className="first-letter:capitalize text-lg mb-1 font-semibold">
+            {t("Pianist.about-me")}:
+          </h3>
+          <NextIntlClientProvider messages={messages}>
+            <BioViewer bio={pianist.bio} />
+          </NextIntlClientProvider>
+        </div>
+      )}
 
-      <div className="mb-3">
-        <h3 className="text-lg first-letter:capitalize mb-1">
-          {t("Pianist.i-speak")}:
-        </h3>
-        <ul className="list-disc list-inside">
-          {pianist.speaks.map((language, i) => (
-            <li key={i}>{language}</li>
-          ))}
-        </ul>
-      </div>
+      {pianist.speaks && pianist.speaks.length > 0 && (
+        <div className="mb-3">
+          <h3 className="text-lg first-letter:capitalize mb-1 font-semibold">
+            {t("Pianist.i-speak")}:
+          </h3>
+          <ul className="list-disc list-inside">
+            {pianist.speaks.map((language, i) => (
+              <li key={i}>{language}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      <div className="mb-3">
-        <h3 className="text-lg first-letter:capitalize mb-1">
-          {t("Pianist.i-read")}:
-        </h3>
-        <ul className="list-disc list-inside">
-          {pianist.reads.map((language, i) => (
-            <li key={i}>{language}</li>
-          ))}
-        </ul>
-      </div>
+      {pianist.reads && pianist.reads.length > 0 && (
+        <div className="mb-3">
+          <h3 className="text-lg first-letter:capitalize mb-1 font-semibold">
+            {t("Pianist.i-read")}:
+          </h3>
+          <ul className="list-disc list-inside">
+            {pianist.reads.map((language, i) => (
+              <li key={i}>{language}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      <div className="mb-3">
-        <h3 className="text-lg first-letter:capitalize mb-1">
-          {t("Pianist.experience")}:
-        </h3>
-        <ul className="list-disc list-inside">
-          {pianist.experiences.map((entry, i) => (
-            <li key={i}>{entry}</li>
-          ))}
-        </ul>
-      </div>
+      {pianist.experiences && pianist.experiences.length > 0 && (
+        <div className="mb-3">
+          <h3 className="text-lg first-letter:capitalize mb-1 font-semibold">
+            {t("Pianist.experience")}:
+          </h3>
+          <ul className="list-disc list-inside">
+            {pianist.experiences.map((entry, i) => (
+              <li key={i}>{entry}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      <div className="mb-3">
-        <h3 className="text-lg first-letter:capitalize mb-1">
-          {t("Pianist.goals")}:
-        </h3>
-        <ul className="list-disc list-inside">
-          {pianist.goals.map((entry, i) => (
-            <li key={i}>{entry}</li>
-          ))}
-        </ul>
-      </div>
+      {pianist.goals && pianist.goals.length > 0 && (
+        <div className="mb-3">
+          <h3 className="text-lg first-letter:capitalize mb-1 font-semibold">
+            {t("Pianist.goals")}:
+          </h3>
+          <ul className="list-disc list-inside">
+            {pianist.goals.map((entry, i) => (
+              <li key={i}>{entry}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {pianist.recommendations && pianist.recommendations.length > 0 && (
+        <div className="mb-3">
+          <h3 className="text-lg first-letter:capitalize mb-1 font-semibold">
+            {t("Pianist.recommendations")}:
+          </h3>
+          <ul className="list-disc list-inside">
+            {pianist.recommendations.map((entry, i) => (
+              <li key={i}>
+                <a
+                  href={entry.profileLink}
+                  className="underline text-blue-600"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {entry.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </article>
   );
 }

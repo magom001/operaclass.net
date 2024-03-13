@@ -1022,7 +1022,7 @@ export interface ApiPianistPianist extends Schema.CollectionType {
     previewVideo: Attribute.Component<'pianist.you-tube-link'> &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     city: Attribute.Relation<
@@ -1075,6 +1075,12 @@ export interface ApiPianistPianist extends Schema.CollectionType {
       Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
+        };
+      }>;
+    recommendations: Attribute.Component<'pianist.recommendation', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
         };
       }>;
     createdAt: Attribute.DateTime;

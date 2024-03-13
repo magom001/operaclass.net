@@ -7,13 +7,15 @@
     "Common": {
         "close": "закрыть",
         "apply": "применить",
-        "expand": "подробнее"
+        "expand": "подробнее",
+        "reset": "сбросить",
+        "all": "все"
     },
     "Filters": {
         "city": "город",
         "open-filters": "открыть фильтры",
         "fluently-speak": "свободно говорю",
-        "reads": "чтение-произношение",
+        "reads": "перевод/произношение",
         "experience": "опыт",
         "goals": "для чего"
     },
@@ -22,7 +24,8 @@
         "i-speak": "свободно говорю на",
         "i-read": "перевод/произношение",
         "experience": "опыт",
-        "goals": "цели"
+        "goals": "цели",
+        "recommendations": "рекомендации"
     },
     "Pianists": {
         "no-profiles-found": "Профили не найдены"
