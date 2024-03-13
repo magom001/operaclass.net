@@ -1084,6 +1084,12 @@ export interface ApiPianistPianist extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    email: Attribute.Email &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
