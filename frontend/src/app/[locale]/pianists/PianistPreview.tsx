@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "@/i18n";
 import type { PianistPreview } from "@/services/pianists";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";

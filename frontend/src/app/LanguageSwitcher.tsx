@@ -2,9 +2,10 @@
 
 import { usePathname, useRouter } from "@/i18n";
 import { useParams } from "next/navigation";
+import type { HTMLAttributes } from "react";
 
 interface Props {
-  className?: string;
+  className?: HTMLAttributes<HTMLUListElement>["className"];
 }
 
 export default function LanguageSwitcher({ className }: Props) {

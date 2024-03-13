@@ -13,6 +13,15 @@ interface PageProps {
   slug: string;
 }
 
+// TODO: Implement SSG
+// export async function generateStaticParams({
+//   params: { locale },
+// }: {
+//   params: { locale: Locale };
+// }) {
+//   return [{ slug: "1" }];
+// }
+
 export default async function Page({
   params: { locale, slug },
 }: PageParams<PageProps>) {

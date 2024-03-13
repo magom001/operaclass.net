@@ -21,6 +21,16 @@ services:
       - "5050:80"
     restart: always
 
+  nextjs:
+    container_name: nextjs
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - "3000:1337"
+
   # strapi:
   #   container_name: strapi
   #   build:
