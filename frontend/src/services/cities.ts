@@ -15,12 +15,15 @@ interface ResponseData {
 }
 
 export async function getCities(locale: Locale): Promise<City[]> {
-  const response = await fetch(`${host}/api/cities?locale=${locale}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-    },
-  });
+  const response = await fetch(
+    `${host}/api/cities?locale=${locale}&sort=name`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    }
+  );
 
   const data: Response<ResponseData> = await response.json();
 

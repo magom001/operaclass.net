@@ -26,6 +26,10 @@ body {
   min-height: 100dvh;
 }
 
+body.footer-hidden {
+  --footer-height: 0px;
+}
+
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

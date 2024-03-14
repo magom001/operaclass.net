@@ -11,7 +11,7 @@ export function Chip({
 }) {
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 antialiased rounded-full text-xs font-medium  ${
+      className={`inline-flex items-center px-3 py-1 antialiased rounded-full text-sm font-semibold ${
         active ? "text-gray-100" : "text-gray-800"
       } ${active ? "bg-gray-800" : "bg-gray-100"} ${className}`}
     >

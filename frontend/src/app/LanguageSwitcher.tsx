@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname, useRouter } from "@/i18n";
-import { useParams } from "next/navigation";
 import type { HTMLAttributes } from "react";
 
 interface Props {
@@ -11,11 +10,10 @@ interface Props {
 export default function LanguageSwitcher({ className }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
 
   return (
     <ul
-      className={`flex flex-row divide-solid divide-current divide-x-2 ${className}`}
+      className={`flex flex-row divide-solid divide-current divide-x ${className}`}
     >
       <li className="px-4">
         <button

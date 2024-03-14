@@ -19,13 +19,31 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-gray-950 shadow-md text-white fixed top-0 left-0 right-0 h-[var(--header-height)] flex items-center justify-between px-8 z-50">
+      <header className="bg-gray-900 shadow-md text-gray-100 fixed top-0 left-0 right-0 h-[var(--header-height)] flex items-center justify-between antialiased px-8 z-50">
         <Link className="text-xl" href="/">
           OperaClass.Net
         </Link>
+        <nav className="hidden lg:flex flex-row items-center">
+          <ul
+            onClick={toggleOpened}
+            className="text-md [&>li]:first-letter:capitalize divide-x px-4 [&>li]:px-4 text-right pl-16 flex flex-row"
+          >
+            {paths.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={`${p.startsWith(href) ? "font-bold" : ""}`}
+                >
+                  {t(label)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <LanguageSwitcher className="text-xs" />
+        </nav>
         <button
           type="button"
-          className="w-[28px] h-[20px] relative"
+          className="w-[28px] h-[20px] relative lg:hidden"
           onClick={toggleOpened}
           title={t("toggle-menu")}
         >
@@ -53,31 +71,33 @@ export default function Header() {
       </header>
       <div
         onClick={toggleOpened}
-        className="fixed inset-0 backdrop-blur-sm bg-transparent z-30"
+        className="fixed lg:hidden inset-0 backdrop-blur-sm bg-transparent z-30"
         hidden={!opened}
       />
       <aside
         aria-hidden={!opened}
         tabIndex={-1}
-        className={`fixed flex flex-col justify-between items-center top-0 pt-[80px] pr-4 pl-4 pb-4 z-40 right-0 bottom-0 ${
+        className={`fixed flex lg:hidden flex-col justify-between items-center top-0 pt-[80px] pr-4 pl-4 pb-4 z-40 right-0 bottom-0 ${
           opened ? "" : "-mr-[100%]"
         }  bg-white shadow-lg transition-all duration-300`}
       >
-        <ul
-          onClick={toggleOpened}
-          className="text-xl space-y-8 capitalize text-right pl-16"
-        >
-          {paths.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className={`${p.startsWith(href) ? "font-bold" : ""}`}
-              >
-                {t(label)}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <nav>
+          <ul
+            onClick={toggleOpened}
+            className="text-xl space-y-8 [&>li]:first-letter:capitalize text-right pl-16"
+          >
+            {paths.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={`${p.startsWith(href) ? "font-bold" : ""}`}
+                >
+                  {t(label)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <LanguageSwitcher className="text-xs" />
       </aside>
     </>

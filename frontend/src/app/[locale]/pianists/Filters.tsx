@@ -60,8 +60,8 @@ export function Filters({
               <h2 className="capitalize font-thin antialiased mb-1">
                 {t("Filters.city")}
               </h2>
-              <ul className="flex flex-row flex-wrap">
-                <li className="mr-1">
+              <ul className="flex flex-row flex-wrap gap-1.5">
+                <li>
                   <button
                     role="button"
                     onClick={resetFilter.bind(null, "cities")}
@@ -71,7 +71,7 @@ export function Filters({
                   </button>
                 </li>
                 {allCities.map((city) => (
-                  <li key={city.code} className="mr-1">
+                  <li key={city.code}>
                     <button
                       key={city.code}
                       role="button"
@@ -95,8 +95,8 @@ export function Filters({
               <h2 className="capitalize font-thin antialiased mb-1">
                 {t("Filters.fluently-speak")}
               </h2>
-              <ul className="flex flex-row flex-wrap">
-                <li className="mr-1">
+              <ul className="flex flex-row flex-wrap gap-1.5">
+                <li>
                   <button
                     role="button"
                     onClick={resetFilter.bind(null, "speaks")}
@@ -106,7 +106,7 @@ export function Filters({
                   </button>
                 </li>
                 {allLanguages.map((language) => (
-                  <li key={language.alpha2} className="mr-1">
+                  <li key={language.alpha2}>
                     <button
                       key={language.alpha2}
                       role="button"
@@ -130,8 +130,8 @@ export function Filters({
               <h2 className="capitalize font-thin antialiased mb-1">
                 {t("Filters.reads")}
               </h2>
-              <ul className="flex flex-row flex-wrap">
-                <li className="mr-1">
+              <ul className="flex flex-row flex-wrap gap-1.5">
+                <li>
                   <button
                     role="button"
                     onClick={resetFilter.bind(null, "reads")}
@@ -141,7 +141,7 @@ export function Filters({
                   </button>
                 </li>
                 {allLanguages.map((language) => (
-                  <li key={language.alpha2} className="mr-1">
+                  <li key={language.alpha2}>
                     <button
                       key={language.alpha2}
                       role="button"
@@ -165,8 +165,8 @@ export function Filters({
               <h2 className="capitalize font-thin antialiased mb-1">
                 {t("Filters.experience")}
               </h2>
-              <ul className="flex flex-row flex-wrap">
-                <li className="mr-1">
+              <ul className="flex flex-row flex-wrap gap-1.5">
+                <li>
                   <button
                     role="button"
                     onClick={resetFilter.bind(null, "experiences")}
@@ -176,7 +176,7 @@ export function Filters({
                   </button>
                 </li>
                 {allExperiences.map((experience) => (
-                  <li key={experience.code} className="mr-1">
+                  <li key={experience.code}>
                     <button
                       key={experience.code}
                       role="button"
@@ -200,8 +200,8 @@ export function Filters({
               <h2 className="capitalize font-thin antialiased mb-1">
                 {t("Filters.goals")}
               </h2>
-              <ul className="flex flex-row flex-wrap">
-                <li className="mr-1">
+              <ul className="flex flex-row flex-wrap gap-1.5">
+                <li>
                   <button
                     role="button"
                     onClick={resetFilter.bind(null, "goals")}
@@ -211,7 +211,7 @@ export function Filters({
                   </button>
                 </li>
                 {allGoals.map((goal) => (
-                  <li key={goal.code} className="mr-1">
+                  <li key={goal.code}>
                     <button
                       role="button"
                       onClick={() => {
