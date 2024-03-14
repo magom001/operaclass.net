@@ -7,6 +7,9 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255; */
   --header-height: 64px;
+  --footer-height: 48px;
+  --filters-aside-width: 300px;
+  --background-rgb: 255 255 255;
 }
 
 /*
@@ -19,7 +22,8 @@
 } */
 
 body {
-  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
+  min-height: 100dvh;
 }
 
 /* body {

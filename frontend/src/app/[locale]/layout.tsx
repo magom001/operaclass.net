@@ -48,7 +48,9 @@ export default function LocaleLayout({
         >
           <Header />
         </NextIntlClientProvider>
-        <main className="pt-[64px]">{children}</main>
+        <main className="pt-[64px] bg-[rgb(var(--background-rgb))]">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

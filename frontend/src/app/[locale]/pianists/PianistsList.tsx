@@ -45,18 +45,18 @@ export function PianistsList({ pianists, pagination }: Props) {
 
   return (
     <div>
-      <ul className="p-2 grid grid-cols-1 landscape:grid-cols-2 grid-flow-row space-y-2 space-x-1">
+      <ul className="p-2 grid grid-cols-1 landscape:grid-cols-2 md:grid-cols-2 md:landscape:grid-cols-3 lg:grid-cols-3 lg:landscape:grid-cols-3 xl:grid-cols-4 xl:landscape:grid-cols-4 gap-1">
         {data.map((p) => (
           <li key={p.id}>
             <PianistPreview pianist={p} />
           </li>
         ))}
-        {meta.pagination.page < meta.pagination.pageCount && (
-          <li ref={ref} className="flex justify-center">
-            <Spinner />
-          </li>
-        )}
       </ul>
+      {meta.pagination.page < meta.pagination.pageCount && (
+        <li ref={ref} className="flex justify-center">
+          <Spinner />
+        </li>
+      )}
     </div>
   );
 }

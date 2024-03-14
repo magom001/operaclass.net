@@ -7,7 +7,7 @@ import {
   unstable_setRequestLocale,
 } from "next-intl/server";
 import { PageParams } from "../layout";
-import { Filters } from "./Filters";
+import { Filters, FiltersMobile, FiltersModal } from "./Filters";
 import { NextIntlClientProvider } from "next-intl";
 import { getLanguages } from "@/services/languages";
 import { getExperiences } from "@/services/experiences";
@@ -35,20 +35,30 @@ export default async function Page({
   ]);
 
   return (
-    <article>
+    <article className="grid grid-cols-1 lg:grid-cols-[1fr_var(--filters-aside-width)] min-h-full">
+      {pianists.data.length ? (
+        <PianistsList pianists={pianists.data} pagination={pianists.meta} />
+      ) : (
+        <div className="p-2">{t("no-profiles-found")}</div>
+      )}
       <NextIntlClientProvider messages={messages}>
-        <Filters
+        {/* <aside className="hidden lg:block shadow-lg fixed right-0 bottom-[var(--footer-height)] w-[var(--filters-aside-width)] top-[var(--header-height)]"> */}
+        <aside className="hidden lg:block shadow-lg static">
+          <Filters
+            cities={cities}
+            experiences={experiences}
+            goals={goals}
+            languages={languages}
+            className="sticky top-[var(--header-height)] max-h-[calc(100vh-var(--header-height))]"
+          />
+        </aside>
+        <FiltersMobile
           cities={cities}
           experiences={experiences}
           goals={goals}
           languages={languages}
         />
       </NextIntlClientProvider>
-      {pianists.data.length ? (
-        <PianistsList pianists={pianists.data} pagination={pianists.meta} />
-      ) : (
-        <div className="p-2">{t("no-profiles-found")}</div>
-      )}
     </article>
   );
 }
