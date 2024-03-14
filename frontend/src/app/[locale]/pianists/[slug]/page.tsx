@@ -33,9 +33,12 @@ export default async function Page({
   const pianist = await getPianistById(locale, slug);
 
   return (
-    <article className="p-3 font-light text-sm relative grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-2">
+    <article className="p-3 font-light text-sm relative grid grid-cols-1 lg:grid-cols-2 gap-y-2 lg:gap-x-8">
       <NextIntlClientProvider messages={messages}>
-        <Breadcrumbs className="col-span-2" name={pianist.fullName} />
+        <Breadcrumbs
+          className="col-span-1 lg:col-span-2"
+          name={pianist.fullName}
+        />
       </NextIntlClientProvider>
       <section>
         {pianist.previewVideo?.url ? (
