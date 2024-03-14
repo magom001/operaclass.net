@@ -9,10 +9,10 @@ import facebookIcon from "./images/facebook.svg";
 
 export function ContactInfo({ contacts }: { contacts: ContactInfoType[] }) {
   return (
-    <div className="relative overflow-x-auto max-w-full flex flex-row justify-center px-2 pb-2">
+    <div className="relative overflow-x-auto max-w-full flex flex-row justify-center lg:justify-start px-2 lg:px-0 pb-2">
       <ul className="flex flex-row flex-nowrap items-center justify-start">
         {contacts.map((contact, i) => (
-          <li key={i} className="flex-shrink-0 px-2">
+          <li key={i} className="flex-shrink-0 px-2 lg:px-0 lg:pr-4">
             <ContactInfoEntry data={contact.data} type={contact.type} />
           </li>
         ))}

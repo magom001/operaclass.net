@@ -9,7 +9,8 @@
         "apply": "apply",
         "expand": "expand",
         "reset": "reset",
-        "all": "all"
+        "all": "all",
+        "back": "back"
     },
     "Filters": {
         "city": "city",
