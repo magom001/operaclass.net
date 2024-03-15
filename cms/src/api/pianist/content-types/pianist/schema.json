@@ -120,6 +120,16 @@
         }
       },
       "type": "email"
+    },
+    "slug": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "regex": "^[a-z0-9-]+$",
+      "required": true
     }
   }
 }

@@ -1,14 +1,13 @@
 import type { Locale } from "@/i18n";
 import qs from "qs";
 import { host, token, Response, MetaData } from "./config";
-import { Language } from "./languages";
 import { Block } from "./types";
 
 export interface PianistPreview {
   id: number;
   fullName: string;
-  city: string;
-  sex: "male" | "female";
+  city?: string;
+  sex?: "male" | "female";
   previewVideo?: {
     url: string;
   };
@@ -19,7 +18,7 @@ interface PianistsPreviewResponseData {
   attributes: {
     fullName: string;
     sex: "male" | "female";
-    city: {
+    city?: {
       data: {
         id: number;
         attributes: {
@@ -149,7 +148,7 @@ export async function getPianistsPreview(
     return {
       id: p.id,
       fullName: p.attributes.fullName,
-      city: p.attributes.city.data.attributes.name,
+      city: p.attributes.city?.data.attributes.name,
       sex: p.attributes.sex,
       previewVideo: preview
         ? {
@@ -236,7 +235,7 @@ interface Recommendation {
 
 interface Pianist {
   fullName: string;
-  city: string;
+  city?: string;
   bio?: Block[];
   reads?: string[];
   speaks?: string[];
