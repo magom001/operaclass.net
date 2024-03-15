@@ -2785,6 +2785,13 @@ axios@1.6.0:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@^0.21.1:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
 b4a@^1.6.4:
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.6.6.tgz#a4cc349a3851987c3c4ac2d7785c18744f6da9ba"
@@ -4629,6 +4636,11 @@ fn.name@1.x.x:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fn.name/-/fn.name-1.1.0.tgz#26cad8017967aea8731bc42961d04a3d5988accc"
   integrity sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==
+
+follow-redirects@^1.14.0:
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
+  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
 
 follow-redirects@^1.15.0, follow-redirects@^1.15.4:
   version "1.15.5"
@@ -8769,6 +8781,14 @@ statuses@2.0.1, statuses@^2.0.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
+
+strapi-provider-upload-imgur@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/strapi-provider-upload-imgur/-/strapi-provider-upload-imgur-1.0.4.tgz#2df7ec7621af5749160db86b1597b7a90cf3238b"
+  integrity sha512-APqCxkrNIzErmR925eIlufqGgfNn9fdqvru2SlM46QDiiKabmvM+prTQfQ6nTmCesAqTG6mXqNLe2QS5KtVQAw==
+  dependencies:
+    axios "^0.21.1"
+    form-data "^4.0.0"
 
 stream-chain@2.2.5, stream-chain@^2.2.5:
   version "2.2.5"
