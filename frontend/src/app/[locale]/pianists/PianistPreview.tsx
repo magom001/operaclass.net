@@ -11,7 +11,7 @@ interface Props {
   pianist: PianistPreview;
 }
 export function PianistPreview({
-  pianist: { id, fullName, city, previewVideo, sex },
+  pianist: { slug, fullName, city, previewVideo, sex },
 }: Props) {
   return (
     <div className="w-full p-4 py-6 rounded-lg shadow flex flex-col justify-between">
@@ -32,7 +32,7 @@ export function PianistPreview({
         />
       )}
       <Link
-        href={`${id}/`}
+        href={`${slug}/`}
         className="grid grid-cols-[1fr_auto] grid-rows-1 pt-2 text-gray-950 items-center"
       >
         <div className="flex flex-col">

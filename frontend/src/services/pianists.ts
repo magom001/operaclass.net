@@ -6,6 +6,7 @@ import { Block } from "./types";
 export interface PianistPreview {
   id: number;
   fullName: string;
+  slug: string;
   city?: string;
   sex?: "male" | "female";
   previewVideo?: {
@@ -17,6 +18,7 @@ interface PianistsPreviewResponseData {
   id: number;
   attributes: {
     fullName: string;
+    slug: string;
     sex: "male" | "female";
     city?: {
       data: {
@@ -101,7 +103,7 @@ export async function getPianistsPreview(
       pagination: {
         page,
       },
-      fields: ["fullName", "sex"],
+      fields: ["fullName", "sex", "slug"],
       populate: {
         city: {
           fields: ["name", "code"],
@@ -148,6 +150,7 @@ export async function getPianistsPreview(
     return {
       id: p.id,
       fullName: p.attributes.fullName,
+      slug: p.attributes.slug,
       city: p.attributes.city?.data.attributes.name,
       sex: p.attributes.sex,
       previewVideo: preview
@@ -166,6 +169,7 @@ interface PianistResponseData {
   attributes: {
     fullName: string;
     sex: "male" | "female";
+    slug: string;
     previewVideo: null | { url: string };
     bio: Block[];
     city: {
@@ -251,7 +255,7 @@ interface Pianist {
 export async function getPianistById(
   locale: Locale,
   id: string
-): Promise<Pianist> {
+): Promise<Pianist | null> {
   const query = qs.stringify({
     fields: ["fullName", "sex", "bio"],
     locale,
@@ -287,7 +291,45 @@ export async function getPianistById(
     headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
   });
 
-  const { data }: { data: PianistResponseData } = await response.json();
+  const { data }: { data: PianistResponseData | null } = await response.json();
+
+  if (!data) {
+    return null;
+  }
+
+  return {
+    fullName: data.attributes.fullName,
+    city: data.attributes.city.data.attributes.name,
+    bio: data.attributes.bio,
+    reads: data.attributes.reads.data.map((l) => l.attributes.name),
+    speaks: data.attributes.speaks.data.map((l) => l.attributes.name),
+    goals: data.attributes.goals.data.map((l) => l.attributes.name),
+    experiences: data.attributes.experiences.data.map((l) => l.attributes.name),
+    previewVideo: data.attributes.previewVideo,
+    recommendations: data.attributes.recommendations,
+    contacts: data.attributes.contacts?.map((c) => ({
+      type: c.type,
+      data: c.data,
+    })),
+  };
+}
+
+export async function getPianistBySlug(
+  locale: Locale,
+  slug: string
+): Promise<Pianist | null> {
+  const query = qs.stringify({
+    locale,
+  });
+  const response = await fetch(`${host}/api/pianists/slug/${slug}?${query}`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+  });
+
+  const { data }: { data: PianistResponseData | null } = await response.json();
+
+  if (!data) {
+    return null;
+  }
 
   return {
     fullName: data.attributes.fullName,

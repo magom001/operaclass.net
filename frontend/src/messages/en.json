@@ -10,7 +10,8 @@
         "expand": "expand",
         "reset": "reset",
         "all": "all",
-        "back": "back"
+        "back": "back",
+        "not-found": "Not found"
     },
     "Filters": {
         "city": "city",

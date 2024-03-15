@@ -4,9 +4,9 @@ import {
   unstable_setRequestLocale,
 } from "next-intl/server";
 import { PageParams } from "../../layout";
-import { getPianistById } from "@/services/pianists";
+import { getPianistById, getPianistBySlug } from "@/services/pianists";
 import { BioViewer } from "./BioViewer";
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { ContactInfo } from "./ContactInfo";
 import { Breadcrumbs } from "./Breadcrumbs";
 
@@ -30,7 +30,15 @@ export default async function Page({
 
   const t = await getTranslations();
   const messages = await getMessages();
-  const pianist = await getPianistById(locale, slug);
+  const pianist = await getPianistBySlug(locale, slug);
+
+  if (!pianist) {
+    return (
+      <NextIntlClientProvider messages={messages}>
+        <NotFound />
+      </NextIntlClientProvider>
+    );
+  }
 
   return (
     <article className="p-3 font-light text-sm relative grid grid-cols-1 lg:grid-cols-2 gap-y-2 lg:gap-x-8">
@@ -162,5 +170,17 @@ export default async function Page({
         )}
       </section>
     </article>
+  );
+}
+
+function NotFound() {
+  const t = useTranslations();
+
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <h1 className="text-3xl first-letter:capitalize font-extrabold text-gray-900">
+        {t("Common.not-found")}
+      </h1>
+    </div>
   );
 }
