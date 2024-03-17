@@ -1,0 +1,49 @@
+name: Trigger auto deployment for samovar-api
+
+# When this action will be executed
+on: pull_request
+
+jobs:
+  build_and_push_strapi_cms:
+    name: Build and push Strapi CMS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v4
+
+      - name: ACR login
+        uses: azure/docker-login@v1
+        with:
+          login-server: samovardcr.azurecr.io
+          username: ${{ secrets.SAMOVARAPI_REGISTRY_USERNAME }}
+          password: ${{ secrets.SAMOVARAPI_REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cms
+          push: false
+          tags: samovardcr.azurecr.io/cms:${{ github.sha }}
+
+  build_and_push_nextjs:
+    name: Build and push NextJS client
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v4
+
+      - name: ACR login
+        uses: azure/docker-login@v1
+        with:
+          login-server: samovardcr.azurecr.io
+          username: ${{ secrets.SAMOVARAPI_REGISTRY_USERNAME }}
+          password: ${{ secrets.SAMOVARAPI_REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: false
+          tags: samovardcr.azurecr.io/nextjs:${{ github.sha }}

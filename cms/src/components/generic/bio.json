@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_generic_bios",
+  "info": {
+    "displayName": "Bio"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}

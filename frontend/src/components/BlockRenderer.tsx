@@ -5,7 +5,7 @@ export function BlockRenderer({ blocks }: { blocks: Block[] }) {
     switch (block.type) {
       case "paragraph":
         return (
-          <p key={index} className="font-light mb-3 text-sm">
+          <p key={index} className="mb-3">
             <BlockRenderer blocks={block.children} />
           </p>
         );
@@ -26,19 +26,13 @@ export function BlockRenderer({ blocks }: { blocks: Block[] }) {
       case "list":
         if (block.format === "unordered") {
           return (
-            <ul
-              key={index}
-              className="max-w-md space-y-1 list-disc list-inside"
-            >
+            <ul key={index} className="space-y-1 list-disc list-inside">
               <BlockRenderer blocks={block.children} />
             </ul>
           );
         } else {
           return (
-            <ol
-              key={index}
-              className="max-w-md space-y-1 list-decimal list-inside"
-            >
+            <ol key={index} className="space-y-1 list-decimal list-inside">
               <BlockRenderer blocks={block.children} />
             </ol>
           );

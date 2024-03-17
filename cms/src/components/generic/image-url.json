@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_generic_image_urls",
+  "info": {
+    "displayName": "ImageUrl",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

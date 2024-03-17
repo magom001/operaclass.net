@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_generic_video_galleries",
+  "info": {
+    "displayName": "VideoGallery",
+    "icon": "slideshow",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "videos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pianist.you-tube-link"
+    }
+  }
+}

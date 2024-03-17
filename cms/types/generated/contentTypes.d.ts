@@ -894,6 +894,72 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
   };
 }
 
+export interface ApiFounderPageFounderPage extends Schema.SingleType {
+  collectionName: 'founder_pages';
+  info: {
+    singularName: 'founder-page';
+    pluralName: 'founder-pages';
+    displayName: 'FounderPage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    blocks: Attribute.DynamicZone<['generic.bio', 'generic.video-gallery']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    profilePicture: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    subtitle: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::founder-page.founder-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::founder-page.founder-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::founder-page.founder-page',
+      'oneToMany',
+      'api::founder-page.founder-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiGoalGoal extends Schema.CollectionType {
   collectionName: 'goals';
   info: {
@@ -1141,6 +1207,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::city.city': ApiCityCity;
       'api::experience.experience': ApiExperienceExperience;
+      'api::founder-page.founder-page': ApiFounderPageFounderPage;
       'api::goal.goal': ApiGoalGoal;
       'api::language.language': ApiLanguageLanguage;
       'api::pianist.pianist': ApiPianistPianist;
