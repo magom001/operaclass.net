@@ -7,9 +7,9 @@ import LanguageSwitcher from "../app/LanguageSwitcher";
 
 const paths = [
   { href: "/pianists/", label: "pianists" },
-  { href: "/news/", label: "news" },
+  // { href: "/news/", label: "news" },
   { href: "/join-us/", label: "join-us" },
-  { href: "/donate/", label: "donate" },
+  // { href: "/donate/", label: "donate" },
 ];
 
 export default function Header() {
@@ -41,33 +41,11 @@ export default function Header() {
           </ul>
           <LanguageSwitcher className="text-xs" />
         </nav>
-        <button
-          type="button"
-          className="w-[28px] h-[20px] relative lg:hidden"
-          onClick={toggleOpened}
+        <BurgerButton
+          opened={opened}
+          toggleOpened={toggleOpened}
           title={t("toggle-menu")}
-        >
-          <span
-            className={`block absolute top-0 w-full h-[3px] bg-white transition-all duration-300 ${
-              opened ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`block absolute w-full top-[8px] h-[3px] bg-white transition-transform duration-300 ${
-              opened ? "rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block absolute w-full top-[8px] h-[3px] bg-white transition-transform duration-300 ${
-              opened ? "-rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block absolute top-[16px] w-full h-[3px] bg-white transition-all duration-300 ${
-              opened ? "opacity-0" : "opacity-100"
-            }`}
-          />
-        </button>
+        />
       </header>
       <div
         onClick={toggleOpened}
@@ -101,5 +79,45 @@ export default function Header() {
         <LanguageSwitcher className="text-xs" />
       </aside>
     </>
+  );
+}
+
+function BurgerButton({
+  opened,
+  toggleOpened,
+  title,
+}: {
+  opened: boolean;
+  toggleOpened: () => void;
+  title: string;
+}) {
+  return (
+    <button
+      type="button"
+      className="w-[28px] h-[20px] relative lg:hidden"
+      onClick={toggleOpened}
+      title={title}
+    >
+      <span
+        className={`block absolute top-0 w-full h-[3px] bg-white transition-all duration-300 ${
+          opened ? "opacity-0" : "opacity-100"
+        }`}
+      />
+      <span
+        className={`block absolute w-full top-[8px] h-[3px] bg-white transition-transform duration-300 ${
+          opened ? "rotate-45" : ""
+        }`}
+      />
+      <span
+        className={`block absolute w-full top-[8px] h-[3px] bg-white transition-transform duration-300 ${
+          opened ? "-rotate-45" : ""
+        }`}
+      />
+      <span
+        className={`block absolute top-[16px] w-full h-[3px] bg-white transition-all duration-300 ${
+          opened ? "opacity-0" : "opacity-100"
+        }`}
+      />
+    </button>
   );
 }

@@ -13,6 +13,11 @@
         "back": "back",
         "not-found": "Not found"
     },
+    "OurFriends": {
+        "floating-opera": "Floating Opera",
+        "art-of-opera": "Art of Opera",
+        "title": "Our friends"
+    },
     "Filters": {
         "city": "city",
         "open-filters": "open filters",
@@ -38,5 +43,19 @@
         "news": "news",
         "join-us": "join us",
         "donate": "donate"
+    },
+    "JoinUs": {
+        "title": "I want to join the community OperaClass.net",
+        "subtitle": "The goal of our project is to help young talented opera singers find their way to the stage.",
+        "for-students": "for students",
+        "for-teachers": "for teachers",
+        "for-media": "for media",
+        "support-us": "support us",
+        "for-students-description": "We will publish training materials and conduct masterclasses. Leave information about yourself so that you don't miss anything.",
+        "for-teachers-description": "If you are a specialist and have something to share with young opera singers, please contact us. Stage movement, makeup art, acting skills, music theory and history - all of these are interesting.",
+        "for-media-description": "If you can help promote events in the media, write to us.",
+        "support-us-description": "Currently, the project is completely volunteer. We need support, then we will be able to conduct masterclasses and publish more exclusive information.",
+        "application-form": "application form",
+        "contact-us": "contact us"
     }
 }
