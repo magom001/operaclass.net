@@ -38,11 +38,11 @@ export default async function middleware(request: NextRequest) {
 
   const response = handleI18nRouting(request);
 
-  response.headers.set(
-    "Content-Security-Policy",
-    contentSecurityPolicyHeaderValue
-  );
-  response.headers.set("x-nonce", nonce);
+  // response.headers.set(
+  //   "Content-Security-Policy",
+  //   contentSecurityPolicyHeaderValue
+  // );
+  // response.headers.set("x-nonce", nonce);
 
   return response;
 }
