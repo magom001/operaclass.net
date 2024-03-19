@@ -48,5 +48,5 @@ jobs:
           push: false
           tags: samovardcr.azurecr.io/nextjs:${{ github.sha }}
           build-args: |
-            - API_TOKEN=${{ secrets.BACKEND_API_TOKEN }}
-            - API_HOST=${{ secrets.BACKEND_API_HOST }}
+            API_TOKEN=${{ secrets.BACKEND_API_TOKEN }}
+            API_HOST=${{ secrets.API_HOST }}
