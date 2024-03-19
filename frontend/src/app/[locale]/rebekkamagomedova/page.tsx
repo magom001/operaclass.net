@@ -3,7 +3,7 @@ import type { PageParams } from "../layout";
 import { getFounderPage } from "@/services/founder-page";
 import { DynamicZoneRenderer } from "@/components/DynamicZoneRenderer";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default async function Page({ params: { locale } }: PageParams) {
   unstable_setRequestLocale(locale);
