@@ -76,7 +76,7 @@
     },
     "experiences": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::experience.experience"
     },
     "email": {

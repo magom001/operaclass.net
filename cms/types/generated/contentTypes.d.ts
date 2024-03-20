@@ -1253,7 +1253,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     >;
     experiences: Attribute.Relation<
       'api::profile.profile',
-      'oneToOne',
+      'oneToMany',
       'api::experience.experience'
     >;
     email: Attribute.Email &

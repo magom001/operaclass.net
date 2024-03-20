@@ -12,7 +12,9 @@ async function addUniqueIndex(
         table.index(columnNames, indexName);
       });
   } catch (error) {
-    console.log(error);
+    if (error.code !== "42P07") {
+      console.log(error);
+    }
   }
 
   console.log(
