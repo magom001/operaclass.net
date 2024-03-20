@@ -1,3 +1,38 @@
+async function addUniqueIndex(
+  knex,
+  tableName: string,
+  columnNames: string[],
+  indexName: string
+) {
+  console.log(`Adding index ${indexName} to ${tableName} on ${columnNames}`);
+  try {
+    await knex.schema
+      .withSchema(process.env.DATABASE_SCHEMA ?? "public")
+      .alterTable(tableName, (table) => {
+        table.index(columnNames, indexName);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log(
+    `Adding unique constraint ${indexName} to ${tableName} on ${columnNames}`
+  );
+  try {
+    await knex.schema
+      .withSchema(process.env.DATABASE_SCHEMA ?? "public")
+      .alterTable(tableName, (table) => {
+        table.unique(columnNames, {
+          indexName: `${indexName}_unique_constraint`,
+        });
+      });
+  } catch (error) {
+    if (error.code !== "42P07") {
+      console.log(error);
+    }
+  }
+}
+
 export default {
   /**
    * An asynchronous register function that runs before
@@ -15,22 +50,18 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }) {
-    try {
-      const knex = strapi.db.connection;
-      await knex.schema
-        .withSchema(process.env.DATABASE_SCHEMA ?? "public")
-        .alterTable("pianists", (table) => {
-          table.index(["slug", "locale"], "pianists_slug_locale_index");
-        });
-      await knex.schema
-        .withSchema(process.env.DATABASE_SCHEMA ?? "public")
-        .alterTable("pianists", (table) => {
-          table.unique(["slug", "locale"], {
-            indexName: "pianists_slug_locale_unique",
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    const knex = strapi.db.connection;
+    await addUniqueIndex(
+      knex,
+      "pianists",
+      ["slug", "locale"],
+      "pianists_slug_locale_unique"
+    );
+    await addUniqueIndex(
+      knex,
+      "profiles",
+      ["slug", "locale"],
+      "profiles_slug_locale_unique"
+    );
   },
 };

@@ -43,3 +43,86 @@ export type Block =
   | ListBlock
   | ListItemBlock
   | HeadingBlock;
+
+export interface SingleType<T> {
+  data: {
+    id: number;
+    attributes: T;
+  };
+}
+
+export interface CollectionType<T> {
+  data: {
+    id: number;
+    attributes: T;
+  }[];
+}
+
+export interface CityType {
+  name: string;
+  code: string;
+}
+
+export interface LanguageType {
+  name: string;
+  alpha2: string;
+}
+
+export interface RecommendationType {
+  id: number;
+  name: string;
+  profileLink: string;
+}
+
+export interface GoalType {
+  name: string;
+  code: string;
+}
+
+export interface ExperienceType {
+  name: string;
+  code: string;
+}
+
+export interface ProfileTypeType {
+  name: string;
+  code: string;
+}
+
+export interface VideoLinkType {
+  id: number;
+  url: string;
+}
+
+export interface ProfileType {
+  id: number;
+  attributes: {
+    firstName: string;
+    lastName: string;
+    slug: string;
+    sex: "m" | "f";
+    rating: number;
+    city?: SingleType<CityType>;
+    recommendations?: RecommendationType[];
+    speaks?: CollectionType<LanguageType>;
+    reads?: CollectionType<LanguageType>;
+    goals?: CollectionType<GoalType>;
+    experiences?: CollectionType<ExperienceType>;
+    profileTypes?: CollectionType<ProfileTypeType>;
+    videos?: VideoLinkType[];
+  };
+}
+
+export interface MetaData {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+}
+
+export interface Response<T> {
+  data: T[];
+  meta: MetaData;
+}
