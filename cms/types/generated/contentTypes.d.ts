@@ -1187,6 +1187,183 @@ export interface ApiPianistPianist extends Schema.CollectionType {
   };
 }
 
+export interface ApiProfileProfile extends Schema.CollectionType {
+  collectionName: 'profiles';
+  info: {
+    singularName: 'profile';
+    pluralName: 'profiles';
+    displayName: 'Profile';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    firstName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    lastName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    city: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'api::city.city'
+    >;
+    recommendations: Attribute.Component<'pianist.recommendation', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    speaks: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::language.language'
+    >;
+    reads: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::language.language'
+    >;
+    goals: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::goal.goal'
+    >;
+    experiences: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'api::experience.experience'
+    >;
+    email: Attribute.Email &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    profileTypes: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::profile-type.profile-type'
+    >;
+    videos: Attribute.Component<'pianist.you-tube-link', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    rating: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Attribute.DefaultTo<0>;
+    sex: Attribute.Enumeration<['m', 'f']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::profile.profile'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiProfileTypeProfileType extends Schema.CollectionType {
+  collectionName: 'profile_types';
+  info: {
+    singularName: 'profile-type';
+    pluralName: 'profile-types';
+    displayName: 'Profile-Type';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    code: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::profile-type.profile-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::profile-type.profile-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::profile-type.profile-type',
+      'oneToMany',
+      'api::profile-type.profile-type'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1211,6 +1388,8 @@ declare module '@strapi/types' {
       'api::goal.goal': ApiGoalGoal;
       'api::language.language': ApiLanguageLanguage;
       'api::pianist.pianist': ApiPianistPianist;
+      'api::profile.profile': ApiProfileProfile;
+      'api::profile-type.profile-type': ApiProfileTypeProfileType;
     }
   }
 }

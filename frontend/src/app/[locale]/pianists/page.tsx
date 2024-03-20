@@ -1,6 +1,10 @@
 import { Locale } from "@/i18n";
 import { getCities } from "@/services/cities";
-import { SearchParams, getPianistsPreview } from "@/services/pianists";
+import {
+  SearchParams,
+  getPianistsPreview,
+  // getPianistsPreviewV2,
+} from "@/services/pianists";
 import {
   getMessages,
   getTranslations,
@@ -26,13 +30,15 @@ export default async function Page({
   const messages = await getMessages();
   const t = await getTranslations("Pianists");
 
-  const [pianists, cities, languages, experiences, goals] = await Promise.all([
-    getPianists(locale, searchParams),
-    getCities(locale),
-    getLanguages(locale),
-    getExperiences(locale),
-    getGoals(locale),
-  ]);
+  const [pianists, cities, languages, experiences, goals /*profiles*/] =
+    await Promise.all([
+      getPianists(locale, searchParams),
+      getCities(locale),
+      getLanguages(locale),
+      getExperiences(locale),
+      getGoals(locale),
+      // getPianistsPreviewV2(locale, searchParams),
+    ]);
 
   return (
     <article className="grid grid-cols-1 lg:grid-cols-[1fr_var(--filters-aside-width)] min-h-full">
@@ -42,7 +48,6 @@ export default async function Page({
         <div className="p-2">{t("no-profiles-found")}</div>
       )}
       <NextIntlClientProvider messages={messages}>
-        {/* <aside className="hidden lg:block shadow-lg fixed right-0 bottom-[var(--footer-height)] w-[var(--filters-aside-width)] top-[var(--header-height)]"> */}
         <aside className="hidden lg:block shadow-lg static">
           <Filters
             cities={cities}
