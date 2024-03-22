@@ -1,3 +1,41 @@
+import { Knex } from "knex";
+
+async function createProfilesView(knex: Knex) {
+  console.log("Creating profiles view");
+
+  const schema = process.env.DATABASE_SCHEMA ?? "public";
+  try {
+    knex.raw(`
+create or replace view ${schema}.profiles_by_type_with_videos as (
+select 
+	${schema}.profiles.id, ${schema}.profiles.first_name, 
+	${schema}.profiles.last_name, 
+  	${schema}.profile_types.name, 
+	${schema}.profiles.locale,
+    ${schema}.profiles.rating,
+    ${schema}.cities.name as city,
+	${schema}.profile_types.code,
+	jsonb_agg(u) as videos
+from ${schema}.profiles 
+left join ${schema}.profiles_profile_types_links on ${schema}.profiles.id = ${schema}.profiles_profile_types_links.profile_id
+left join ${schema}.profile_types on ${schema}.profile_types.id = ${schema}.profiles_profile_types_links.profile_type_id
+left join (select * from ${schema}.profiles_components as x where x.field = 'videos') as pc on pc.entity_id = ${schema}.profiles.id
+left join ${schema}.components_pianist_you_tube_links as u on u.id = pc.component_id
+left join ${schema}.profiles_city_links on ${schema}.profiles.id = ${schema}.profiles_city_links.profile_id
+left join ${schema}.cities on ${schema}.profiles_city_links.city_id = ${schema}.cities.id
+group by 
+	${schema}.profiles.id, 
+	${schema}.profile_types.name, 
+	${schema}.profile_types.code, 
+	${schema}.profiles.locale,
+	${schema}.profiles.rating,
+	${schema}.cities.name
+)`);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function addUniqueIndex(
   knex,
   tableName: string,
@@ -42,7 +80,7 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/*{ strapi }*/) {},
+  register(/*{ ${schema} }*/) {},
 
   /**
    * An asynchronous bootstrap function that runs before
@@ -65,5 +103,7 @@ export default {
       ["slug", "locale"],
       "profiles_slug_locale_unique"
     );
+
+    await createProfilesView(knex);
   },
 };
