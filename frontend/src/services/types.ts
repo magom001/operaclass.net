@@ -139,7 +139,16 @@ export interface MetaData {
   };
 }
 
-export interface Response<T> {
+export interface ResponseType<T> {
   data: T[];
   meta: MetaData;
+}
+
+export interface ProfilePreview {
+  id: number;
+  fullName: string;
+  slug: string;
+  city?: string;
+  sex?: "m" | "f";
+  previewVideo?: VideoLinkType;
 }

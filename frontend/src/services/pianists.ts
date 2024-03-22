@@ -3,39 +3,11 @@ import qs from "qs";
 import { host, token } from "./config";
 import {
   Block,
-  Response,
+  ResponseType,
   ProfileType,
-  MetaData,
-  VideoLinkType,
   ContactInfoType,
+  ProfilePreview,
 } from "./types";
-
-export interface PianistPreview {
-  id: number;
-  fullName: string;
-  slug: string;
-  city?: string;
-  sex?: "male" | "female";
-  previewVideo?: VideoLinkType;
-}
-
-interface PianistsPreviewResponseData {
-  id: number;
-  attributes: {
-    fullName: string;
-    slug: string;
-    sex: "male" | "female";
-    city?: {
-      data: {
-        id: number;
-        attributes: {
-          name: string;
-        };
-      };
-    };
-    previewVideo?: VideoLinkType;
-  };
-}
 
 export interface SearchParams {
   city?: string | string[];
@@ -148,7 +120,7 @@ export async function getPianistsPreview(
     },
   });
 
-  const result: Response<ProfileType> = await response.json();
+  const result: ResponseType<ProfileType> = await response.json();
 
   const { meta, data } = result;
 
@@ -162,9 +134,9 @@ export async function getPianistsPreview(
       fullName: `${p.attributes.firstName} ${p.attributes.lastName}`,
       slug: p.attributes.slug,
       city: p.attributes.city?.data.attributes.name,
-      sex: p.attributes.sex === "m" ? "male" : "female",
+      sex: p.attributes.sex,
       previewVideo: preview,
-    } satisfies PianistPreview;
+    } satisfies ProfilePreview;
   });
 
   return { data: transformed, meta };
