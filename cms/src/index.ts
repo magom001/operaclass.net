@@ -5,7 +5,7 @@ async function createProfilesView(knex: Knex) {
 
   const schema = process.env.DATABASE_SCHEMA ?? "public";
   try {
-    knex.raw(`
+    await knex.raw(`
 create or replace view ${schema}.profiles_by_type_with_videos as (
 select 
 	${schema}.profiles.id, ${schema}.profiles.first_name, 
