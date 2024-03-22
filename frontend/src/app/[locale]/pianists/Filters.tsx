@@ -268,7 +268,7 @@ export function FiltersMobile({
           title={t("Filters.open-filters")}
           role="button"
           type="button"
-          className="lg:hidden bg-gray-800 text-gray-100 p-2 rounded-full opacity-50 fixed bottom-14 right-6 z-2 shadow-lg"
+          className="lg:hidden bg-gray-800 text-gray-100 p-2 rounded-full opacity-50 fixed bottom-16 right-6 z-2 shadow-lg"
           onClick={toggleIsOpened}
         >
           <AdjustmentsVerticalIcon className="h-10 w-10" />

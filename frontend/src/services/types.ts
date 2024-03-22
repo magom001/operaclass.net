@@ -86,7 +86,7 @@ export interface ExperienceType {
 
 export interface ProfileTypeType {
   name: string;
-  code: string;
+  code: "pianist" | "vocal-coach";
 }
 
 export interface VideoLinkType {
@@ -94,21 +94,38 @@ export interface VideoLinkType {
   url: string;
 }
 
+export interface ContactInfoType {
+  type:
+    | "email"
+    | "phone"
+    | "whatsapp"
+    | "telegram"
+    | "facebook"
+    | "instagram"
+    | "linkedin"
+    | "url"
+    | "vk";
+  data: string;
+}
+
 export interface ProfileType {
   id: number;
   attributes: {
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
     slug: string;
-    sex: "m" | "f";
-    rating: number;
+    sex?: "m" | "f";
+    bio?: Block[];
+    rating?: number;
     city?: SingleType<CityType>;
     recommendations?: RecommendationType[];
     speaks?: CollectionType<LanguageType>;
     reads?: CollectionType<LanguageType>;
+    phonetics?: CollectionType<LanguageType>;
     goals?: CollectionType<GoalType>;
     experiences?: CollectionType<ExperienceType>;
     profileTypes?: CollectionType<ProfileTypeType>;
+    contacts?: ContactInfoType[];
     videos?: VideoLinkType[];
   };
 }

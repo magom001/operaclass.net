@@ -1,10 +1,6 @@
 import { Locale } from "@/i18n";
 import { getCities } from "@/services/cities";
-import {
-  SearchParams,
-  getPianistsPreview,
-  // getPianistsPreviewV2,
-} from "@/services/pianists";
+import { SearchParams, getPianistsPreview } from "@/services/pianists";
 import {
   getMessages,
   getTranslations,
@@ -30,22 +26,26 @@ export default async function Page({
   const messages = await getMessages();
   const t = await getTranslations("Pianists");
 
-  const [pianists, cities, languages, experiences, goals /*profiles*/] =
-    await Promise.all([
-      getPianists(locale, searchParams),
-      getCities(locale),
-      getLanguages(locale),
-      getExperiences(locale),
-      getGoals(locale),
-      // getPianistsPreviewV2(locale, searchParams),
-    ]);
+  const [pianists, cities, languages, experiences, goals] = await Promise.all([
+    getPianists(locale, searchParams),
+    getCities(locale),
+    getLanguages(locale),
+    getExperiences(locale),
+    getGoals(locale),
+  ]);
 
   return (
     <article className="grid grid-cols-1 lg:grid-cols-[1fr_var(--filters-aside-width)] min-h-full">
       {pianists.data.length ? (
-        <PianistsList pianists={pianists.data} pagination={pianists.meta} />
+        <PianistsList
+          pianists={pianists.data}
+          pagination={pianists.meta}
+          locale={locale}
+        />
       ) : (
-        <div className="p-2">{t("no-profiles-found")}</div>
+        <div className="p-2 flex items-center justify-center">
+          <h1 className="text-2xl mb-8 font-bold">{t("no-profiles-found")}</h1>
+        </div>
       )}
       <NextIntlClientProvider messages={messages}>
         <aside className="hidden lg:block shadow-lg static">

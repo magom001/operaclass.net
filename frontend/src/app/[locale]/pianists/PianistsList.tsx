@@ -2,19 +2,21 @@
 
 import { type PianistPreview as PianistPreviewType } from "@/services/pianists";
 import { PianistPreview } from "./PianistPreview";
-import { MetaData } from "@/services/config";
 import { useEffect, useState } from "react";
 import { getPianistsPreview } from "@/app/actions";
 import { Spinner } from "@/components/Spinner";
 import { useInView } from "react-intersection-observer";
 import { useFilters } from "./hooks";
+import { MetaData } from "@/services/types";
+import { Locale } from "@/i18n";
 
 interface Props {
   pianists: PianistPreviewType[];
   pagination: MetaData;
+  locale: Locale;
 }
-export function PianistsList({ pianists, pagination }: Props) {
-  const { cities, reads, speaks, experiences } = useFilters();
+export function PianistsList({ pianists, pagination, locale }: Props) {
+  const { cities, reads, speaks, experiences, goals } = useFilters();
   const [data, setData] = useState<PianistPreviewType[]>(pianists);
   const [meta, setMeta] = useState(pagination);
 
@@ -24,8 +26,8 @@ export function PianistsList({ pianists, pagination }: Props) {
 
   const loadMore = async function () {
     const result = await getPianistsPreview(
-      "en",
-      { city: cities, reads, speaks, experience: experiences },
+      locale,
+      { city: cities, reads, speaks, experience: experiences, goal: goals },
       { page: meta.pagination.page + 1 }
     );
 
