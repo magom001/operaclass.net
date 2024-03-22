@@ -1,20 +1,21 @@
 "use client";
 
 import { Link } from "@/i18n";
-import type { PianistPreview } from "@/services/pianists";
+import type {} from "@/services/pianists";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
+import { ProfilePreview } from "@/services/types";
 import female_fallback from "./fallback-female.jpeg";
 import male_fallback from "./fallback-male.jpeg";
 
 interface Props {
-  pianist: PianistPreview;
+  pianist: ProfilePreview;
 }
 export function PianistPreview({
   pianist: { slug, fullName, city, previewVideo, sex },
 }: Props) {
   return (
-    <div className="w-full p-4 py-6 rounded-lg shadow flex flex-col justify-between">
+    <div className="w-full p-4 py-6 rounded-lg hover:shadow-xl transition-shadow shadow flex flex-col justify-between">
       {previewVideo ? (
         <iframe
           title="Pianist preview video"
@@ -25,14 +26,14 @@ export function PianistPreview({
         <div
           style={{
             backgroundImage: `url(${
-              sex === "male" ? male_fallback.src : female_fallback.src
+              sex === "m" ? male_fallback.src : female_fallback.src
             })`,
           }}
           className="rounded-lg max-w-full aspect-[16/9] bg-center bg-cover"
         />
       )}
       <Link
-        href={`${slug}/`}
+        href={`/pianists/${slug}/`}
         className="grid grid-cols-[1fr_auto] grid-rows-1 pt-2 text-gray-950 items-center"
       >
         <div className="flex flex-col">

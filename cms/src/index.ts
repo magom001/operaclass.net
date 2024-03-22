@@ -5,16 +5,22 @@ async function createProfilesView(knex: Knex) {
 
   const schema = process.env.DATABASE_SCHEMA ?? "public";
   try {
+    await knex.raw(
+      `DROP VIEW IF EXISTS ${schema}.profiles_by_type_with_videos`
+    );
+
     await knex.raw(`
 create or replace view ${schema}.profiles_by_type_with_videos as (
 select 
 	${schema}.profiles.id, ${schema}.profiles.first_name, 
 	${schema}.profiles.last_name, 
-  	${schema}.profile_types.name, 
+  ${schema}.profile_types.name, 
 	${schema}.profiles.locale,
-    ${schema}.profiles.rating,
-    ${schema}.cities.name as city,
+  ${schema}.profiles.rating,
+  ${schema}.profiles.sex,
+  ${schema}.cities.name as city,
 	${schema}.profile_types.code,
+	${schema}.profiles.slug,
 	jsonb_agg(u) as videos
 from ${schema}.profiles 
 left join ${schema}.profiles_profile_types_links on ${schema}.profiles.id = ${schema}.profiles_profile_types_links.profile_id
@@ -29,7 +35,9 @@ group by
 	${schema}.profile_types.code, 
 	${schema}.profiles.locale,
 	${schema}.profiles.rating,
-	${schema}.cities.name
+	${schema}.cities.name,
+  ${schema}.profiles.slug,
+  ${schema}.profiles.sex
 )`);
   } catch (error) {
     console.error(error);
