@@ -141,6 +141,11 @@
         }
       },
       "component": "pianist.contact-info"
+    },
+    "phonetics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language"
     }
   }
 }
