@@ -1299,6 +1299,11 @@ export interface ApiProfileProfile extends Schema.CollectionType {
           localized: false;
         };
       }>;
+    phonetics: Attribute.Relation<
+      'api::profile.profile',
+      'oneToMany',
+      'api::language.language'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
