@@ -825,6 +825,11 @@ export interface ApiCityCity extends Schema.CollectionType {
           localized: false;
         };
       }>;
+    country: Attribute.Relation<
+      'api::city.city',
+      'manyToOne',
+      'api::country.country'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
@@ -835,6 +840,64 @@ export interface ApiCityCity extends Schema.CollectionType {
       'api::city.city',
       'oneToMany',
       'api::city.city'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiCountryCountry extends Schema.CollectionType {
+  collectionName: 'countries';
+  info: {
+    singularName: 'country';
+    pluralName: 'countries';
+    displayName: 'Country';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    alpha2: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    cities: Attribute.Relation<
+      'api::country.country',
+      'oneToMany',
+      'api::city.city'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::country.country',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::country.country',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::country.country',
+      'oneToMany',
+      'api::country.country'
     >;
     locale: Attribute.String;
   };
@@ -1304,6 +1367,18 @@ export interface ApiProfileProfile extends Schema.CollectionType {
       'oneToMany',
       'api::language.language'
     >;
+    pictures: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    teachingFormat: Attribute.Enumeration<['online', 'offline']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1400,6 +1475,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::city.city': ApiCityCity;
+      'api::country.country': ApiCountryCountry;
       'api::experience.experience': ApiExperienceExperience;
       'api::founder-page.founder-page': ApiFounderPageFounderPage;
       'api::goal.goal': ApiGoalGoal;

@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "cities",
+  "collectionName": "countries",
   "info": {
-    "singularName": "city",
-    "pluralName": "cities",
-    "displayName": "City",
-    "description": ""
+    "singularName": "country",
+    "pluralName": "countries",
+    "displayName": "Country"
   },
   "options": {
     "draftAndPublish": false
@@ -23,29 +22,23 @@
         }
       },
       "type": "string",
-      "unique": true,
       "required": true
     },
-    "pianists": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::pianist.pianist",
-      "mappedBy": "city"
-    },
-    "code": {
+    "alpha2": {
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^[a-z]{2}$"
     },
-    "country": {
+    "cities": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::country.country",
-      "inversedBy": "cities"
+      "relation": "oneToMany",
+      "target": "api::city.city",
+      "mappedBy": "country"
     }
   }
 }

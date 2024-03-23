@@ -9,6 +9,7 @@ interface RandomProfileType {
   last_name: string;
   slug: string;
   city?: string;
+  country?: string;
   videos?: string;
   sex?: "m" | "f";
 }
@@ -41,6 +42,7 @@ export async function getRandomProfile(
         fullName: `${x.first_name} ${x.last_name}`,
         slug: x.slug,
         city: x.city,
+        country: x.country,
         sex: x.sex,
         previewVideo,
       } satisfies ProfilePreview;

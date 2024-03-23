@@ -12,7 +12,7 @@ interface Props {
   pianist: ProfilePreview;
 }
 export function PianistPreview({
-  pianist: { slug, fullName, city, previewVideo, sex },
+  pianist: { slug, fullName, city, country, previewVideo, sex },
 }: Props) {
   return (
     <div className="w-full p-4 py-6 rounded-lg hover:shadow-xl transition-shadow shadow flex flex-col justify-between">
@@ -40,7 +40,9 @@ export function PianistPreview({
           <h3 className="text-sm text-nowrap font-bold overflow-hidden text-ellipsis">
             {fullName}
           </h3>
-          <span className="text-xs font-thin">{city}</span>
+          <span className="text-xs font-thin">
+            {[city, country].filter(Boolean).join(", ")}
+          </span>
         </div>
         <ChevronRightIcon className="h-6 aspect-square" />
       </Link>

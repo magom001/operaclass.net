@@ -45,14 +45,14 @@ export type Block =
   | HeadingBlock;
 
 export interface SingleType<T> {
-  data: {
+  data?: {
     id: number;
     attributes: T;
   };
 }
 
 export interface CollectionType<T> {
-  data: {
+  data?: {
     id: number;
     attributes: T;
   }[];
@@ -61,8 +61,13 @@ export interface CollectionType<T> {
 export interface CityType {
   name: string;
   code: string;
+  country?: SingleType<CountryType>;
 }
 
+export interface CountryType {
+  name: string;
+  alpha2: string;
+}
 export interface LanguageType {
   name: string;
   alpha2: string;
@@ -149,6 +154,7 @@ export interface ProfilePreview {
   fullName: string;
   slug: string;
   city?: string;
+  country?: string;
   sex?: "m" | "f";
   previewVideo?: VideoLinkType;
 }
