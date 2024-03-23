@@ -1373,7 +1373,11 @@ export interface ApiProfileProfile extends Schema.CollectionType {
           localized: false;
         };
       }>;
-    teachingFormat: Attribute.Enumeration<['online', 'offline']> &
+    teachingFormats: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['online', 'offline']
+      > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: false;

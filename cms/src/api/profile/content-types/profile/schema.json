@@ -148,28 +148,30 @@
       "target": "api::language.language"
     },
     "pictures": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
-      "type": "media",
-      "multiple": true,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
     },
-    "teachingFormat": {
+    "teachingFormats": {
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "type": "enumeration",
-      "enum": [
+      "type": "customField",
+      "options": [
         "online",
         "offline"
-      ]
+      ],
+      "customField": "plugin::multi-select.multi-select"
     }
   }
 }
