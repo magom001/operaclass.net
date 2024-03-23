@@ -82,6 +82,7 @@ export async function getPianistsPreview(
       populate: {
         city: {
           fields: ["name", "code"],
+          populate: ["country"],
         },
         videos: {
           fields: ["url"],
@@ -133,7 +134,9 @@ export async function getPianistsPreview(
       id: p.id,
       fullName: `${p.attributes.firstName} ${p.attributes.lastName}`,
       slug: p.attributes.slug,
-      city: p.attributes.city?.data.attributes.name,
+      city: p.attributes.city?.data?.attributes.name,
+      country:
+        p.attributes.city?.data?.attributes.country?.data?.attributes.name,
       sex: p.attributes.sex,
       previewVideo: preview,
     } satisfies ProfilePreview;
@@ -150,6 +153,7 @@ interface Recommendation {
 interface Pianist {
   fullName: string;
   city?: string;
+  country?: string;
   bio?: Block[];
   reads?: string[];
   speaks?: string[];
@@ -181,12 +185,14 @@ export async function getPianistBySlug(
 
   return {
     fullName: data.attributes.firstName + " " + data.attributes.lastName,
-    city: data.attributes.city?.data.attributes.name,
+    city: data.attributes.city?.data?.attributes.name,
+    country:
+      data.attributes.city?.data?.attributes.country?.data?.attributes.name,
     bio: data.attributes.bio,
-    reads: data.attributes.reads?.data.map((l) => l.attributes.name),
-    speaks: data.attributes.speaks?.data.map((l) => l.attributes.name),
-    goals: data.attributes.goals?.data.map((l) => l.attributes.name),
-    experiences: data.attributes.experiences?.data.map(
+    reads: data.attributes.reads?.data?.map((l) => l.attributes.name),
+    speaks: data.attributes.speaks?.data?.map((l) => l.attributes.name),
+    goals: data.attributes.goals?.data?.map((l) => l.attributes.name),
+    experiences: data.attributes.experiences?.data?.map(
       (l) => l.attributes.name
     ),
     previewVideo: data.attributes.videos?.length

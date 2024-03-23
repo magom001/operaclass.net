@@ -2,7 +2,13 @@ import { Spinner } from "@/components/Spinner";
 
 export default function Loading() {
   return (
-    <div className="p-3 grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+    <div className="p-3 grid grid-cols-1 lg:grid-cols-2 lg:gap-y-2 lg:gap-x-8">
+      <div
+        role="status"
+        className="animate-pulse hidden lg:block lg:col-span-2"
+      >
+        <div className="h-4 rounded-full bg-gray-900 w-60"></div>
+      </div>
       <section>
         <div
           role="status"
@@ -30,10 +36,10 @@ export default function Loading() {
           <div className="h-8 rounded-full bg-gray-900 w-48 mb-2"></div>
           <div className="h-4 rounded-full bg-gray-900 w-24 mb-4"></div>
 
-          <div className="flex flex-row items-center justify-center mb-2">
-            <div className="rounded-full bg-gray-900 w-16 h-16 mx-2" />
-            <div className="rounded-full bg-gray-900 w-16 h-16 mx-2" />
-            <div className="rounded-full bg-gray-900 w-16 h-16 mx-2" />
+          <div className="flex flex-row items-center justify-center lg:justify-start mb-2">
+            <div className="rounded-full bg-gray-900 w-14 h-14 mx-2" />
+            <div className="rounded-full bg-gray-900 w-14 h-14 mx-2" />
+            <div className="rounded-full bg-gray-900 w-14 h-14 mx-2" />
           </div>
 
           <div className="h-4 rounded-full bg-gray-900 w-16 mb-1"></div>

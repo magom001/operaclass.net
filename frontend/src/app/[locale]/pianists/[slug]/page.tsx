@@ -4,7 +4,7 @@ import {
   unstable_setRequestLocale,
 } from "next-intl/server";
 import { PageParams } from "../../layout";
-import { getPianistById, getPianistBySlug } from "@/services/pianists";
+import { getPianistBySlug } from "@/services/pianists";
 import { BioViewer } from "./BioViewer";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { ContactInfo } from "./ContactInfo";
@@ -73,7 +73,9 @@ export default async function Page({
             <h1 className="text-3xl antialiased font-bold">
               {pianist.fullName}
             </h1>
-            <p className="text-sm font-thin antialiased">{pianist.city}</p>
+            <p className="text-sm font-thin antialiased">
+              {[pianist.city, pianist.country].filter(Boolean).join(", ")}
+            </p>
           </div>
           <div className="h-3 bg-gradient-to-b from-white to-transparent" />
         </div>

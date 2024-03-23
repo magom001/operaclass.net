@@ -42,7 +42,20 @@ export default factories.createCoreController(
 
       const entity = await strapi.db.query("api::profile.profile").findOne({
         where: { slug, locale },
-        populate: true,
+        populate: {
+          speaks: true,
+          reads: true,
+          phonetics: true,
+          experiences: true,
+          goals: true,
+          contacts: true,
+          recommendations: true,
+          profileTypes: true,
+          city: {
+            populate: ["country"],
+          },
+          videos: true,
+        },
       });
 
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
