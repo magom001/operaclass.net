@@ -9,6 +9,7 @@ import {
 } from "next-intl";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export async function generateMetadata({
   params: { locale },
@@ -53,6 +54,7 @@ export default function LocaleLayout({
         </main>
         <Footer />
       </body>
+      <GoogleAnalytics gaId="G-CSF32HY45N" />
     </html>
   );
 }
