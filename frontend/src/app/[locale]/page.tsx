@@ -14,6 +14,7 @@ import { FounderPage, getFounderPage } from "@/services/founder-page";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
+export const dynamic = "force-dynamic";
 export const revalidate = 3600;
 
 export default async function Page({ params: { locale } }: PageParams) {
