@@ -55,8 +55,6 @@ export function Filters({
     onApplyFilters?.();
   }
 
-  console.log("xxx", allProfileTypes);
-
   return (
     <div className={`h-full grid grid-rows-[1fr_auto] ${className}`}>
       <div className="overflow-y-auto">

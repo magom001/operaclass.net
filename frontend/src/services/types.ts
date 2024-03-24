@@ -168,3 +168,30 @@ export interface ProfilePreview {
   sex?: "m" | "f";
   previewVideo?: VideoLinkType;
 }
+
+interface StrapiMediaFormatType {
+  ext: string;
+  url: string;
+  mime: string;
+  width: number;
+  height: number;
+}
+
+export interface StrapiMediaType {
+  id: number;
+  attributes: {
+    name: string;
+    alternativeText?: string;
+    caption?: string;
+    width: number;
+    height: number;
+    url: string;
+    previewUrl?: string;
+    formats: {
+      large?: StrapiMediaFormatType;
+      medium?: StrapiMediaFormatType;
+      small?: StrapiMediaFormatType;
+      thumbnail?: StrapiMediaFormatType;
+    };
+  };
+}

@@ -31,52 +31,73 @@ group by
 	strapi.cities.name
 )
  */
-export default factories.createCoreController(
-  "api::profile.profile",
-  ({ strapi }) => ({
-    async findBySlug(ctx) {
-      await this.validateQuery(ctx);
-      const sanitizedQueryParams = await this.sanitizeQuery(ctx);
-      const { locale } = sanitizedQueryParams;
-      const { slug } = ctx.params;
+const MODEL = "api::profile.profile";
+export default factories.createCoreController(MODEL, ({ strapi }) => ({
+  async findBySlug(ctx) {
+    await this.validateQuery(ctx);
+    const sanitizedQueryParams = await this.sanitizeQuery(ctx);
+    const { locale } = sanitizedQueryParams;
+    const { slug } = ctx.params;
 
-      const entity = await strapi.db.query("api::profile.profile").findOne({
-        where: { slug, locale },
-        populate: {
-          speaks: true,
-          reads: true,
-          phonetics: true,
-          experiences: true,
-          goals: true,
-          contacts: true,
-          recommendations: true,
-          profileTypes: true,
-          city: {
-            populate: ["country"],
-          },
-          videos: true,
+    const entity = await strapi.db.query(MODEL).findOne({
+      where: { slug, locale },
+      populate: {
+        speaks: true,
+        reads: true,
+        phonetics: true,
+        experiences: true,
+        goals: true,
+        contacts: true,
+        recommendations: true,
+        profileTypes: true,
+        city: {
+          populate: ["country"],
         },
-      });
+        pictures: {
+          populate: true,
+        },
+        videos: {
+          populate: true,
+        },
+      },
+    });
 
-      const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
+    const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
-      return this.transformResponse(sanitizedEntity);
-    },
-    async getRandom(ctx) {
-      await this.validateQuery(ctx);
-      const sanitizedQueryParams = await this.sanitizeQuery(ctx);
-      const { locale, rating = 0, profile } = sanitizedQueryParams;
+    return this.transformResponse(sanitizedEntity);
+  },
+  async getRandom(ctx) {
+    await this.validateQuery(ctx);
+    const sanitizedQueryParams = await this.sanitizeQuery(ctx);
+    const { locale, rating = 0, limit = 1 } = sanitizedQueryParams;
 
-      const randomRecords = await strapi.db.connection
-        .withSchema(process.env.DATABASE_SCHEMA ?? "public")
-        .from("profiles_by_type_with_videos")
-        .select("*")
-        .orderByRaw("RANDOM()")
-        .limit(1)
-        .where({ locale, code: profile })
-        .andWhere("rating", ">=", rating as string);
+    const ids: { id: number }[] = await strapi.db.connection
+      .withSchema(process.env.DATABASE_SCHEMA ?? "public")
+      .from(strapi.getModel(MODEL).collectionName)
+      .select("id")
+      .orderByRaw("RANDOM()")
+      .limit(limit as number)
+      .where({ locale })
+      .andWhere("rating", ">=", rating as number);
 
-      return randomRecords;
-    },
-  })
-);
+    const profiles = await strapi.db.query(MODEL).findMany({
+      where: {
+        id: ids.map(({ id }) => id),
+      },
+      populate: {
+        profileTypes: true,
+        pictures: {
+          populate: true,
+        },
+        videos: {
+          populate: true,
+        },
+        city: {
+          populate: ["country"],
+        },
+      },
+    });
+
+    return profiles;
+  },
+}));
