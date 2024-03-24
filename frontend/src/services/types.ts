@@ -58,6 +58,16 @@ export interface CollectionType<T> {
   }[];
 }
 
+export interface CodeNameType {
+  name: string;
+  code: string;
+}
+
+export interface CodeNameResponseType {
+  id: number;
+  attributes: CodeNameType;
+}
+
 export interface CityType {
   name: string;
   code: string;

@@ -9,8 +9,10 @@ import { useTranslations } from "next-intl";
 import { HTMLAttributes, useEffect, useReducer, useRef } from "react";
 import { useFilters } from "./hooks";
 import { Goal } from "@/services/goals";
+import { CodeNameType } from "@/services/types";
 
 interface Props {
+  profileTypes?: CodeNameType[];
   cities?: City[];
   languages?: Language[];
   experiences?: Experience[];
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export function Filters({
+  profileTypes: allProfileTypes,
   cities: allCities,
   languages: allLanguages,
   experiences: allExperiences,
@@ -28,6 +31,8 @@ export function Filters({
   className,
 }: Props) {
   const {
+    profileType,
+    setProfileType,
     cities,
     toggleCity,
     speaks,
@@ -50,10 +55,50 @@ export function Filters({
     onApplyFilters?.();
   }
 
+  console.log("xxx", allProfileTypes);
+
   return (
     <div className={`h-full grid grid-rows-[1fr_auto] ${className}`}>
       <div className="overflow-y-auto">
         <div className="p-4 grid grid-flow-row gap-y-4">
+          {/* Profile type section */}
+          {allProfileTypes?.length ? (
+            <div>
+              <h2 className="capitalize font-thin antialiased mb-1">
+                {t("Filters.profile-type")}
+              </h2>
+              <ul className="flex flex-row flex-wrap gap-1.5">
+                <li>
+                  <button
+                    role="button"
+                    onClick={resetFilter.bind(null, "profileType")}
+                    className="capitalize"
+                  >
+                    <Chip active={!profileType.length}>{t("Common.all")}</Chip>
+                  </button>
+                </li>
+                {allProfileTypes.map((x) => (
+                  <li key={x.code}>
+                    <button
+                      key={x.code}
+                      role="button"
+                      onClick={() => {
+                        setProfileType(x.code);
+                      }}
+                    >
+                      <Chip
+                        active={profileType.includes(x.code)}
+                        className="first-letter:capitalize"
+                      >
+                        {x.name}
+                      </Chip>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
           {/* City section */}
           {allCities && allCities.length > 0 && (
             <div>
@@ -251,6 +296,7 @@ export function Filters({
 }
 
 export function FiltersMobile({
+  profileTypes: allProfileTypes,
   cities: allCities,
   languages: allLanguages,
   experiences: allExperiences,
@@ -276,6 +322,7 @@ export function FiltersMobile({
       }
     >
       <Filters
+        profileTypes={allProfileTypes}
         cities={allCities}
         experiences={allExperiences}
         goals={allGoals}

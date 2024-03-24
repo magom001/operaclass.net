@@ -22,6 +22,7 @@
         "title": "Наши друзья"
     },
     "Filters": {
+        "profile-type": "тип профиля",
         "city": "город",
         "open-filters": "открыть фильтры",
         "fluently-speak": "свободно говорю",

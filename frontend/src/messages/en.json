@@ -22,6 +22,7 @@
         "title": "Our friends"
     },
     "Filters": {
+        "profile-type": "profile type",
         "city": "city",
         "open-filters": "open filters",
         "fluently-speak": "fluently speak",

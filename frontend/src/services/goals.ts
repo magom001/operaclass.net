@@ -1,5 +1,6 @@
 import { Locale } from "@/i18n";
-import { Response, host, token } from "./config";
+import { host, token } from "./config";
+import { ResponseType } from "./types";
 
 export interface Goal {
   name: string;
@@ -25,7 +26,7 @@ export async function getGoals(locale: Locale): Promise<Goal[]> {
     }
   );
 
-  const data: Response<ResponseData> = await response.json();
+  const data: ResponseType<ResponseData> = await response.json();
 
   return data.data.map((city) => ({
     name: city.attributes.name,

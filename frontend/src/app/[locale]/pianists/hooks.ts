@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useReducer } from "react";
 
 interface State {
+  profileType: string[];
   cities: string[];
   experiences: string[];
   speaks: string[];
@@ -22,7 +23,13 @@ interface ActionReset {
   key?: keyof State;
 }
 
-type Action = ActionToggle | ActionReset;
+interface ActionSet {
+  type: "set";
+  key: keyof State;
+  value: string;
+}
+
+type Action = ActionToggle | ActionReset | ActionSet;
 
 function reducer(state: State, action: Action) {
   if (action.type === "reset") {
@@ -31,12 +38,17 @@ function reducer(state: State, action: Action) {
     }
 
     return {
+      profileType: [],
       cities: [],
       experiences: [],
       speaks: [],
       reads: [],
       goals: [],
-    };
+    } satisfies State;
+  }
+
+  if (action.type === "set") {
+    return { ...state, [action.key]: [action.value] };
   }
 
   if (state[action.key].includes(action.payload)) {
@@ -55,13 +67,19 @@ export function useFilters() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
 
-  const [state, dispatch] = useReducer(reducer, {}, () => ({
-    cities: searchParams.getAll("city"),
-    experiences: searchParams.getAll("experience"),
-    speaks: searchParams.getAll("speaks"),
-    reads: searchParams.getAll("reads"),
-    goals: searchParams.getAll("goal"),
-  }));
+  const [state, dispatch] = useReducer(
+    reducer,
+    {},
+    () =>
+      ({
+        profileType: [searchParams.get("profileType") || ""].filter(Boolean),
+        cities: searchParams.getAll("city"),
+        experiences: searchParams.getAll("experience"),
+        speaks: searchParams.getAll("speaks"),
+        reads: searchParams.getAll("reads"),
+        goals: searchParams.getAll("goal"),
+      } satisfies State)
+  );
 
   const toggleCity = useCallback(
     (city: string) => {
@@ -98,6 +116,13 @@ export function useFilters() {
     [dispatch]
   );
 
+  const setProfileType = useCallback(
+    (value: string) => {
+      dispatch({ key: "profileType", type: "set", value });
+    },
+    [dispatch]
+  );
+
   const resetFilters = useCallback(() => {
     dispatch({ type: "reset" });
   }, [dispatch]);
@@ -112,11 +137,16 @@ export function useFilters() {
   function applyFilters() {
     const params = new URLSearchParams(searchParams);
 
+    params.delete("profileType");
     params.delete("city");
     params.delete("speaks");
     params.delete("reads");
     params.delete("experience");
     params.delete("goal");
+
+    if (state.profileType.length) {
+      params.set("profileType", state.profileType[0]);
+    }
 
     for (const city of state.cities) {
       params.append("city", city);
@@ -142,6 +172,7 @@ export function useFilters() {
   }
 
   return {
+    profileType: state.profileType,
     cities: state.cities,
     experiences: state.experiences,
     speaks: state.speaks,
@@ -155,5 +186,6 @@ export function useFilters() {
     applyFilters,
     resetFilters,
     resetFilter,
+    setProfileType,
   };
 }
