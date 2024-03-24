@@ -116,6 +116,6 @@ export default {
       "profiles_slug_locale_unique"
     );
 
-    await createProfilesView(knex);
+    // await createProfilesView(knex);
   },
 };

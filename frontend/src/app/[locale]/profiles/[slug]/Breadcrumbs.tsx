@@ -3,6 +3,7 @@
 import { Link, useRouter } from "@/i18n";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { HTMLAttributes } from "react";
 
 export function Breadcrumbs({
@@ -14,6 +15,7 @@ export function Breadcrumbs({
 }) {
   const { back } = useRouter();
   const t = useTranslations();
+  const params = useSearchParams();
 
   return (
     <div className={` ${className}`}>
@@ -38,13 +40,23 @@ export function Breadcrumbs({
           <li>
             <div className="flex items-center">
               <ChevronRightIcon className="w-3 h-3 text-gray-400" />
-              <button
-                onClick={back}
-                title={t("Common.back")}
-                className="ms-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ms-2 first-letter:capitalize"
-              >
-                {t("Header.pianists")}
-              </button>
+              {params.has("q") ? (
+                <button
+                  type="button"
+                  onClick={back}
+                  title={t("Common.back")}
+                  className="ms-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ms-2 first-letter:capitalize"
+                >
+                  {t("Profiles.profiles")}
+                </button>
+              ) : (
+                <Link
+                  href="/profiles/"
+                  className="ms-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ms-2 first-letter:capitalize"
+                >
+                  {t("Profiles.profiles")}
+                </Link>
+              )}
             </div>
           </li>
           <li aria-current="page">

@@ -1,10 +1,8 @@
-import qs from "qs";
+import type { DynamicZoneBlock } from "@/components/DynamicZoneRenderer";
 import { Locale } from "@/i18n";
+import qs from "qs";
 import { host, token } from "./config";
-import type {
-  DynamicZoneBlock,
-  StrapiMediaType,
-} from "@/components/DynamicZoneRenderer";
+import { StrapiMediaType } from "./types";
 
 export interface FounderPage {
   title?: string;

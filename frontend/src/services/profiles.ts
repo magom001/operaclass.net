@@ -1,27 +1,38 @@
 import qs from "qs";
 import { Locale } from "@/i18n";
 import { host, token } from "./config";
-import { ProfilePreview, VideoLinkType } from "./types";
+import {
+  CityType,
+  ProfileTypeType,
+  StrapiMediaType,
+  VideoLinkType,
+} from "./types";
 
-interface RandomProfileType {
+export interface RandomProfileType {
   id: number;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   slug: string;
-  city?: string;
-  country?: string;
-  videos?: string;
-  sex?: "m" | "f";
+  sex: "m" | "f";
+  videos?: VideoLinkType[];
+  profileTypes?: ProfileTypeType[];
+  city?: {
+    name: string;
+    country?: {
+      name: string;
+    };
+  };
+  pictures?: StrapiMediaType["attributes"][];
 }
-
 interface Params {
   locale: Locale;
   rating: number;
   profile: "pianist" | "vocal-coach";
+  limit?: number;
 }
-export async function getRandomProfile(
+export async function getRandomProfiles(
   params: Params
-): Promise<ProfilePreview | undefined> {
+): Promise<RandomProfileType[]> {
   const query = qs.stringify(params);
   const response = await fetch(`${host}/api/profiles/random/record/?${query}`, {
     headers: {
@@ -32,20 +43,5 @@ export async function getRandomProfile(
 
   const result: RandomProfileType[] = await response.json();
 
-  return result
-    .map((x) => {
-      const previews = JSON.parse(x.videos ?? "[]") as VideoLinkType[];
-      const previewVideo = previews.at(0);
-
-      return {
-        id: x.id,
-        fullName: `${x.first_name} ${x.last_name}`,
-        slug: x.slug,
-        city: x.city,
-        country: x.country,
-        sex: x.sex,
-        previewVideo,
-      } satisfies ProfilePreview;
-    })
-    .at(0);
+  return result;
 }

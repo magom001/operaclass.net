@@ -14,7 +14,8 @@
         "not-found": "не найдено"
     },
     "Main": {
-        "slogan": "Идеи для тех, кто посвятил себя опере"
+        "slogan": "Идеи для тех, кто посвятил себя опере",
+        "meet-founder": "Познакомьтесь с основателем проекта"
     },
     "OurFriends": {
         "floating-opera": "Плавучая Опера",
@@ -22,6 +23,7 @@
         "title": "Наши друзья"
     },
     "Filters": {
+        "profile-type": "тип профиля",
         "city": "город",
         "open-filters": "открыть фильтры",
         "fluently-speak": "свободно говорю",
@@ -37,7 +39,8 @@
         "goals": "цели",
         "recommendations": "рекомендации"
     },
-    "Pianists": {
+    "Profiles": {
+        "profiles": "профили",
         "no-profiles-found": "Профили не найдены"
     },
     "Header": {

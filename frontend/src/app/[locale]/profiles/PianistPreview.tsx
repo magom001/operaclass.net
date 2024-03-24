@@ -5,15 +5,19 @@ import type {} from "@/services/pianists";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
 import { ProfilePreview } from "@/services/types";
+import qs from "qs";
 import female_fallback from "./fallback-female.jpeg";
 import male_fallback from "./fallback-male.jpeg";
 
 interface Props {
   pianist: ProfilePreview;
+  q?: boolean;
 }
 export function PianistPreview({
   pianist: { slug, fullName, city, country, previewVideo, sex },
+  q,
 }: Props) {
+  const query = qs.stringify(q ? { q: true } : {}, { addQueryPrefix: true });
   return (
     <div className="w-full p-4 py-6 rounded-lg hover:shadow-xl transition-shadow shadow flex flex-col justify-between">
       {previewVideo ? (
@@ -33,7 +37,7 @@ export function PianistPreview({
         />
       )}
       <Link
-        href={`/pianists/${slug}/`}
+        href={`/profiles/${slug}/${query}`}
         className="grid grid-cols-[1fr_auto] grid-rows-1 pt-2 text-gray-950 items-center"
       >
         <div className="flex flex-col">

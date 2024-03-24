@@ -10,6 +10,7 @@ import {
 } from "./types";
 
 export interface SearchParams {
+  profileType?: string;
   city?: string | string[];
   speaks?: string | string[];
   reads?: string | string[];
@@ -32,8 +33,12 @@ export async function getPianistsPreview(
     reads = [],
     experience = [],
     goal = [],
+    profileType,
   } = searchParams;
   const { page = 1 } = pagination;
+
+  const profileTypeFilter =
+    (Array.isArray(profileType) ? profileType.at(0) : profileType) || undefined;
 
   const spokenLanguagesFilter = (Array.isArray(speaks) ? speaks : [speaks]).map(
     (alpha2) => ({
@@ -93,7 +98,7 @@ export async function getPianistsPreview(
       filters: {
         profileTypes: {
           code: {
-            $eq: "pianist",
+            $eq: profileTypeFilter,
           },
         },
         city: {

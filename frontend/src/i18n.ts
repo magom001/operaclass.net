@@ -7,7 +7,7 @@ export const locales = ["en", "ru"] as const;
 export const localePrefix = "always";
 export type Locale = (typeof locales)[number];
 
-export const { Link, redirect, usePathname, useRouter } =
+export const { Link, redirect, permanentRedirect, usePathname, useRouter } =
   createSharedPathnamesNavigation({ locales, localePrefix });
 
 export default getRequestConfig(async ({ locale }) => {

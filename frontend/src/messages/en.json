@@ -14,7 +14,8 @@
         "not-found": "Not found"
     },
     "Main": {
-        "slogan": "Ideas and inspiration for those who devote themselves to opera."
+        "slogan": "Ideas and inspiration for those who devote themselves to opera.",
+        "meet-founder": "Meet the project's founder"
     },
     "OurFriends": {
         "floating-opera": "Floating Opera",
@@ -22,6 +23,7 @@
         "title": "Our friends"
     },
     "Filters": {
+        "profile-type": "profile type",
         "city": "city",
         "open-filters": "open filters",
         "fluently-speak": "fluently speak",
@@ -37,7 +39,8 @@
         "goals": "goals",
         "recommendations": "recommendations"
     },
-    "Pianists": {
+    "Profiles": {
+        "profiles": "profiles",
         "no-profiles-found": "No profiles found"
     },
     "Header": {

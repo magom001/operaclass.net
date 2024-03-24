@@ -58,6 +58,16 @@ export interface CollectionType<T> {
   }[];
 }
 
+export interface CodeNameType {
+  name: string;
+  code: string;
+}
+
+export interface CodeNameResponseType {
+  id: number;
+  attributes: CodeNameType;
+}
+
 export interface CityType {
   name: string;
   code: string;
@@ -157,4 +167,31 @@ export interface ProfilePreview {
   country?: string;
   sex?: "m" | "f";
   previewVideo?: VideoLinkType;
+}
+
+interface StrapiMediaFormatType {
+  ext: string;
+  url: string;
+  mime: string;
+  width: number;
+  height: number;
+}
+
+export interface StrapiMediaType {
+  id: number;
+  attributes: {
+    name: string;
+    alternativeText?: string;
+    caption?: string;
+    width: number;
+    height: number;
+    url: string;
+    previewUrl?: string;
+    formats: {
+      large?: StrapiMediaFormatType;
+      medium?: StrapiMediaFormatType;
+      small?: StrapiMediaFormatType;
+      thumbnail?: StrapiMediaFormatType;
+    };
+  };
 }
