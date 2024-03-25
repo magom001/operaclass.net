@@ -7,6 +7,7 @@ import {
   ProfileType,
   ContactInfoType,
   ProfilePreview,
+  ProfileTypeType,
 } from "./types";
 
 export interface SearchParams {
@@ -168,6 +169,7 @@ interface Pianist {
   previewVideo: null | {
     url: string;
   };
+  profileTypes?: ProfileTypeType[];
   contacts?: ContactInfoType[];
 }
 
@@ -207,6 +209,10 @@ export async function getPianistBySlug(
     contacts: data.attributes.contacts?.map((c) => ({
       type: c.type,
       data: c.data,
+    })),
+    profileTypes: data.attributes.profileTypes?.data?.map((pt) => ({
+      name: pt.attributes.name,
+      code: pt.attributes.code,
     })),
   };
 }

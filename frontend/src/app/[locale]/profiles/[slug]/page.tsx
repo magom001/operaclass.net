@@ -73,6 +73,7 @@ export default async function Page({
             <h1 className="text-3xl antialiased font-bold">
               {pianist.fullName}
             </h1>
+            <p>{pianist.profileTypes?.map((type) => type.name).join(", ")}</p>
             <p className="text-sm font-thin antialiased">
               {[pianist.city, pianist.country].filter(Boolean).join(", ")}
             </p>

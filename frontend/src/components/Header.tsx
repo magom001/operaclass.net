@@ -6,7 +6,7 @@ import { useReducer } from "react";
 import LanguageSwitcher from "../app/LanguageSwitcher";
 
 const paths = [
-  { href: "/pianists/", label: "pianists" },
+  { href: "/profiles/", label: "profiles" },
   // { href: "/news/", label: "news" },
   { href: "/join-us/", label: "join-us" },
   // { href: "/donate/", label: "donate" },
@@ -32,7 +32,9 @@ export default function Header() {
               <li key={href}>
                 <Link
                   href={href}
-                  className={`${p.startsWith(href) ? "font-bold" : ""}`}
+                  className={`first-letter:capitalize ${
+                    p.startsWith(href) ? "font-bold" : ""
+                  }`}
                 >
                   {t(label)}
                 </Link>

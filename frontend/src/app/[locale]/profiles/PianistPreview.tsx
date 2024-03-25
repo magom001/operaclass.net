@@ -19,7 +19,7 @@ export function PianistPreview({
 }: Props) {
   const query = qs.stringify(q ? { q: true } : {}, { addQueryPrefix: true });
   return (
-    <div className="w-full p-4 py-6 rounded-lg hover:shadow-xl transition-shadow shadow flex flex-col justify-between">
+    <div className="w-full p-4 py-6 rounded-lg hover:shadow-md transition-shadow shadow flex flex-col justify-between">
       {previewVideo ? (
         <iframe
           title="Pianist preview video"

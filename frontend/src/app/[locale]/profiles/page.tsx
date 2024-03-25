@@ -58,7 +58,7 @@ export default async function Page({
             experiences={experiences}
             goals={goals}
             languages={languages}
-            className="sticky top-[var(--header-height)] max-h-[calc(100vh-var(--header-height)-var(--footer-height))] transition-all"
+            className="sticky top-[var(--header-height)] max-h-[calc(100dvh-var(--header-height)-var(--footer-height))] transition-all"
           />
         </aside>
         <FiltersMobile

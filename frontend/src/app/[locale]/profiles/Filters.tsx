@@ -275,7 +275,7 @@ export function Filters({
       <div className="flex items-center space-x-2 justify-center p-4">
         <button
           role="button"
-          className="bg-gray-100 text-gray-800 antialiased rounded-full px-4 py-1 capitalize"
+          className="bg-gray-100 text-gray-800 antialiased rounded-full shadow-sm hover:shadow-md px-4 py-1 capitalize hover:scale-[1.05] opacity-80 hover:opacity-100 transition-all"
           onClick={resetFilters}
         >
           {t("Common.reset")}
@@ -284,7 +284,7 @@ export function Filters({
           role="button"
           title={t("Common.apply")}
           onClick={handleSearch}
-          className="bg-gray-800 text-gray-100 antialiased rounded-full px-4 py-1 capitalize"
+          className="bg-gray-800 text-gray-100 antialiased rounded-full px-4 py-1 capitalize hover:scale-[1.05] shadow-sm hover:shadow-md transition-all"
         >
           {t("Common.apply")}
         </button>
@@ -362,7 +362,7 @@ export function FiltersModal({
         className="fixed inset-0 backdrop-blur-sm bg-transparent z-30"
         hidden={!opened}
       />
-      <dialog className="h-svh w-svw rounded-md z-50" ref={dialogRef}>
+      <dialog className="h-dvh w-dvw rounded-md z-50" ref={dialogRef}>
         <div className="fixed top-4 right-6 flex h-12 justify-end pr-2 float-right">
           <button
             onClick={toggleOpened}

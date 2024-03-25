@@ -12,7 +12,6 @@ import { FallbackImage } from "@/components/FallbackImage";
 import { HTMLAttributes } from "react";
 import { FounderPage, getFounderPage } from "@/services/founder-page";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 3600;
@@ -41,25 +40,26 @@ export default async function Page({ params: { locale } }: PageParams) {
           src={bannerImage}
           alt="banner"
         />
-        <div className="px-8 md:px-16 pt-24 md:pt-20 pb-16 md:pb-12 text-white absolute flex flex-col justify-between items-start inset-0 bg-gradient-to-b from-transparent to-gray-950">
+        <div className="px-8 md:px-16 pt-24 md:pt-20 pb-16 md:pb-12 text-white absolute flex flex-col justify-between items-start inset-0 bg-gradient-to-b from-transparent to-neutral-950">
           <div className="drop-shadow-xl">
             <h1 className="text-3xl font-bold">OperaClass.net</h1>
             <p>{t("Main.slogan")}</p>
           </div>
           <Link
             href="/pianists/"
-            className="capitalize text-lg border rounded-full px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
+            className="capitalize text-lg border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
           >
             {t("Header.pianists")}
           </Link>
         </div>
       </div>
       {randomProfiles.map((x, i) => (
-        <RandomProfilePreview
-          key={x.id}
-          profile={x}
-          style={{ order: `${(i + 1) * 2}` }}
-        />
+        <NextIntlClientProvider key={x.id} messages={messages}>
+          <RandomProfilePreview
+            profile={x}
+            style={{ order: `${(i + 1) * 2}` }}
+          />
+        </NextIntlClientProvider>
       ))}
       {founderPage && (
         <div className="aspect-square order-3 col-span-1 md:col-span-2 md:aspect-[2/1] lg:order-5">
@@ -86,6 +86,7 @@ function RandomProfilePreview({
   className?: string;
   style?: HTMLAttributes<HTMLDivElement>["style"];
 }) {
+  const t = useTranslations();
   const profileTypeString = profile.profileTypes?.map((x) => x.name).join(", ");
 
   return (
@@ -93,32 +94,30 @@ function RandomProfilePreview({
       <div className="w-full h-full grayscale">
         <MediaPreview profile={profile} />
       </div>
-      <div className="absolute inset-0 flex flex-col justify-between p-4 pb-8">
+      <Link
+        href={`/profiles/${profile.slug}`}
+        className="text-gray-100 antialiased absolute inset-0 flex flex-col justify-between hover:from-neutral-900 transition-all px-6 py-8 md:px-12 md:py-8 bg-gradient-to-b from-neutral-950 to-transparent"
+      >
         <div>
-          <h1 className="text-3xl font-bold text-white mix-blend-difference">
-            {profile.firstName} {profile.lastName}
+          <h1 className="text-3xl font-bold drop-shadow-lg">
+            {`${profile.firstName} ${profile.lastName}`}
           </h1>
           <p
             title={profileTypeString}
-            className="text-white text-sm mb-2 mix-blend-difference text-nowrap text-ellipsis overflow-hidden italic"
+            className="text-sm mb-2 text-nowrap text-ellipsis overflow-hidden italic drop-shadow-lg"
           >
             {profileTypeString}
           </p>
-          <p className="text-white drop-shadow-lg mix-blend-difference">
+          <p className="drop-shadow-lg">
             {[profile.city?.name, profile.city?.country?.name]
               .filter(Boolean)
               .join(", ")}
           </p>
         </div>
-        <div>
-          <Link
-            href={`/profiles/${profile.slug}/`}
-            className="text-white border rounded-full px-4 py-2 mix-blend-difference"
-          >
-            View profile
-          </Link>
+        <div className="text-lg text-right text-neutral-900 px-4 py-2 font-bold first-letter:capitalize drop-shadow-lg rounded-md self-end bg-neutral-100 opacity-80 shadow-md">
+          {t("Main.view-profile")}&raquo;
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
@@ -146,15 +145,16 @@ function MediaPreview({ profile }: { profile: RandomProfileType }) {
 function JoinOurCommunityBlock() {
   const t = useTranslations();
   return (
-    <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-      <Link
-        href="/join-us/"
-        className="p-2 flex flex-col justify-center items-center"
-      >
-        <h2 className="text-2xl capitalize pb-2">{t("Header.join-us")}</h2>
-        <ChevronDoubleRightIcon className="w-4 h-4" />
-      </Link>
-    </div>
+    <Link
+      href="/join-us"
+      className="w-full h-full flex items-center justify-center text-neutral-900 bg-gradient-to-br from-gray-100 to-neutral-400 group"
+    >
+      <span className="p-8 flex flex-col justify-center items-center group-hover:scale-[1.05] transition-all">
+        <h2 className="text-xl capitalize drop-shadow-2xl font-bold">
+          {t("Header.join-us")} &raquo;
+        </h2>
+      </span>
+    </Link>
   );
 }
 
@@ -176,20 +176,18 @@ function FounderBlock({ data }: { data: FounderPage }) {
         height={profilePicture.attributes.height}
         className="w-full h-full grayscale object-cover transition-opacity"
       />
-      <div className="absolute inset-0 p-4 flex flex-col items-center justify-center drop-shadow-2xl">
-        <Link
-          href="/rebekkamagomedova/"
-          className="flex flex-col items-center justify-center"
-        >
-          <h3 className="text-sm md:text-lg text-white">
-            {t("Main.meet-founder")}
+      <Link
+        href="/rebekkamagomedova/"
+        className="flex flex-col items-start justify-between absolute inset-0 px-6 py-8 md:px-12 md:py-8 drop-shadow-2xl"
+      >
+        <div className="text-gray-100 antialiased">
+          <h3 className="text-sm md:text-lg mb-3">
+            {t("Main.meet-founder")}&raquo;
           </h3>
-          <h2 className="text-2xl md:text-3xl font-bold text-white">
-            {data.title}
-          </h2>
-          <ChevronDoubleRightIcon className="text-white w-4 h-4" />
-        </Link>
-      </div>
+          <h2 className="text-2xl md:text-4xl font-bold">{data.title}</h2>
+          <p className="italic first-letter:capitalize">{data.subtitle}</p>
+        </div>
+      </Link>
     </div>
   );
 }
