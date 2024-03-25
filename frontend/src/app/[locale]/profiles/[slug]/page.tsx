@@ -9,6 +9,8 @@ import { BioViewer } from "./BioViewer";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { ContactInfo } from "./ContactInfo";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { ShareButton } from "./ShareButton";
+import Image from "next/image";
 
 interface PageProps {
   slug: string;
@@ -40,6 +42,11 @@ export default async function Page({
     );
   }
 
+  const picture = pianist.pictures.at(0);
+  const profileTypesString = pianist.profileTypes
+    ?.map((type) => type.name)
+    .join(", ");
+
   return (
     <article className="p-3 font-light text-sm relative grid grid-cols-1 lg:grid-cols-2 gap-y-2 lg:gap-x-8">
       <NextIntlClientProvider messages={messages}>
@@ -56,6 +63,15 @@ export default async function Page({
             src={`${pianist.previewVideo.url}?controls=1`}
           />
         ) : null}
+        {picture && !pianist.previewVideo?.url && (
+          <Image
+            className="rounded-full object-cover w-[90%] max-w-64 md:w-[50%] aspect-square mx-auto shadow-md my-4 mb-6"
+            src={picture.url}
+            width={picture.width}
+            height={picture.height}
+            alt={picture.name}
+          />
+        )}
         {pianist.bio && pianist.bio.length > 0 && (
           <div className="mb-3 hidden lg:block">
             <h3 className="first-letter:capitalize text-lg mb-1 font-semibold">
@@ -70,10 +86,14 @@ export default async function Page({
       <section>
         <div className="sticky lg:static top-[var(--header-height)] z-10">
           <div className="bg-white">
-            <h1 className="text-3xl antialiased font-bold">
+            <h1 className="text-3xl antialiased font-bold drop-shadow-lg flex items-center gap-2">
               {pianist.fullName}
+              <ShareButton
+                title={pianist.fullName}
+                text={`${pianist.fullName}\n\n${profileTypesString}\n\n`}
+              />
             </h1>
-            <p>{pianist.profileTypes?.map((type) => type.name).join(", ")}</p>
+            <p className="overflow-hidden italic">{profileTypesString}</p>
             <p className="text-sm font-thin antialiased">
               {[pianist.city, pianist.country].filter(Boolean).join(", ")}
             </p>
