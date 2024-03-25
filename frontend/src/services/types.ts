@@ -142,6 +142,7 @@ export interface ProfileType {
     profileTypes?: CollectionType<ProfileTypeType>;
     contacts?: ContactInfoType[];
     videos?: VideoLinkType[];
+    pictures?: { data: StrapiMediaType[] };
   };
 }
 

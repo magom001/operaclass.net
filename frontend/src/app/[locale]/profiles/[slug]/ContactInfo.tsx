@@ -1,4 +1,3 @@
-import type { ContactInfo as ContactInfoType } from "@/services/pianists";
 import { EnvelopeIcon, LinkIcon, PhoneIcon } from "@heroicons/react/24/solid";
 import vkIcon from "./images/vk.svg";
 import telegramIcon from "./images/telegram.svg";
@@ -6,6 +5,8 @@ import whatsappIcon from "./images/whatsapp.svg";
 import instagramIcon from "./images/instagram.svg";
 import linkedinIcon from "./images/linkedin.svg";
 import facebookIcon from "./images/facebook.svg";
+import { ContactInfoType } from "@/services/types";
+import Image from "next/image";
 
 export function ContactInfo({ contacts }: { contacts: ContactInfoType[] }) {
   return (
@@ -54,29 +55,29 @@ function getIcon(contact: ContactInfoType) {
     return <LinkIcon className="w-[36px] h-[36px]" />;
   }
 
-  let src = "";
+  let src;
   switch (contact.type) {
     case "telegram":
-      src = telegramIcon.src;
+      src = telegramIcon;
       break;
     case "whatsapp":
-      src = whatsappIcon.src;
+      src = whatsappIcon;
       break;
     case "instagram":
-      src = instagramIcon.src;
+      src = instagramIcon;
       break;
     case "linkedin":
-      src = linkedinIcon.src;
+      src = linkedinIcon;
       break;
     case "vk":
-      src = vkIcon.src;
+      src = vkIcon;
       break;
     case "facebook":
-      src = facebookIcon.src;
+      src = facebookIcon;
       break;
   }
 
-  return <img className="w-[36px] h-[36px]" src={src} alt="icon" />;
+  return <Image className="w-[36px] h-[36px]" src={src} alt="icon" />;
 }
 
 function ContactInfoEntry(contact: ContactInfoType) {

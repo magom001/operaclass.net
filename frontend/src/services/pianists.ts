@@ -8,6 +8,7 @@ import {
   ContactInfoType,
   ProfilePreview,
   ProfileTypeType,
+  StrapiMediaType,
 } from "./types";
 
 export interface SearchParams {
@@ -171,6 +172,7 @@ interface Pianist {
   };
   profileTypes?: ProfileTypeType[];
   contacts?: ContactInfoType[];
+  pictures: StrapiMediaType["attributes"][];
 }
 
 export async function getPianistBySlug(
@@ -214,5 +216,6 @@ export async function getPianistBySlug(
       name: pt.attributes.name,
       code: pt.attributes.code,
     })),
+    pictures: data.attributes.pictures?.data?.map((p) => p.attributes) ?? [],
   };
 }
