@@ -10,6 +10,7 @@ const paths = [
   // { href: "/news/", label: "news" },
   { href: "/join-us/", label: "join-us" },
   // { href: "/donate/", label: "donate" },
+  { href: "/feedback/", label: "feedback" },
 ];
 
 export default function Header() {
