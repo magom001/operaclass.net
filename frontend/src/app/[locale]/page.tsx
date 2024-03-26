@@ -40,17 +40,25 @@ export default async function Page({ params: { locale } }: PageParams) {
           src={bannerImage}
           alt="banner"
         />
-        <div className="px-8 md:px-16 pt-24 md:pt-20 pb-16 md:pb-12 text-white absolute flex flex-col justify-between items-start inset-0 bg-gradient-to-b from-transparent to-neutral-950">
+        <div className="px-8 md:px-16 pt-12 md:pt-20 pb-16 md:pb-12 text-white absolute flex flex-col justify-between items-start inset-0 bg-gradient-to-b from-transparent to-neutral-950">
           <div className="drop-shadow-xl">
             <h1 className="text-3xl font-bold">OperaClass.net</h1>
-            <p>{t("Main.slogan")}</p>
+            <p className="font-semibold">{t("Main.slogan")}</p>
           </div>
-          <Link
-            href="/pianists/"
-            className="capitalize text-lg border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
-          >
-            {t("Header.pianists")}
-          </Link>
+          <div className="grid grid-rows-2 lg:grid-rows-1 lg:grid-cols-2 gap-2">
+            <Link
+              href="/pianists/"
+              className="capitalize text-lg border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
+            >
+              {t("Main.pianists")}&raquo;
+            </Link>
+            <Link
+              href="/vocal-coaches/"
+              className="capitalize text-lg border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
+            >
+              {t("Main.vocal-coaches")}&raquo;
+            </Link>
+          </div>
         </div>
       </div>
       {randomProfiles.map((x, i) => (

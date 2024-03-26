@@ -16,7 +16,9 @@
     "Main": {
         "slogan": "Ideas and inspiration for those who devote themselves to opera.",
         "meet-founder": "Meet the project's founder",
-        "view-profile": "view profile"
+        "view-profile": "view profile",
+        "pianists": "pianists",
+        "vocal-coaches": "vocal coaches"
     },
     "OurFriends": {
         "floating-opera": "Floating Opera",
@@ -50,7 +52,8 @@
         "news": "news",
         "join-us": "join us",
         "donate": "donate",
-        "profiles": "profiles"
+        "profiles": "profiles",
+        "feedback": "feedback"
     },
     "JoinUs": {
         "title": "I want to join the community OperaClass.net",
@@ -65,5 +68,18 @@
         "support-us-description": "Currently, the project is completely volunteer. We need support, then we will be able to conduct masterclasses and publish more exclusive information.",
         "application-form": "application form",
         "contact-us": "contact us"
+    },
+    "Feedback": {
+        "title": "Feedback",
+        "name": "name",
+        "email": "email",
+        "message": "message",
+        "send": "send",
+        "sent": "you message is sent",
+        "failed": "failed to send message"
+    },
+    "Errors": {
+        "required": "required field",
+        "invalid-email": "invalid email"
     }
 }
