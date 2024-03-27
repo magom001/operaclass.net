@@ -36,7 +36,7 @@ export default async function Page({ params: { locale } }: PageParams) {
     <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <div className="relative col-span-1 aspect-square md:aspect-auto lg:col-span-2 shadow overflow-hidden -order-1">
         <Image
-          className="absolute inset-0 object-fit h-full grayscale object-cover"
+          className="absolute inset-0 object-fit h-full w-full grayscale object-cover"
           src={bannerImage}
           alt="banner"
         />
@@ -48,15 +48,15 @@ export default async function Page({ params: { locale } }: PageParams) {
           <div className="grid grid-rows-2 lg:grid-rows-1 lg:grid-cols-2 gap-2">
             <Link
               href="/pianists/"
-              className="capitalize text-lg border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
+              className="capitalize text-lg text-center border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
             >
-              {t("Main.pianists")}&raquo;
+              {t("Main.pianists")}
             </Link>
             <Link
               href="/vocal-coaches/"
-              className="capitalize text-lg border rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
+              className="capitalize text-lg border text-center rounded-md px-4 py-2 drop-shadow-xl hover:scale-[1.05] transition-transform"
             >
-              {t("Main.vocal-coaches")}&raquo;
+              {t("Main.vocal-coaches")}
             </Link>
           </div>
         </div>

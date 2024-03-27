@@ -11,11 +11,15 @@ interface Props {
 export function ShareButton({ title, text }: Props) {
   const [canShare, setCanShare] = useState(true);
   const onClick = useCallback(async () => {
-    await navigator.share({
-      title,
-      text,
-      url: window.location.href,
-    });
+    try {
+      await navigator.share({
+        title,
+        text,
+        url: window.location.href,
+      });
+    } catch (e) {
+      // ignore
+    }
   }, [title, text]);
 
   useEffect(() => {
