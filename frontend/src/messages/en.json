@@ -20,11 +20,6 @@
         "pianists": "pianists",
         "vocal-coaches": "coaches"
     },
-    "OurFriends": {
-        "floating-opera": "Floating Opera",
-        "art-of-opera": "Art of Opera",
-        "title": "Our friends"
-    },
     "Filters": {
         "profile-type": "profile type",
         "city": "city",
@@ -58,16 +53,28 @@
     "JoinUs": {
         "title": "I want to join the community OperaClass.net",
         "subtitle": "The goal of our project is to help young talented opera singers find their way to the stage.",
-        "for-students": "for students",
-        "for-teachers": "for teachers",
-        "for-media": "for media",
         "support-us": "support us",
-        "for-students-description": "We will publish training materials and conduct masterclasses. Leave information about yourself so that you don't miss anything.",
-        "for-teachers-description": "If you are a specialist and have something to share with young opera singers, please contact us. Stage movement, makeup art, acting skills, music theory and history - all of these are interesting.",
-        "for-media-description": "If you can help promote events in the media, write to us.",
-        "support-us-description": "Currently, the project is completely volunteer. We need support, then we will be able to conduct masterclasses and publish more exclusive information.",
-        "application-form": "application form",
-        "contact-us": "contact us"
+        "application-form": "fill out the form",
+        "contact-us": "contact us",
+        "for-pianists": "I am a pianist",
+        "for-pianists-form-url": "https://forms.gle/7886WL6f23BsQ1QK8",
+        "for-pianists-description": "If you are a pianist working with opera singers, helping them learn pieces, prepare for competitions, and performing with them on stage - become part of our community by posting your profile on our website.",
+        "for-coaches": "I am a coach",
+        "for-coaches-form-url": "https://forms.gle/QNJ4Xh4UdnkVoucw6",
+        "for-coaches-description": "If you are a teacher in vocal, vocal phonetics, solfège, piano, stage movement, acting, or body practices for musicians - become part of our community by posting your profile on our website.",
+        "tell-about-us": "Tell about us",
+        "contact-us-mailto": "mailto:workshop@operaclass.net",
+        "tell-about-us-description": "Tell your colleagues about us, share information on social networks. If you need additional information, contact us."
+    },
+    "OurFriends": {
+        "floating-opera": "Floating Opera",
+        "art-of-opera": "Art of Opera",
+        "title": "Our friends"
+    },
+    "SupportUs": {
+        "title": "support us",
+        "description": "This is a volunteer project. We need support to grow and expand our geography. Your contribution plays a pivotal role in bridging the gap between professionals and opera educators, creating a harmonious platform where aspiring singers can find their ideal pianist or teacher.",
+        "click-the-add": "click the advertisement <link>link</link>"
     },
     "Feedback": {
         "title": "Feedback",
@@ -81,5 +88,9 @@
     "Errors": {
         "required": "required field",
         "invalid-email": "invalid email"
+    },
+    "Completed": {
+        "title": "Thank you for your support!",
+        "text": "Thanks to your generosity, we are expanding the geography of our project, reaching out to talents and educators across the globe, and fostering connections that transcend borders. By supporting us, you are not only helping individuals find their musical counterparts but also nurturing the growth of the opera community at large. Thank you for being a key part of this exciting journey and for helping to orchestrate a brighter future for opera talents everywhere."
     }
 }
