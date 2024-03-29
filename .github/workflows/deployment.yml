@@ -59,3 +59,4 @@ jobs:
           build-args: |
             API_TOKEN=${{ secrets.BACKEND_API_TOKEN }}
             API_HOST=${{ secrets.API_HOST }}
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}

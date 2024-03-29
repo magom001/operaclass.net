@@ -9,6 +9,7 @@ import type { PageParams } from "../layout";
 import artOfOperaImage from "./images/art-of-opera.jpeg";
 import floatingOperaImage from "./images/floating-opera.jpeg";
 import paypalIcon from "./images/paypal.svg";
+import { AdsBlock } from "./AdsBlock";
 
 const Points = [
   [
@@ -111,20 +112,9 @@ function SupportUs() {
             height="50"
           />
         </div>
-        <p className="text-lg first-letter:capitalize md:col-span-2">
-          {t.rich("SupportUs.click-the-add", {
-            link: (x) => (
-              <a
-                className="text-blue-600 underline font-bold"
-                href="https://www.profitablegatecpm.com/sg83ixtq8?key=c569352ec07c76cd6e220da7dac30d33"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {x}
-              </a>
-            ),
-          })}
-        </p>
+        <div className="text-lg first-letter:capitalize md:col-span-2">
+          <AdsBlock />
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-name: Trigger auto deployment for samovar-api
+name: Trigger Docker images build
 
 # When this action will be executed
 on: pull_request
@@ -50,3 +50,4 @@ jobs:
           build-args: |
             API_TOKEN=${{ secrets.BACKEND_API_TOKEN }}
             API_HOST=${{ secrets.API_HOST }}
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
