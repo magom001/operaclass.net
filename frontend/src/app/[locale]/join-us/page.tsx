@@ -9,7 +9,6 @@ import type { PageParams } from "../layout";
 import artOfOperaImage from "./images/art-of-opera.jpeg";
 import floatingOperaImage from "./images/floating-opera.jpeg";
 import paypalIcon from "./images/paypal.svg";
-import { AdsBlock } from "./AdsBlock";
 
 const Points = [
   [
@@ -111,9 +110,6 @@ function SupportUs() {
             width="330"
             height="50"
           />
-        </div>
-        <div className="text-lg first-letter:capitalize md:col-span-2">
-          <AdsBlock />
         </div>
       </div>
     </section>

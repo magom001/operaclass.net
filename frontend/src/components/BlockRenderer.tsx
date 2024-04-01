@@ -1,3 +1,5 @@
+"use client";
+
 import { Block } from "@/services/types";
 
 export function BlockRenderer({ blocks }: { blocks: Block[] }) {

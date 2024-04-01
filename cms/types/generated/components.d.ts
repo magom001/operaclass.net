@@ -10,6 +10,16 @@ export interface GenericBio extends Schema.Component {
   };
 }
 
+export interface GenericBlogContent extends Schema.Component {
+  collectionName: 'components_generic_blog_contents';
+  info: {
+    displayName: 'BlogContent';
+  };
+  attributes: {
+    text: Attribute.Blocks & Attribute.Required;
+  };
+}
+
 export interface GenericGallery extends Schema.Component {
   collectionName: 'components_generic_galleries';
   info: {
@@ -97,6 +107,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'generic.bio': GenericBio;
+      'generic.blog-content': GenericBlogContent;
       'generic.gallery': GenericGallery;
       'generic.image-url': GenericImageUrl;
       'generic.video-gallery': GenericVideoGallery;

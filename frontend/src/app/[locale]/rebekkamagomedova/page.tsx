@@ -2,6 +2,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import type { PageParams } from "../layout";
 import { getFounderPage } from "@/services/founder-page";
 import { DynamicZoneRenderer } from "@/components/DynamicZoneRenderer";
+import Image from "next/image";
 
 // export const dynamic = "force-dynamic";
 
@@ -17,9 +18,11 @@ export default async function Page({ params: { locale } }: PageParams) {
   return (
     <article className="mx-auto max-w-[968px] lg:shadow-lg rounded-xl px-4 py-2 md:px-6 md:py-4 lg:my-8 lg:pb-10">
       {data.profilePicture?.attributes.url ? (
-        <img
+        <Image
           className="rounded-full aspect-square object-cover max-w-64 mx-auto shadow-lg"
           src={data.profilePicture.attributes.url}
+          width={data.profilePicture.attributes.width}
+          height={data.profilePicture.attributes.height}
           alt={
             data.profilePicture.attributes.alternativeText ?? "profile picture"
           }
