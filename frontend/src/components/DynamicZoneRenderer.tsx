@@ -1,5 +1,8 @@
+"use client";
+
 import { Block, StrapiMediaType } from "@/services/types";
 import { BlockRenderer } from "./BlockRenderer";
+import Image from "next/image";
 
 interface GenericGallery {
   __component: "generic.gallery";
@@ -37,8 +40,10 @@ export function DynamicZoneRenderer({
           <ul key={index}>
             {block.images?.data?.map((image, index) => (
               <li key={index}>
-                <img
+                <Image
                   src={image.attributes.url}
+                  width={image.attributes.width}
+                  height={image.attributes.height}
                   alt={image.attributes.alternativeText ?? "n/a"}
                 />
               </li>

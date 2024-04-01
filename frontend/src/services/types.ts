@@ -196,3 +196,27 @@ export interface StrapiMediaType {
     };
   };
 }
+
+interface BlogContentType {
+  __component: "generic.blog-content";
+  text: Block[];
+}
+
+interface GalleryType {
+  __component: "generic.gallery";
+  images: {
+    data: StrapiMediaType[];
+  };
+}
+
+type BlogPostContentType = BlogContentType | GalleryType;
+
+export interface BlogPostType {
+  title: string;
+  subtitle?: string;
+  slug: string;
+  date: string;
+  author: string;
+  tags: { name: string }[];
+  content: BlogPostContentType[];
+}

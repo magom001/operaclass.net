@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_generic_blog_contents",
+  "info": {
+    "displayName": "BlogContent"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}

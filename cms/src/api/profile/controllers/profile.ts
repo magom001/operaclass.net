@@ -31,7 +31,9 @@ group by
 	strapi.cities.name
 )
  */
+
 const MODEL = "api::profile.profile";
+
 export default factories.createCoreController(MODEL, ({ strapi }) => ({
   async findBySlug(ctx) {
     await this.validateQuery(ctx);

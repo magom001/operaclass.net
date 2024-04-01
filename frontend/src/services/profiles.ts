@@ -1,12 +1,7 @@
 import qs from "qs";
 import { Locale } from "@/i18n";
 import { host, token } from "./config";
-import {
-  CityType,
-  ProfileTypeType,
-  StrapiMediaType,
-  VideoLinkType,
-} from "./types";
+import { ProfileTypeType, StrapiMediaType, VideoLinkType } from "./types";
 
 export interface RandomProfileType {
   id: number;
