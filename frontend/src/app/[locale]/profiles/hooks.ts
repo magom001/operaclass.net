@@ -69,11 +69,11 @@ export function useFilters() {
     () =>
       ({
         profileType: [searchParams.get("profileType") || ""].filter(Boolean),
-        cities: searchParams.getAll("city"),
-        experiences: searchParams.getAll("experience"),
+        cities: searchParams.getAll("cities"),
+        experiences: searchParams.getAll("experiences"),
         speaks: searchParams.getAll("speaks"),
         reads: searchParams.getAll("reads"),
-        goals: searchParams.getAll("goal"),
+        goals: searchParams.getAll("goals"),
         phonetics: searchParams.getAll("phonetics"),
       } satisfies State)
   );
