@@ -27,7 +27,8 @@
         "fluently-speak": "fluently speak",
         "reads": "translation/pronunciation",
         "experience": "experience",
-        "goals": "goals"
+        "goals": "goals",
+        "phonetics": "phonetics"
     },
     "Pianist": {
         "about-me": "about me",
