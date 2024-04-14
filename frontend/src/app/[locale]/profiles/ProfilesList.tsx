@@ -1,22 +1,22 @@
 "use client";
 
-import { PianistPreview } from "./PianistPreview";
+import { ProfilePreview } from "./ProfilePreview";
 import { useEffect, useState } from "react";
 import { getPianistsPreview } from "@/app/actions";
 import { Spinner } from "@/components/Spinner";
 import { useInView } from "react-intersection-observer";
 import { useFilters } from "./hooks";
-import { MetaData, ProfilePreview } from "@/services/types";
+import { MetaData, ProfilePreviewType } from "@/services/types";
 import { Locale } from "@/i18n";
 
 interface Props {
-  pianists: ProfilePreview[];
+  pianists: ProfilePreviewType[];
   pagination: MetaData;
   locale: Locale;
 }
-export function PianistsList({ pianists, pagination, locale }: Props) {
+export function ProfilesList({ pianists, pagination, locale }: Props) {
   const { cities, reads, speaks, experiences, goals } = useFilters();
-  const [data, setData] = useState<ProfilePreview[]>(pianists);
+  const [data, setData] = useState<ProfilePreviewType[]>(pianists);
   const [meta, setMeta] = useState(pagination);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function PianistsList({ pianists, pagination, locale }: Props) {
       <ul className="p-2 grid grid-cols-1 landscape:grid-cols-2 md:grid-cols-2 md:landscape:grid-cols-3 lg:grid-cols-3 lg:landscape:grid-cols-3 xl:grid-cols-4 xl:landscape:grid-cols-4 gap-1">
         {data.map((p) => (
           <li key={p.id}>
-            <PianistPreview pianist={p} q />
+            <ProfilePreview pianist={p} q />
           </li>
         ))}
       </ul>

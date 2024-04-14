@@ -6,18 +6,19 @@ import {
   ResponseType,
   ProfileType,
   ContactInfoType,
-  ProfilePreview,
+  ProfilePreviewType,
   ProfileTypeType,
   StrapiMediaType,
 } from "./types";
 
 export interface SearchParams {
   profileType?: string;
-  city?: string | string[];
+  cities?: string | string[];
+  experiences?: string | string[];
   speaks?: string | string[];
+  phonetics?: string | string[];
   reads?: string | string[];
-  experience?: string | string[];
-  goal?: string | string[];
+  goals?: string | string[];
 }
 
 export interface Pagination {
@@ -30,11 +31,12 @@ export async function getPianistsPreview(
   pagination: Pagination = {}
 ) {
   const {
-    city,
+    cities,
     speaks = [],
     reads = [],
-    experience = [],
-    goal = [],
+    experiences = [],
+    goals = [],
+    phonetics = [],
     profileType,
   } = searchParams;
   const { page = 1 } = pagination;
@@ -62,7 +64,17 @@ export async function getPianistsPreview(
     })
   );
 
-  const goalFilter = (Array.isArray(goal) ? goal : [goal]).map((code) => ({
+  const phoneticsLanguagesFilter = (
+    Array.isArray(phonetics) ? phonetics : [phonetics]
+  ).map((alpha2) => ({
+    phonetics: {
+      alpha2: {
+        $eq: alpha2,
+      },
+    },
+  }));
+
+  const goalFilter = (Array.isArray(goals) ? goals : [goals]).map((code) => ({
     goals: {
       code: {
         $eq: code,
@@ -71,7 +83,7 @@ export async function getPianistsPreview(
   }));
 
   const experiencesFilter = (
-    Array.isArray(experience) ? experience : [experience]
+    Array.isArray(experiences) ? experiences : [experiences]
   ).map((code) => ({
     experiences: {
       code: {
@@ -91,6 +103,7 @@ export async function getPianistsPreview(
           fields: ["name", "code"],
           populate: ["country"],
         },
+        profileTypes: true,
         videos: {
           fields: ["url"],
         },
@@ -105,7 +118,7 @@ export async function getPianistsPreview(
         },
         city: {
           code: {
-            $in: city,
+            $in: cities,
           },
         },
         $and: [
@@ -113,6 +126,7 @@ export async function getPianistsPreview(
           ...readLanguagesFilter,
           ...experiencesFilter,
           ...goalFilter,
+          ...phoneticsLanguagesFilter,
         ],
       },
     },
@@ -146,7 +160,9 @@ export async function getPianistsPreview(
         p.attributes.city?.data?.attributes.country?.data?.attributes.name,
       sex: p.attributes.sex,
       previewVideo: preview,
-    } satisfies ProfilePreview;
+      profileTypes:
+        p.attributes.profileTypes?.data?.map((p) => p.attributes.name) ?? [],
+    } satisfies ProfilePreviewType;
   });
 
   return { data: transformed, meta };

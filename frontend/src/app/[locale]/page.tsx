@@ -112,7 +112,7 @@ function RandomProfilePreview({
           </h1>
           <p
             title={profileTypeString}
-            className="text-sm mb-2 text-nowrap text-ellipsis overflow-hidden italic drop-shadow-lg"
+            className="text-sm font-semibold mb-2 text-nowrap text-ellipsis first-letter:capitalize overflow-hidden drop-shadow-lg"
           >
             {profileTypeString}
           </p>
@@ -122,8 +122,8 @@ function RandomProfilePreview({
               .join(", ")}
           </p>
         </div>
-        <div className="text-lg text-right text-neutral-900 px-4 py-2 font-bold first-letter:capitalize drop-shadow-lg rounded-md self-end bg-neutral-100 opacity-80 shadow-md">
-          {t("Main.view-profile")}&raquo;
+        <div className="text-lg text-right text-neutral-900 px-4 py-2 font-semibold first-letter:capitalize drop-shadow-lg rounded-md self-end bg-neutral-100 opacity-80 shadow-md">
+          {t("Main.view-profile")} &raquo;
         </div>
       </Link>
     </div>
@@ -190,10 +190,12 @@ function FounderBlock({ data }: { data: FounderPage }) {
       >
         <div className="text-gray-100 antialiased">
           <h3 className="text-sm md:text-lg mb-3">
-            {t("Main.meet-founder")}&raquo;
+            {t("Main.meet-founder")} &raquo;&raquo;&raquo;
           </h3>
           <h2 className="text-2xl md:text-4xl font-bold">{data.title}</h2>
-          <p className="italic first-letter:capitalize">{data.subtitle}</p>
+          <p className="font-semibold first-letter:capitalize">
+            {data.subtitle}
+          </p>
         </div>
       </Link>
     </div>

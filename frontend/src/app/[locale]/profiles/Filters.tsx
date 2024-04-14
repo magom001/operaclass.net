@@ -32,19 +32,14 @@ export function Filters({
 }: Props) {
   const {
     profileType,
-    setProfileType,
     cities,
-    toggleCity,
     speaks,
-    toggleSpeaks,
     reads,
-    toggleReads,
     goals,
-    toggleGoals,
     experiences,
-    toggleExperience,
+    phonetics,
+    setFilter,
     applyFilters,
-    resetFilters,
     resetFilter,
   } = useFilters();
 
@@ -60,223 +55,88 @@ export function Filters({
       <div className="overflow-y-auto">
         <div className="p-4 grid grid-flow-row gap-y-4">
           {/* Profile type section */}
-          {allProfileTypes?.length ? (
-            <div>
-              <h2 className="capitalize font-thin antialiased mb-1">
-                {t("Filters.profile-type")}
-              </h2>
-              <ul className="flex flex-row flex-wrap gap-1.5">
-                <li>
-                  <button
-                    role="button"
-                    onClick={resetFilter.bind(null, "profileType")}
-                    className="capitalize"
-                  >
-                    <Chip active={!profileType.length}>{t("Common.all")}</Chip>
-                  </button>
-                </li>
-                {allProfileTypes.map((x) => (
-                  <li key={x.code}>
-                    <button
-                      key={x.code}
-                      role="button"
-                      onClick={() => {
-                        setProfileType(x.code);
-                      }}
-                    >
-                      <Chip
-                        active={profileType.includes(x.code)}
-                        className="first-letter:capitalize"
-                      >
-                        {x.name}
-                      </Chip>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+          <FilterBlock
+            title={t("Filters.profile-type")}
+            allItems={allProfileTypes}
+            selected={profileType}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("profileType")}
+            isActive={(item) => profileType.includes(item.code)}
+            onSelect={(item) => setFilter("profileType", item.code, "set")}
+          />
 
           {/* City section */}
-          {allCities && allCities.length > 0 && (
-            <div>
-              <h2 className="capitalize font-thin antialiased mb-1">
-                {t("Filters.city")}
-              </h2>
-              <ul className="flex flex-row flex-wrap gap-1.5">
-                <li>
-                  <button
-                    role="button"
-                    onClick={resetFilter.bind(null, "cities")}
-                    className="capitalize"
-                  >
-                    <Chip active={!cities.length}>{t("Common.all")}</Chip>
-                  </button>
-                </li>
-                {allCities.map((city) => (
-                  <li key={city.code}>
-                    <button
-                      key={city.code}
-                      role="button"
-                      onClick={() => {
-                        toggleCity(city.code);
-                      }}
-                    >
-                      <Chip active={cities.includes(city.code)}>
-                        {city.name}
-                      </Chip>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <FilterBlock
+            title={t("Filters.city")}
+            allItems={allCities}
+            selected={cities}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("cities")}
+            isActive={(item) => cities.includes(item.code)}
+            onSelect={(item) => setFilter("cities", item.code)}
+          />
 
           {/* Spoken language section */}
-          {allLanguages && allLanguages.length > 0 && (
-            <div>
-              <h2 className="capitalize font-thin antialiased mb-1">
-                {t("Filters.fluently-speak")}
-              </h2>
-              <ul className="flex flex-row flex-wrap gap-1.5">
-                <li>
-                  <button
-                    role="button"
-                    onClick={resetFilter.bind(null, "speaks")}
-                    className="capitalize"
-                  >
-                    <Chip active={!speaks.length}>{t("Common.all")}</Chip>
-                  </button>
-                </li>
-                {allLanguages.map((language) => (
-                  <li key={language.alpha2}>
-                    <button
-                      key={language.alpha2}
-                      role="button"
-                      onClick={() => {
-                        toggleSpeaks(language.alpha2);
-                      }}
-                    >
-                      <Chip active={speaks.includes(language.alpha2)}>
-                        {language.name}
-                      </Chip>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <FilterBlock
+            title={t("Filters.fluently-speak")}
+            allItems={allLanguages}
+            selected={speaks}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("speaks")}
+            isActive={(item) => speaks.includes(item.alpha2)}
+            onSelect={(item) => setFilter("speaks", item.alpha2)}
+          />
 
-          {/* Translation/pronunciation */}
-          {allLanguages && allLanguages.length > 0 && (
-            <div>
-              <h2 className="capitalize font-thin antialiased mb-1">
-                {t("Filters.reads")}
-              </h2>
-              <ul className="flex flex-row flex-wrap gap-1.5">
-                <li>
-                  <button
-                    role="button"
-                    onClick={resetFilter.bind(null, "reads")}
-                    className="capitalize"
-                  >
-                    <Chip active={!reads.length}>{t("Common.all")}</Chip>
-                  </button>
-                </li>
-                {allLanguages.map((language) => (
-                  <li key={language.alpha2}>
-                    <button
-                      key={language.alpha2}
-                      role="button"
-                      onClick={() => {
-                        toggleReads(language.alpha2);
-                      }}
-                    >
-                      <Chip active={reads.includes(language.alpha2)}>
-                        {language.name}
-                      </Chip>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {/* Read language section */}
+          <FilterBlock
+            title={t("Filters.reads")}
+            allItems={allLanguages}
+            selected={reads}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("reads")}
+            isActive={(item) => reads.includes(item.alpha2)}
+            onSelect={(item) => setFilter("reads", item.alpha2)}
+          />
+
+          {/* Phonetics for language coaches */}
+          <FilterBlock
+            title={t("Filters.phonetics")}
+            allItems={allLanguages}
+            selected={phonetics}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("phonetics")}
+            isActive={(item) => phonetics.includes(item.alpha2)}
+            onSelect={(item) => setFilter("phonetics", item.alpha2)}
+          />
 
           {/* Experience section */}
-          {allExperiences && allExperiences.length > 0 && (
-            <div>
-              <h2 className="capitalize font-thin antialiased mb-1">
-                {t("Filters.experience")}
-              </h2>
-              <ul className="flex flex-row flex-wrap gap-1.5">
-                <li>
-                  <button
-                    role="button"
-                    onClick={resetFilter.bind(null, "experiences")}
-                    className="capitalize"
-                  >
-                    <Chip active={!experiences.length}>{t("Common.all")}</Chip>
-                  </button>
-                </li>
-                {allExperiences.map((experience) => (
-                  <li key={experience.code}>
-                    <button
-                      key={experience.code}
-                      role="button"
-                      onClick={() => {
-                        toggleExperience(experience.code);
-                      }}
-                    >
-                      <Chip active={experiences.includes(experience.code)}>
-                        {experience.name}
-                      </Chip>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <FilterBlock
+            title={t("Filters.experience")}
+            allItems={allExperiences}
+            selected={experiences}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("experiences")}
+            isActive={(item) => experiences.includes(item.code)}
+            onSelect={(item) => setFilter("experiences", item.code)}
+          />
 
           {/* Goals section */}
-          {allGoals && allGoals.length > 0 && (
-            <div>
-              <h2 className="capitalize font-thin antialiased mb-1">
-                {t("Filters.goals")}
-              </h2>
-              <ul className="flex flex-row flex-wrap gap-1.5">
-                <li>
-                  <button
-                    role="button"
-                    onClick={resetFilter.bind(null, "goals")}
-                    className="capitalize"
-                  >
-                    <Chip active={!goals.length}>{t("Common.all")}</Chip>
-                  </button>
-                </li>
-                {allGoals.map((goal) => (
-                  <li key={goal.code}>
-                    <button
-                      role="button"
-                      onClick={() => {
-                        toggleGoals(goal.code);
-                      }}
-                    >
-                      <Chip active={goals.includes(goal.code)}>
-                        {goal.name}
-                      </Chip>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <FilterBlock
+            title={t("Filters.goals")}
+            allItems={allGoals}
+            selected={goals}
+            displayName={(item) => item.name}
+            onReset={() => resetFilter("goals")}
+            isActive={(item) => goals.includes(item.code)}
+            onSelect={(item) => setFilter("goals", item.code)}
+          />
         </div>
       </div>
       <div className="flex items-center space-x-2 justify-center p-4">
         <button
           role="button"
           className="bg-gray-100 text-gray-800 antialiased rounded-full shadow-sm hover:shadow-md px-4 py-1 capitalize hover:scale-[1.05] opacity-80 hover:opacity-100 transition-all"
-          onClick={resetFilters}
+          onClick={() => resetFilter(undefined)}
         >
           {t("Common.reset")}
         </button>
@@ -376,5 +236,58 @@ export function FiltersModal({
       </dialog>
       {disclosure}
     </>
+  );
+}
+
+interface FilterBlockProps<T> {
+  onReset(): void;
+  title: string;
+  selected: string[];
+  allItems?: T[];
+  onSelect(_: T): void;
+  displayName(item: T): string;
+  isActive(item: T): boolean;
+}
+
+function FilterBlock<T>({
+  title,
+  selected,
+  allItems,
+  displayName,
+  isActive,
+  onReset,
+  onSelect,
+}: FilterBlockProps<T>) {
+  const t = useTranslations();
+
+  if (!allItems || allItems.length === 0) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h2 className="capitalize font-thin antialiased mb-1">{title}</h2>
+      <ul className="flex flex-row flex-wrap gap-1.5">
+        <li>
+          <button role="button" onClick={onReset} className="capitalize">
+            <Chip active={!selected.length}>{t("Common.all")}</Chip>
+          </button>
+        </li>
+        {allItems.map((item, i) => (
+          <li key={i}>
+            <button
+              role="button"
+              onClick={() => {
+                onSelect(item);
+              }}
+            >
+              <Chip className="first-letter:capitalize" active={isActive(item)}>
+                {displayName(item)}
+              </Chip>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

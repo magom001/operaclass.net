@@ -160,7 +160,7 @@ export interface ResponseType<T> {
   meta: MetaData;
 }
 
-export interface ProfilePreview {
+export interface ProfilePreviewType {
   id: number;
   fullName: string;
   slug: string;
@@ -168,6 +168,7 @@ export interface ProfilePreview {
   country?: string;
   sex?: "m" | "f";
   previewVideo?: VideoLinkType;
+  profileTypes: string[];
 }
 
 interface StrapiMediaFormatType {

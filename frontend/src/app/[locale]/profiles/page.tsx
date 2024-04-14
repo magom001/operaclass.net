@@ -11,7 +11,7 @@ import { Filters, FiltersMobile, FiltersModal } from "./Filters";
 import { NextIntlClientProvider } from "next-intl";
 import { getLanguages } from "@/services/languages";
 import { getExperiences } from "@/services/experiences";
-import { PianistsList } from "./PianistsList";
+import { ProfilesList } from "./ProfilesList";
 import { getGoals } from "@/services/goals";
 import { getProfileTypes } from "@/services/profile-types";
 
@@ -40,7 +40,7 @@ export default async function Page({
   return (
     <article className="grid grid-cols-1 lg:grid-cols-[1fr_var(--filters-aside-width)] min-h-full">
       {pianists.data.length ? (
-        <PianistsList
+        <ProfilesList
           pianists={pianists.data}
           pagination={pianists.meta}
           locale={locale}

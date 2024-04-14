@@ -4,17 +4,17 @@ import { Link } from "@/i18n";
 import type {} from "@/services/pianists";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
-import { ProfilePreview } from "@/services/types";
+import { ProfilePreviewType } from "@/services/types";
 import qs from "qs";
 import female_fallback from "./fallback-female.jpeg";
 import male_fallback from "./fallback-male.jpeg";
 
 interface Props {
-  pianist: ProfilePreview;
+  pianist: ProfilePreviewType;
   q?: boolean;
 }
-export function PianistPreview({
-  pianist: { slug, fullName, city, country, previewVideo, sex },
+export function ProfilePreview({
+  pianist: { slug, fullName, city, country, previewVideo, sex, profileTypes },
   q,
 }: Props) {
   const query = qs.stringify(q ? { q: true } : {}, { addQueryPrefix: true });
@@ -38,17 +38,18 @@ export function PianistPreview({
       )}
       <Link
         href={`/profiles/${slug}/${query}`}
-        className="grid grid-cols-[1fr_auto] grid-rows-1 pt-2 text-gray-950 items-center"
+        className="max-w-full grid grid-cols-[1fr,auto] grid-rows-3 items-center justify-between mt-2"
       >
-        <div className="flex flex-col">
-          <h3 className="text-sm text-nowrap font-bold overflow-hidden text-ellipsis">
-            {fullName}
-          </h3>
-          <span className="text-xs font-thin">
-            {[city, country].filter(Boolean).join(", ")}
-          </span>
-        </div>
-        <ChevronRightIcon className="h-6 aspect-square" />
+        <h3 className="text-sm text-nowrap font-bold overflow-hidden text-ellipsis">
+          {fullName}
+        </h3>
+        <ChevronRightIcon className="h-6 aspect-square row-span-3" />
+        <p className="text-xs first-letter:capitalize max-w-full overflow-hidden text-ellipsis whitespace-nowrap mb-1">
+          {profileTypes.join(", ")}
+        </p>
+        <span className="text-xs font-thin">
+          {[city, country].filter(Boolean).join(", ")}
+        </span>
       </Link>
     </div>
   );
