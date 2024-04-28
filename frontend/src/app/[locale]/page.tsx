@@ -1,20 +1,40 @@
+import { FallbackImage } from "@/components/FallbackImage";
+import { Link } from "@/i18n";
+import { FounderPage, getFounderPage } from "@/services/founder-page";
+import { RandomProfileType, getRandomProfiles } from "@/services/profiles";
+import { Metadata } from "next";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
 import {
   getMessages,
   getTranslations,
   unstable_setRequestLocale,
 } from "next-intl/server";
-import { PageParams } from "./layout";
-import { RandomProfileType, getRandomProfiles } from "@/services/profiles";
-import bannerImage from "./banner.jpeg";
 import Image from "next/image";
-import { Link } from "@/i18n";
-import { FallbackImage } from "@/components/FallbackImage";
 import { HTMLAttributes } from "react";
-import { FounderPage, getFounderPage } from "@/services/founder-page";
-import { NextIntlClientProvider, useTranslations } from "next-intl";
+import bannerImage from "./banner.jpeg";
+import { PageParams } from "./layout";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 3600;
+
+export async function generateMetadata({
+  params: { locale },
+}: PageParams): Promise<Metadata> {
+  const t = await getTranslations();
+  return {
+    metadataBase: new URL("https://operaclass.net"),
+    title: "OperaClass.net",
+    description: t("Main.slogan"),
+    alternates: {
+      canonical: "/",
+      languages: {
+        en: "/en",
+        ru: "/ru",
+        "x-default": "/",
+      },
+    },
+  };
+}
 
 export default async function Page({ params: { locale } }: PageParams) {
   unstable_setRequestLocale(locale);

@@ -2,7 +2,9 @@
     "english": "english",
     "russian": "russian",
     "Metadata": {
-        "title": "OperaClass.Net"
+        "title": "OperaClass.Net",
+        "not-found": "Not found",
+        "profile-not-found": "Profile not found"
     },
     "Common": {
         "close": "close",
@@ -40,7 +42,8 @@
     },
     "Profiles": {
         "profiles": "profiles",
-        "no-profiles-found": "No profiles found"
+        "no-profiles-found": "No profiles found",
+        "description": "You can find a pianist or a coach by selecting the necessary filters. If you are a pianist or a coach, you can post your profile on our website."
     },
     "Header": {
         "toggle-menu": "toggle menu",
@@ -52,6 +55,7 @@
         "feedback": "feedback"
     },
     "JoinUs": {
+        "meta-title": "Join us",
         "title": "I want to join the community OperaClass.net",
         "subtitle": "The goal of our project is to help young talented opera singers find their way to the stage.",
         "support-us": "support us",
@@ -78,6 +82,7 @@
         "click-the-add": "click the advertisement <link>to support us</link>"
     },
     "Feedback": {
+        "meta-description": "Tell us what you think about the project OperaClass.net. Your feedback is important to us.",
         "title": "Feedback",
         "name": "name",
         "email": "email",

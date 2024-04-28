@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import {
   getMessages,
@@ -9,6 +10,24 @@ import type { PageParams } from "../layout";
 import artOfOperaImage from "./images/art-of-opera.jpeg";
 import floatingOperaImage from "./images/floating-opera.jpeg";
 import paypalIcon from "./images/paypal.svg";
+
+export async function generateMetadata({}): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    metadataBase: new URL("https://operaclass.net"),
+    title: `OperaClass.net | ${t("JoinUs.meta-title")}`,
+    description: `${t("JoinUs.title")}. ${t("JoinUs.subtitle")}`,
+    alternates: {
+      canonical: "/join-us",
+      languages: {
+        en: "/en/join-us",
+        ru: "/ru/join-us",
+        "x-default": "/join-us",
+      },
+    },
+  };
+}
 
 const Points = [
   [
