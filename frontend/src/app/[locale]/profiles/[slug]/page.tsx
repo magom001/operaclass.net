@@ -1,29 +1,56 @@
+import { getPianistBySlug } from "@/services/pianists";
+import { Metadata } from "next";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
 import {
   getMessages,
   getTranslations,
   unstable_setRequestLocale,
 } from "next-intl/server";
-import { PageParams } from "../../layout";
-import { getPianistBySlug } from "@/services/pianists";
-import { BioViewer } from "./BioViewer";
-import { NextIntlClientProvider, useTranslations } from "next-intl";
-import { ContactInfo } from "./ContactInfo";
-import { Breadcrumbs } from "./Breadcrumbs";
-import { ShareButton } from "./ShareButton";
 import Image from "next/image";
+import { PageParams } from "../../layout";
+import { BioViewer } from "./BioViewer";
+import { Breadcrumbs } from "./Breadcrumbs";
+import { ContactInfo } from "./ContactInfo";
+import { ShareButton } from "./ShareButton";
 
 interface PageProps {
   slug: string;
 }
 
-// TODO: Implement SSG
-// export async function generateStaticParams({
-//   params: { locale },
-// }: {
-//   params: { locale: Locale };
-// }) {
-//   return [{ slug: "1" }];
-// }
+export async function generateMetadata({
+  params: { locale, slug },
+}: PageParams<PageProps>): Promise<Metadata> {
+  const pianist = await getPianistBySlug(locale, slug);
+  const t = await getTranslations();
+
+  const alternates = {
+    canonical: `/profiles/${slug}`,
+    languages: {
+      en: `/en/profiles/${slug}`,
+      ru: `/ru/profiles/${slug}`,
+      "x-default": `/profiles/${slug}`,
+    },
+  };
+
+  if (!pianist) {
+    return {
+      title: `OperaClass.net | ${t("Metadata.not-found")}`,
+      description: t("Metadata.profile-not-found"),
+      alternates,
+    };
+  }
+
+  const description = `${pianist.fullName} | ${pianist.profileTypes
+    ?.map((t) => t.name)
+    .join(", ")} | ${pianist.city}, ${pianist.country}`;
+
+  return {
+    metadataBase: new URL("https://operaclass.net"),
+    title: `OperaClass.Net | ${pianist.fullName}`,
+    description,
+    alternates,
+  };
+}
 
 export default async function Page({
   params: { locale, slug },

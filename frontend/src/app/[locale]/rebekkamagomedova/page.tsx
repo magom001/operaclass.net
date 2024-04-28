@@ -1,10 +1,29 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import type { PageParams } from "../layout";
-import { getFounderPage } from "@/services/founder-page";
 import { DynamicZoneRenderer } from "@/components/DynamicZoneRenderer";
+import { getFounderPage } from "@/services/founder-page";
+import { Metadata } from "next";
+import { unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
+import type { PageParams } from "../layout";
 
-// export const dynamic = "force-dynamic";
+export async function generateMetadata({
+  params: { locale },
+}: PageParams): Promise<Metadata> {
+  const data = await getFounderPage(locale);
+
+  return {
+    metadataBase: new URL("https://operaclass.net"),
+    title: `OperaClass.net | ${data?.title}`,
+    description: data?.subtitle,
+    alternates: {
+      canonical: "/rebekkamagomedova",
+      languages: {
+        en: "/en/rebekkamagomedova",
+        ru: "/ru/rebekkamagomedova",
+        "x-default": "/rebekkamagomedova",
+      },
+    },
+  };
+}
 
 export default async function Page({ params: { locale } }: PageParams) {
   unstable_setRequestLocale(locale);

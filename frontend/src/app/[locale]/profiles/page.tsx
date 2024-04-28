@@ -1,6 +1,12 @@
 import { Locale } from "@/i18n";
 import { getCities } from "@/services/cities";
+import { getExperiences } from "@/services/experiences";
+import { getGoals } from "@/services/goals";
+import { getLanguages } from "@/services/languages";
 import { SearchParams, getPianistsPreview } from "@/services/pianists";
+import { getProfileTypes } from "@/services/profile-types";
+import { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,
   getTranslations,
@@ -8,15 +14,30 @@ import {
 } from "next-intl/server";
 import { PageParams } from "../layout";
 import { Filters, FiltersMobile, FiltersModal } from "./Filters";
-import { NextIntlClientProvider } from "next-intl";
-import { getLanguages } from "@/services/languages";
-import { getExperiences } from "@/services/experiences";
 import { ProfilesList } from "./ProfilesList";
-import { getGoals } from "@/services/goals";
-import { getProfileTypes } from "@/services/profile-types";
 
 async function getPianists(locale: Locale, searchParams: SearchParams) {
   return getPianistsPreview(locale, searchParams);
+}
+
+export async function generateMetadata({
+  params: { locale },
+}: PageParams): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    metadataBase: new URL("https://operaclass.net"),
+    title: `OperaClass.net | ${t("Profiles.profiles")}`,
+    description: t("Profiles.description"),
+    alternates: {
+      canonical: "/profiles",
+      languages: {
+        en: "/en/profiles",
+        ru: "/ru/profiles",
+        "x-default": "/profiles",
+      },
+    },
+  };
 }
 
 export default async function Page({
