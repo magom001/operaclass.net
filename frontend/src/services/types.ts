@@ -215,6 +215,8 @@ type BlogPostContentType = BlogContentType | GalleryType;
 export interface BlogPostType {
   title: string;
   subtitle?: string;
+  summary?: string;
+  coverImage?: { data?: StrapiMediaType };
   slug: string;
   date: string;
   author: string;

@@ -8,7 +8,13 @@ interface Params {
 }
 
 export async function getBlogPosts(params: Params) {
-  const query = qs.stringify(params);
+  const query = qs.stringify({
+    locale: params.locale,
+    populate: {
+      coverImage: true,
+    },
+  });
+
   const response = await fetch(`${host}/api/blogs/?${query}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -16,10 +22,13 @@ export async function getBlogPosts(params: Params) {
     },
   });
 
-  const result: { data: BlogPostType[]; meta: MetaData } =
+  const result: { data: { attributes: BlogPostType }[]; meta: MetaData } =
     await response.json();
 
-  return result;
+  const articles = result.data.map((article) => article.attributes);
+  const { meta } = result;
+
+  return { articles, meta };
 }
 
 export async function getBlogPostBySlug(slug: string, locale: Locale) {

@@ -95,8 +95,6 @@ export function useFilters() {
   function applyFilters() {
     const params = new URLSearchParams(searchParams);
 
-    Object.keys(state).forEach((key) => {});
-
     Object.getOwnPropertyNames(state).forEach((key) => {
       params.delete(key);
 
