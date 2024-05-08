@@ -2,6 +2,8 @@ import { locales } from "@/i18n";
 import { getAllSlugs } from "@/services/profiles";
 import { MetadataRoute } from "next";
 
+export const dynamic = "force-dynamic";
+
 const HOST = "https://operaclass.net";
 
 function buildAlternates(
