@@ -6,6 +6,9 @@
         "not-found": "Not found",
         "profile-not-found": "Profile not found"
     },
+    "Blog": {
+        "read-more": "read more"
+    },
     "Common": {
         "close": "close",
         "apply": "apply",
