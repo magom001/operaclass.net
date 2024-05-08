@@ -24,11 +24,11 @@ export async function generateMetadata({
   const t = await getTranslations();
 
   const alternates = {
-    canonical: `/profiles/${slug}`,
+    canonical: `/profiles/${slug}/`,
     languages: {
-      en: `/en/profiles/${slug}`,
-      ru: `/ru/profiles/${slug}`,
-      "x-default": `/profiles/${slug}`,
+      en: `/en/profiles/${slug}/`,
+      ru: `/ru/profiles/${slug}/`,
+      "x-default": `/profiles/${slug}/`,
     },
   };
 

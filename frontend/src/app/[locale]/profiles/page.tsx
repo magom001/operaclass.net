@@ -30,11 +30,11 @@ export async function generateMetadata({
     title: `OperaClass.net | ${t("Profiles.profiles")}`,
     description: t("Profiles.description"),
     alternates: {
-      canonical: "/profiles",
+      canonical: "/profiles/",
       languages: {
-        en: "/en/profiles",
-        ru: "/ru/profiles",
-        "x-default": "/profiles",
+        en: "/en/profiles/",
+        ru: "/ru/profiles/",
+        "x-default": "/profiles/",
       },
     },
   };

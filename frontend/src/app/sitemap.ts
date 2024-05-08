@@ -1,57 +1,62 @@
+import { locales } from "@/i18n";
 import { getAllSlugs } from "@/services/profiles";
 import { MetadataRoute } from "next";
 
 const HOST = "https://operaclass.net";
+
+function buildAlternates(
+  path: string,
+  host = HOST,
+  langs: readonly string[] = locales
+): MetadataRoute.Sitemap[number]["alternates"] {
+  const languages: Record<string, string> = {
+    "x-default": `${host}${path}`,
+  };
+
+  for (const lang of langs) {
+    languages[lang] = `${host}/${lang}${path}`;
+  }
+
+  return {
+    languages,
+  };
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const profileSlugs = await getAllSlugs();
   const lastModified = new Date();
 
   const profiles = profileSlugs.map((slug) => ({
-    url: `${HOST}/profiles/${slug}`,
+    url: `${HOST}/profiles/${slug}/`,
     lastModified,
+    alternates: buildAlternates(`/profiles/${slug}/`),
   }));
 
   return [
     {
-      url: HOST,
+      url: `${HOST}/`,
       lastModified,
-      // alternates: {
-      //   languages: {
-      //     es: "https://acme.com/es",
-      //     de: "https://acme.com/de",
-      //   },
-      // },
+      alternates: buildAlternates("/"),
     },
     {
-      url: `${HOST}/join-us`,
+      url: `${HOST}/join-us/`,
       lastModified,
-      // alternates: {
-      //   languages: {
-      //     es: "https://acme.com/es/about",
-      //     de: "https://acme.com/de/about",
-      //   },
-      // },
+      alternates: buildAlternates("/join-us/"),
     },
     {
-      url: `${HOST}/feedback`,
+      url: `${HOST}/rebekkamagomedova/`,
       lastModified,
-      // alternates: {
-      //   languages: {
-      //     es: "https://acme.com/es/blog",
-      //     de: "https://acme.com/de/blog",
-      //   },
-      // },
+      alternates: buildAlternates("/rebekkamagomedova/"),
     },
     {
-      url: `${HOST}/profiles`,
+      url: `${HOST}/feedback/`,
       lastModified,
-      // alternates: {
-      //   languages: {
-      //     es: "https://acme.com/es/blog",
-      //     de: "https://acme.com/de/blog",
-      //   },
-      // },
+      alternates: buildAlternates("/feedback/"),
+    },
+    {
+      url: `${HOST}/profiles/`,
+      lastModified,
+      alternates: buildAlternates("/profiles/"),
     },
     ...profiles,
   ];

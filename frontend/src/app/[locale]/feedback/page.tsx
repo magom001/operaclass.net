@@ -18,11 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `OperaClass.net | ${t("Feedback.title")}`,
     description: t("Feedback.meta-description"),
     alternates: {
-      canonical: "/feedback",
+      canonical: "/feedback/",
       languages: {
-        en: "/en/feedback",
-        ru: "/ru/feedback",
-        "x-default": "/feedback",
+        en: "/en/feedback/",
+        ru: "/ru/feedback/",
+        "x-default": "/feedback/",
       },
     },
   };

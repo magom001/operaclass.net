@@ -35,6 +35,13 @@ group by
 const MODEL = "api::profile.profile";
 
 export default factories.createCoreController(MODEL, ({ strapi }) => ({
+  async getAllSlugs(ctx) {
+    const data = await strapi.db?.connection.raw(
+      "SELECT DISTINCT slug FROM strapi.profiles ORDER BY slug"
+    );
+
+    return data?.rows.map((row) => row.slug) ?? [];
+  },
   async findBySlug(ctx) {
     await this.validateQuery(ctx);
     const sanitizedQueryParams = await this.sanitizeQuery(ctx);
