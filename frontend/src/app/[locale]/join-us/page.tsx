@@ -19,11 +19,11 @@ export async function generateMetadata({}): Promise<Metadata> {
     title: `OperaClass.net | ${t("JoinUs.meta-title")}`,
     description: `${t("JoinUs.title")}. ${t("JoinUs.subtitle")}`,
     alternates: {
-      canonical: "/join-us",
+      canonical: "/join-us/",
       languages: {
-        en: "/en/join-us",
-        ru: "/ru/join-us",
-        "x-default": "/join-us",
+        en: "/en/join-us/",
+        ru: "/ru/join-us/",
+        "x-default": "/join-us/",
       },
     },
   };

@@ -15,11 +15,11 @@ export async function generateMetadata({
     title: `OperaClass.net | ${data?.title}`,
     description: data?.subtitle,
     alternates: {
-      canonical: "/rebekkamagomedova",
+      canonical: "/rebekkamagomedova/",
       languages: {
-        en: "/en/rebekkamagomedova",
-        ru: "/ru/rebekkamagomedova",
-        "x-default": "/rebekkamagomedova",
+        en: "/en/rebekkamagomedova/",
+        ru: "/ru/rebekkamagomedova/",
+        "x-default": "/rebekkamagomedova/",
       },
     },
   };

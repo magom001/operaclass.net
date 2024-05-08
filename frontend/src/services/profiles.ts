@@ -46,17 +46,15 @@ export async function getRandomProfiles(
   return result;
 }
 
-// TODO: THIS WILL RETURN ONLY 100 SLUGS
 export async function getAllSlugs(): Promise<string[]> {
-  const query = qs.stringify({ limit: -1, locale: "ru", fields: ["slug"] });
-  const response = await fetch(`${host}/api/profiles`, {
+  const response = await fetch(`${host}/api/profiles/slugs/all`, {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
   });
 
-  const result: CollectionType<{ slug: string }> = await response.json();
+  const result: string[] = await response.json();
 
-  return result.data?.map((r) => r.attributes.slug) ?? [];
+  return result;
 }

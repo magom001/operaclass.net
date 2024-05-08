@@ -83,8 +83,14 @@ function getIcon(contact: ContactInfoType) {
 function ContactInfoEntry(contact: ContactInfoType) {
   const link = getLink(contact);
   const icon = getIcon(contact);
+
   return (
-    <a href={link} target="_blank" rel="noopener noreferrer">
+    <a
+      href={link}
+      target="_blank"
+      title={contact.type}
+      rel="noopener noreferrer"
+    >
       {icon}
     </a>
   );
