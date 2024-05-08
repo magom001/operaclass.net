@@ -6,15 +6,19 @@ import Image from "next/image";
 import stub1 from "./stub1.jpg";
 import stub2 from "./stub2.jpg";
 import stub3 from "./stub3.jpg";
-import { Link } from "@/i18n";
+import stub4 from "./stub4.jpg";
+import { Link, Locale } from "@/i18n";
+import { useTranslations } from "next-intl";
 
-const stubs = [stub1, stub2, stub3];
+const stubs = [stub1, stub2, stub3, stub4];
 
 interface Props {
+  locale: Locale;
   article: BlogPostType;
 }
 
-export function BlogPostPreview({ article }: Props) {
+export function BlogPostPreview({ article, locale }: Props) {
+  const t = useTranslations();
   const stub = stubs[article.slug.length % stubs.length];
   let url = stub.src;
   let width = stub.width;
@@ -38,7 +42,11 @@ export function BlogPostPreview({ article }: Props) {
       <div className="text-white absolute inset-0 p-4 flex flex-col justify-between">
         <div className="text-xs flex justify-between">
           <span>{article.author}</span>
-          <span>{new Date(article.date).toLocaleDateString()}</span>
+          <span>
+            {new Date(article.date).toLocaleDateString(locale, {
+              dateStyle: "long",
+            })}
+          </span>
         </div>
         <div>
           <h2 className="font-bold text-lg mb-2 has-[+h3]:mb-0">
@@ -47,9 +55,12 @@ export function BlogPostPreview({ article }: Props) {
           {article.subtitle ? (
             <h3 className="text-sm font-semibold mb-2">{article.subtitle}</h3>
           ) : null}
-          <p className="text-xs line-clamp-3">{article.summary}</p>
-          <Link className="text-xs" href={`/blog/${article.slug}`}>
-            Read more...
+          <p className="text-xs line-clamp-3 italic">{article.summary}</p>
+          <Link
+            className="text-xs first-letter:capitalize inline-block"
+            href={`/blog/${article.slug}`}
+          >
+            {t("Blog.read-more")}&#8230;
           </Link>
         </div>
       </div>

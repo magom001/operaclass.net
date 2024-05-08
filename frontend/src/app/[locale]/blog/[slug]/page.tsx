@@ -3,6 +3,9 @@ import type { PageParams } from "../../layout";
 import { getBlogPostBySlug } from "@/services/blogs";
 import { BlockRenderer } from "@/components/BlockRenderer";
 import { ImageGallery } from "@/components/ImageGallery";
+import { Locale } from "@/i18n";
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   slug: string;
@@ -23,7 +26,7 @@ export default async function Page({
     <article className="max-w-2xl p-2 md:p-4 mx-auto">
       <p className="flex justify-between text-xs font-extralight mb-4 opacity-50">
         <span>{blogPost.attributes.author}</span>
-        <BlogPostDate date={blogPost.attributes.date} />
+        <BlogPostDate date={blogPost.attributes.date} locale={locale} />
       </p>
       <h1 className="text-3xl font-semibold mb-8 has-[+h2]:mb-2">
         {blogPost.attributes.title}
@@ -55,8 +58,10 @@ export default async function Page({
   );
 }
 
-function BlogPostDate({ date }: { date: string }) {
+function BlogPostDate({ date, locale }: { date: string; locale: Locale }) {
   const d = new Date(date);
 
-  return `${d.toLocaleDateString()}`;
+  return `${d.toLocaleDateString(locale, {
+    dateStyle: "long",
+  })}`;
 }

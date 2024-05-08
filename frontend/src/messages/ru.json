@@ -6,6 +6,9 @@
         "not-found": "Не найдено",
         "profile-not-found": "Профиль не найден"
     },
+    "Blog": {
+        "read-more": "читать далее"
+    },
     "Common": {
         "close": "закрыть",
         "apply": "применить",
