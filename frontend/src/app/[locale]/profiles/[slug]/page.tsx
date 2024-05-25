@@ -46,7 +46,7 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL("https://operaclass.net"),
-    title: `OperaClass.Net | ${pianist.fullName}`,
+    title: `OperaClass.net | ${pianist.fullName}`,
     description,
     alternates,
   };

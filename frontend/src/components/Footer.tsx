@@ -46,7 +46,7 @@ export default function Footer() {
           </a>
         </li>
       </ul>
-      <span>© {new Date().getFullYear()} OperaClass.Net</span>
+      <span>© {new Date().getFullYear()} OperaClass.net</span>
     </footer>
   );
 }

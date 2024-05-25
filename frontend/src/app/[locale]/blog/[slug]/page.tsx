@@ -1,11 +1,36 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import type { PageParams } from "../../layout";
-import { getBlogPostBySlug } from "@/services/blogs";
 import { BlockRenderer } from "@/components/BlockRenderer";
 import { ImageGallery } from "@/components/ImageGallery";
-import { Locale } from "@/i18n";
+import { Locale, redirect } from "@/i18n";
+import { getBlogPostBySlug } from "@/services/blogs";
+import { Metadata } from "next";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import type { PageParams } from "../../layout";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params: { locale, slug },
+}: PageParams<PageProps>): Promise<Metadata> {
+  const t = await getTranslations();
+  const blogPost = await getBlogPostBySlug(slug, locale);
+
+  return {
+    metadataBase: new URL("https://operaclass.net"),
+    title: `OperaClass.net | ${blogPost?.attributes?.title || "404"}`,
+    description:
+      blogPost?.attributes?.summary ||
+      blogPost?.attributes?.subtitle ||
+      blogPost?.attributes?.title,
+    alternates: {
+      canonical: `/blog/${slug}/`,
+      languages: {
+        en: `/en/blog/${slug}/`,
+        ru: `/ru/blog/${slug}/`,
+        "x-default": `/blog/${slug}/`,
+      },
+    },
+  };
+}
 
 interface PageProps {
   slug: string;
@@ -18,8 +43,8 @@ export default async function Page({
 
   const blogPost = await getBlogPostBySlug(slug, locale);
 
-  if (blogPost === null || blogPost?.attributes === undefined) {
-    return <div>Not found</div>;
+  if (!blogPost || !blogPost?.attributes) {
+    return redirect("/blog/");
   }
 
   return (
