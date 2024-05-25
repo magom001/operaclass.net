@@ -2,11 +2,13 @@
     "english": "english",
     "russian": "russian",
     "Metadata": {
-        "title": "OperaClass.Net",
+        "title": "OperaClass.net",
         "not-found": "Not found",
         "profile-not-found": "Profile not found"
     },
     "Blog": {
+        "title": "Blog",
+        "description": "Here you can find articles, interviews, and reviews on the topic of opera. If you are a professional in the field of opera, you can share your knowledge and experience with our readers.",
         "read-more": "read more"
     },
     "Common": {
@@ -51,7 +53,7 @@
     "Header": {
         "toggle-menu": "toggle menu",
         "pianists": "pianists",
-        "news": "news",
+        "blog": "blog",
         "join-us": "join us",
         "donate": "donate",
         "profiles": "profiles",

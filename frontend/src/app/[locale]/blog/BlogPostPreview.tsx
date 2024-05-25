@@ -31,39 +31,30 @@ export function BlogPostPreview({ article, locale }: Props) {
   }
 
   return (
-    <div className="antialiased shadow-md overflow-hidden rounded-sm relative">
+    <div className="antialiased overflow-hidden h-full">
       <Image
-        className="aspect-square object-cover grayscale brightness-50 w-full"
+        className="aspect-[16/9] object-cover w-full"
         src={url}
         width={width}
         height={height}
         alt={article.title}
       />
-      <div className="text-white absolute inset-0 p-4 flex flex-col justify-between">
-        <div className="text-xs flex justify-between">
-          <span>{article.author}</span>
-          <span>
-            {new Date(article.date).toLocaleDateString(locale, {
-              dateStyle: "long",
-            })}
-          </span>
-        </div>
-        <div>
+      <Link href={`/blog/${article.slug}`}>
+        <div className="p-4 pb-6">
           <h2 className="font-bold text-lg mb-2 has-[+h3]:mb-0">
             {article.title}
           </h2>
           {article.subtitle ? (
             <h3 className="text-sm font-semibold mb-2">{article.subtitle}</h3>
           ) : null}
-          <p className="text-xs line-clamp-3 italic">{article.summary}</p>
-          <Link
-            className="text-xs first-letter:capitalize inline-block"
-            href={`/blog/${article.slug}`}
-          >
-            {t("Blog.read-more")}&#8230;
-          </Link>
+          <p className="text-xs line-clamp-3 italic">
+            {article.summary}
+            <span className="inline-block font-semibold first-letter:capitalize">
+              {t("Blog.read-more")}&#8230;
+            </span>
+          </p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

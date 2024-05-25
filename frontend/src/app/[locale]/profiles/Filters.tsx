@@ -3,13 +3,13 @@
 import { Chip } from "@/components/Chip";
 import { City } from "@/services/cities";
 import { Experience } from "@/services/experiences";
+import { Goal } from "@/services/goals";
 import { Language } from "@/services/languages";
+import { CodeNameType } from "@/services/types";
 import { AdjustmentsVerticalIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
 import { HTMLAttributes, useEffect, useReducer, useRef } from "react";
 import { useFilters } from "./hooks";
-import { Goal } from "@/services/goals";
-import { CodeNameType } from "@/services/types";
 
 interface Props {
   profileTypes?: CodeNameType[];
@@ -168,15 +168,18 @@ export function FiltersMobile({
       opened={isOpened}
       toggleOpened={toggleIsOpened}
       disclosure={
-        <button
-          title={t("Filters.open-filters")}
-          role="button"
-          type="button"
-          className="lg:hidden bg-gray-800 text-gray-100 p-2 rounded-full opacity-50 fixed bottom-16 right-6 z-2 shadow-lg"
-          onClick={toggleIsOpened}
-        >
-          <AdjustmentsVerticalIcon className="h-10 w-10" />
-        </button>
+        <div className="fixed bottom-16 right-6 z-2 flex">
+          <span className="block absolute inset-0 rounded-full bg-white animate-[ping_1s_ease-in-out_6s_1_normal_forwards]" />
+          <button
+            title={t("Filters.open-filters")}
+            role="button"
+            type="button"
+            className="lg:hidden bg-gray-800  text-gray-100 p-2 border-white border-2 rounded-full opacity-90 shadow-lg"
+            onClick={toggleIsOpened}
+          >
+            <AdjustmentsVerticalIcon className="h-12 w-12" />
+          </button>
+        </div>
       }
     >
       <Filters

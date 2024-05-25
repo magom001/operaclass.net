@@ -7,7 +7,7 @@ import LanguageSwitcher from "../app/LanguageSwitcher";
 
 const paths = [
   { href: "/profiles/", label: "profiles" },
-  // { href: "/news/", label: "news" },
+  { href: "/blog/", label: "blog" },
   { href: "/join-us/", label: "join-us" },
   // { href: "/donate/", label: "donate" },
   { href: "/feedback/", label: "feedback" },
@@ -22,7 +22,7 @@ export default function Header() {
     <>
       <header className="bg-gray-900 shadow-md text-gray-100 fixed top-0 left-0 right-0 h-[var(--header-height)] flex items-center justify-between antialiased px-8 z-50">
         <Link className="text-xl" href="/">
-          OperaClass.Net
+          OperaClass.net
         </Link>
         <nav className="hidden lg:flex flex-row items-center">
           <ul
