@@ -1,35 +1,38 @@
 "use client";
 
-import { ProfilePreview } from "./ProfilePreview";
-import { useEffect, useState } from "react";
 import { getPianistsPreview } from "@/app/actions";
 import { Spinner } from "@/components/Spinner";
-import { useInView } from "react-intersection-observer";
-import { useFilters } from "./hooks";
-import { MetaData, ProfilePreviewType } from "@/services/types";
 import { Locale } from "@/i18n";
+import { SearchParams } from "@/services/pianists";
+import { MetaData, ProfilePreviewType } from "@/services/types";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { ProfilePreview } from "./ProfilePreview";
 
 interface Props {
+  searchParams: SearchParams;
   pianists: ProfilePreviewType[];
   pagination: MetaData;
   locale: Locale;
 }
-export function ProfilesList({ pianists, pagination, locale }: Props) {
-  const { cities, reads, speaks, experiences, goals } = useFilters();
+export function ProfilesList({
+  pianists,
+  pagination,
+  locale,
+  searchParams,
+}: Props) {
   const [data, setData] = useState<ProfilePreviewType[]>(pianists);
   const [meta, setMeta] = useState(pagination);
 
   useEffect(() => {
     setData(pianists);
-  }, [pianists]);
+    setMeta(pagination);
+  }, [pianists, pagination]);
 
   const loadMore = async function () {
-    const result = await getPianistsPreview(
-      locale,
-      { city: cities, reads, speaks, experience: experiences, goal: goals },
-      { page: meta.pagination.page + 1 }
-    );
-
+    const result = await getPianistsPreview(locale, searchParams, {
+      page: meta.pagination.page + 1,
+    });
     setData(data.concat(result.data));
     setMeta(result.meta);
   };
@@ -38,7 +41,7 @@ export function ProfilesList({ pianists, pagination, locale }: Props) {
     rootMargin: "200px 0px",
     onChange(inView) {
       if (inView) {
-        console.log("loading more data...");
+        console.info("loading more data...");
         loadMore();
       }
     },

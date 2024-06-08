@@ -62,6 +62,7 @@ export default async function Page({
     <article className="grid grid-cols-1 lg:grid-cols-[1fr_var(--filters-aside-width)] min-h-full">
       {pianists.data.length ? (
         <ProfilesList
+          searchParams={searchParams}
           pianists={pianists.data}
           pagination={pianists.meta}
           locale={locale}

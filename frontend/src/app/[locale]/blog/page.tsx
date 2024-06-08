@@ -9,7 +9,7 @@ import {
 import type { PageParams } from "../layout";
 import { BlogPostsList } from "./BlogPostsList";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export async function generateMetadata({
   params: { locale },
