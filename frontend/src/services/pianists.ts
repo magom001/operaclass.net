@@ -103,6 +103,7 @@ export async function getPianistsPreview(
           fields: ["name", "code"],
           populate: ["country"],
         },
+        pictures: true,
         profileTypes: true,
         videos: {
           fields: ["url"],
@@ -151,6 +152,8 @@ export async function getPianistsPreview(
       ? p.attributes.videos[0]
       : undefined;
 
+    const picture = p.attributes.pictures?.data?.[0]?.attributes;
+
     return {
       id: p.id,
       fullName: `${p.attributes.firstName} ${p.attributes.lastName}`,
@@ -160,6 +163,7 @@ export async function getPianistsPreview(
         p.attributes.city?.data?.attributes.country?.data?.attributes.name,
       sex: p.attributes.sex,
       previewVideo: preview,
+      picture,
       profileTypes:
         p.attributes.profileTypes?.data?.map((p) => p.attributes.name) ?? [],
     } satisfies ProfilePreviewType;

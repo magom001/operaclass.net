@@ -48,6 +48,7 @@
     "Profiles": {
         "profiles": "profiles",
         "no-profiles-found": "No profiles found",
+        "watch-video": "watch video",
         "description": "You can find a pianist or a coach by selecting the necessary filters. If you are a pianist or a coach, you can post your profile on our website."
     },
     "Header": {
