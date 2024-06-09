@@ -99,7 +99,7 @@ export function Filters({
           />
 
           {/* Phonetics for language coaches */}
-          <FilterBlock
+          {/* <FilterBlock
             title={t("Filters.phonetics")}
             allItems={allLanguages}
             selected={phonetics}
@@ -107,7 +107,7 @@ export function Filters({
             onReset={() => resetFilter("phonetics")}
             isActive={(item) => phonetics.includes(item.alpha2)}
             onSelect={(item) => setFilter("phonetics", item.alpha2)}
-          />
+          /> */}
 
           {/* Experience section */}
           <FilterBlock
@@ -169,7 +169,7 @@ export function FiltersMobile({
       toggleOpened={toggleIsOpened}
       disclosure={
         <div className="fixed bottom-16 right-6 z-2 flex">
-          <span className="block absolute inset-0 rounded-full bg-white animate-[ping_1s_ease-in-out_6s_1_normal_forwards]" />
+          <span className="block absolute inset-1 rounded-full bg-gray-800 animate-[ping_1s_ease-in-out_6s_1_normal_forwards]" />
           <button
             title={t("Filters.open-filters")}
             role="button"

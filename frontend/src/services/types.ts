@@ -167,6 +167,7 @@ export interface ProfilePreviewType {
   city?: string;
   country?: string;
   sex?: "m" | "f";
+  picture?: StrapiMediaType["attributes"];
   previewVideo?: VideoLinkType;
   profileTypes: string[];
 }

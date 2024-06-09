@@ -13,7 +13,7 @@ import {
   unstable_setRequestLocale,
 } from "next-intl/server";
 import { PageParams } from "../layout";
-import { Filters, FiltersMobile, FiltersModal } from "./Filters";
+import { Filters, FiltersMobile } from "./Filters";
 import { ProfilesList } from "./ProfilesList";
 
 async function getPianists(locale: Locale, searchParams: SearchParams) {
@@ -60,19 +60,21 @@ export default async function Page({
 
   return (
     <article className="grid grid-cols-1 lg:grid-cols-[1fr_var(--filters-aside-width)] min-h-full">
-      {pianists.data.length ? (
-        <ProfilesList
-          searchParams={searchParams}
-          pianists={pianists.data}
-          pagination={pianists.meta}
-          locale={locale}
-        />
-      ) : (
-        <div className="p-2 flex items-center justify-center">
-          <h1 className="text-2xl mb-8 font-bold">{t("no-profiles-found")}</h1>
-        </div>
-      )}
       <NextIntlClientProvider messages={messages}>
+        {pianists.data.length ? (
+          <ProfilesList
+            searchParams={searchParams}
+            pianists={pianists.data}
+            pagination={pianists.meta}
+            locale={locale}
+          />
+        ) : (
+          <div className="p-2 flex items-center justify-center">
+            <h1 className="text-2xl mb-8 font-bold">
+              {t("no-profiles-found")}
+            </h1>
+          </div>
+        )}
         <aside className="hidden lg:block shadow-lg static">
           <Filters
             profileTypes={profileTypes}
