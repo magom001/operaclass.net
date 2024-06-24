@@ -5,6 +5,8 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import type { PageParams } from "../layout";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params: { locale },
 }: PageParams): Promise<Metadata> {
