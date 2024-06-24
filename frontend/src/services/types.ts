@@ -204,6 +204,11 @@ interface BlogContentType {
   text: Block[];
 }
 
+interface VideoGalleryType {
+  __component: "generic.video-gallery";
+  videos: Array<{ url: string }>;
+}
+
 interface GalleryType {
   __component: "generic.gallery";
   images: {
@@ -211,7 +216,7 @@ interface GalleryType {
   };
 }
 
-type BlogPostContentType = BlogContentType | GalleryType;
+type BlogPostContentType = BlogContentType | GalleryType | VideoGalleryType;
 
 export interface BlogPostType {
   title: string;

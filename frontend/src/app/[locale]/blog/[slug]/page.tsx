@@ -66,6 +66,22 @@ export default async function Page({
             return <BlockRenderer key={index} blocks={block.text} />;
           }
 
+          if (block.__component === "generic.video-gallery") {
+            return (
+              <ul key={index} className="grid grid-cols-1 gap-2">
+                {block.videos?.map((video, index) => (
+                  <li key={index}>
+                    <iframe
+                      title="Video content"
+                      className="rounded-lg w-full max-w-full aspect-[16/9]"
+                      src={`${video.url}?controls=1`}
+                    />
+                  </li>
+                ))}
+              </ul>
+            );
+          }
+
           if (block.__component === "generic.gallery") {
             return (
               <ImageGallery
