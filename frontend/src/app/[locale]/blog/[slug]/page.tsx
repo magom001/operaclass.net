@@ -68,24 +68,26 @@ export default async function Page({
 
           if (block.__component === "generic.video-gallery") {
             return (
-              <ul key={index} className="grid grid-cols-1 gap-2">
-                {block.videos?.map((video, index) => (
-                  <li key={index}>
-                    <iframe
-                      title="Video content"
-                      className="rounded-lg w-full max-w-full aspect-[16/9]"
-                      src={`${video.url}?controls=1`}
-                    />
-                  </li>
-                ))}
-              </ul>
+              <div key={index} className="py-8">
+                <ul className="grid grid-cols-1 gap-2">
+                  {block.videos?.map((video, index) => (
+                    <li key={index}>
+                      <iframe
+                        title="Video content"
+                        className="rounded-lg w-full max-w-full aspect-[16/9]"
+                        src={`${video.url}?controls=1`}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             );
           }
 
           if (block.__component === "generic.gallery") {
             return (
               <ImageGallery
-                className="my-8"
+                className="py-8"
                 key={index}
                 images={block.images.data}
               />
