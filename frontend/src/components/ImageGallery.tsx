@@ -66,7 +66,10 @@ export function ImageGallery({ images, className }: Props) {
         className="flex w-full gap-1 snap-x snap-mandatory overflow-x-auto"
       >
         {images.map((image, index) => (
-          <div key={index} className="shrink-0 snap-center w-full scroll-px-8">
+          <div
+            key={index}
+            className="shrink-0 snap-center w-full scroll-px-8 flex items-center"
+          >
             <Image
               ref={
                 index === 0
@@ -75,7 +78,7 @@ export function ImageGallery({ images, className }: Props) {
                   ? lastImageRef
                   : undefined
               }
-              className="object-fit"
+              className="object-cover"
               src={image.attributes.url}
               width={image.attributes.width}
               height={image.attributes.height}
@@ -93,7 +96,7 @@ export function ImageGallery({ images, className }: Props) {
           onClick={scrollLeft}
           type="button"
           title="Previous image"
-          className={`size-12 md:size-16 opacity-50 pointer-events-auto ${
+          className={`size-12 md:size-16 opacity-80 pointer-events-auto ${
             firstImageVisible ? "hidden" : "block"
           }`}
         >
@@ -103,7 +106,7 @@ export function ImageGallery({ images, className }: Props) {
           onClick={scrollRight}
           type="button"
           title="Next image"
-          className={`size-12 md:size-16 opacity-50 ml-auto pointer-events-auto ${
+          className={`size-12 md:size-16 opacity-80 ml-auto pointer-events-auto ${
             lastImageVisible ? "hidden" : "block"
           }`}
         >

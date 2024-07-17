@@ -13,6 +13,7 @@ export async function getBlogPosts(params: Params) {
     populate: {
       coverImage: true,
     },
+    sort: ["date:desc"],
   });
 
   const response = await fetch(`${host}/api/blogs/?${query}`, {
