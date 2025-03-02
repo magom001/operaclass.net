@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useFormState, useFormStatus } from "react-dom";
+import { useReCaptcha } from "./hooks";
 
 interface Props {
   action: (
@@ -24,8 +24,22 @@ const initialState = {
 
 export function FeedbackForm({ action }: Props) {
   const t = useTranslations();
-  // @ts-expect-error
+  // @ts-ignore
   const [state, formAction] = useFormState<FormState>(action, initialState);
+  const { token, getToken, error } = useReCaptcha();
+
+  // Create a wrapper for the form action to include the reCAPTCHA token
+  const handleSubmit = async (formData: FormData) => {
+    // Try to get a fresh token when submitting
+    const recaptchaToken = await getToken();
+
+    if (recaptchaToken) {
+      formData.append("recaptchaToken", recaptchaToken);
+    }
+
+    // @ts-ignore
+    formAction(formData);
+  };
 
   if (state.fatal) {
     return (
@@ -46,7 +60,7 @@ export function FeedbackForm({ action }: Props) {
   }
 
   return (
-    <form action={formAction} className="flex flex-col">
+    <form action={handleSubmit} className="flex flex-col">
       <h1 className="text-center font-bold text-2xl mb-4">
         {t("Feedback.title")}
       </h1>
@@ -108,6 +122,11 @@ export function FeedbackForm({ action }: Props) {
             {state.errors["message"]}
           </p>
         ) : null}
+        {error && (
+          <div className="text-red-500 text-sm">
+            {t("Errors.recaptcha-error")}
+          </div>
+        )}
       </div>
       <SubmitButton />
     </form>
