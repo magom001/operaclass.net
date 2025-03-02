@@ -20,9 +20,13 @@ async function getPianists(locale: Locale, searchParams: SearchParams) {
   return getPianistsPreview(locale, searchParams);
 }
 
-export async function generateMetadata({
-  params: { locale },
-}: PageParams): Promise<Metadata> {
+export async function generateMetadata(props: PageParams): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const t = await getTranslations();
 
   return {
@@ -40,10 +44,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params: { locale },
-  searchParams,
-}: PageParams<{}, SearchParams>) {
+export default async function Page(props: PageParams<{}, SearchParams>) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations("Profiles");

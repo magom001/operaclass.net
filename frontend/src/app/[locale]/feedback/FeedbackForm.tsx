@@ -1,8 +1,11 @@
 "use client";
 
+import { useActionState } from "react";
 import { useTranslations } from "next-intl";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { useReCaptcha } from "./hooks";
+import { useRef } from "react";
+import { startTransition } from "react";
 
 interface Props {
   action: (
@@ -25,20 +28,31 @@ const initialState = {
 export function FeedbackForm({ action }: Props) {
   const t = useTranslations();
   // @ts-ignore
-  const [state, formAction] = useFormState<FormState>(action, initialState);
+  const [state, formAction] = useActionState<FormState>(action, initialState);
   const { token, getToken, error } = useReCaptcha();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  // Create a wrapper for the form action to include the reCAPTCHA token
-  const handleSubmit = async (formData: FormData) => {
-    // Try to get a fresh token when submitting
-    const recaptchaToken = await getToken();
+  // Handle form submission with reCAPTCHA
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formRef.current) return;
 
-    if (recaptchaToken) {
-      formData.append("recaptchaToken", recaptchaToken);
+    // Get a fresh reCAPTCHA token
+    const freshToken = await getToken();
+    
+    // Create FormData from the form
+    const formData = new FormData(formRef.current);
+    
+    // Add the token to the form data
+    if (freshToken) {
+      formData.append("recaptchaToken", freshToken);
     }
 
-    // @ts-ignore
-    formAction(formData);
+    // Use startTransition to avoid the async warning
+    startTransition(() => {
+      // @ts-ignore
+      formAction(formData);
+    });
   };
 
   if (state.fatal) {
@@ -60,7 +74,7 @@ export function FeedbackForm({ action }: Props) {
   }
 
   return (
-    <form action={handleSubmit} className="flex flex-col">
+    <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col">
       <h1 className="text-center font-bold text-2xl mb-4">
         {t("Feedback.title")}
       </h1>
@@ -125,6 +139,11 @@ export function FeedbackForm({ action }: Props) {
         {error && (
           <div className="text-red-500 text-sm">
             {t("Errors.recaptcha-error")}
+          </div>
+        )}
+        {state.errors?.["recaptcha"] && (
+          <div className="text-red-500 text-sm">
+            {state.errors["recaptcha"]}
           </div>
         )}
       </div>

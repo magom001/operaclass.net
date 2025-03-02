@@ -47,7 +47,13 @@ const Points = [
   ],
 ] as const;
 
-export default async function Page({ params: { locale } }: PageParams) {
+export default async function Page(props: PageParams) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale);
 
   const messages = await getMessages();

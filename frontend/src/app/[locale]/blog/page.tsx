@@ -11,9 +11,13 @@ import { BlogPostsList } from "./BlogPostsList";
 
 export const revalidate = 60;
 
-export async function generateMetadata({
-  params: { locale },
-}: PageParams): Promise<Metadata> {
+export async function generateMetadata(props: PageParams): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const t = await getTranslations();
   return {
     metadataBase: new URL("https://operaclass.net"),
@@ -30,7 +34,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { locale } }: PageParams) {
+export default async function Page(props: PageParams) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale);
   const message = await getMessages({ locale });
 

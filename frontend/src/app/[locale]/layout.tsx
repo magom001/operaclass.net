@@ -1,3 +1,4 @@
+import { use } from "react";
 import "../globals.css";
 import { Locale, locales } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
@@ -11,9 +12,13 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
-export async function generateMetadata({
-  params: { locale },
-}: PageParams): Promise<Metadata> {
+export async function generateMetadata(props: PageParams): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
@@ -26,18 +31,27 @@ export function generateStaticParams() {
 }
 
 export interface PageParams<T = {}, S = {}> {
-  searchParams: S;
-  params: T & {
+  searchParams: Promise<S>;
+  params: Promise<T & {
     locale: Locale;
-  };
+  }>;
 }
 
-export default function LocaleLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-} & PageParams) {
+export default function LocaleLayout(
+  props: {
+    children: React.ReactNode;
+  } & PageParams
+) {
+  const params = use(props.params);
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   unstable_setRequestLocale(locale);
   const messages = useMessages();
 

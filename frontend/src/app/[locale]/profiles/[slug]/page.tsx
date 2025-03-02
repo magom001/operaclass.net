@@ -17,9 +17,14 @@ interface PageProps {
   slug: string;
 }
 
-export async function generateMetadata({
-  params: { locale, slug },
-}: PageParams<PageProps>): Promise<Metadata> {
+export async function generateMetadata(props: PageParams<PageProps>): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+    slug
+  } = params;
+
   const pianist = await getPianistBySlug(locale, slug);
   const t = await getTranslations();
 
@@ -52,9 +57,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params: { locale, slug },
-}: PageParams<PageProps>) {
+export default async function Page(props: PageParams<PageProps>) {
+  const params = await props.params;
+
+  const {
+    locale,
+    slug
+  } = params;
+
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations();
