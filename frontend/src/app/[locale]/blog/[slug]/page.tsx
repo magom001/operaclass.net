@@ -8,9 +8,14 @@ import type { PageParams } from "../../layout";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({
-  params: { locale, slug },
-}: PageParams<PageProps>): Promise<Metadata> {
+export async function generateMetadata(props: PageParams<PageProps>): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+    slug
+  } = params;
+
   const t = await getTranslations();
   const blogPost = await getBlogPostBySlug(slug, locale);
 
@@ -36,9 +41,14 @@ interface PageProps {
   slug: string;
 }
 
-export default async function Page({
-  params: { locale, slug },
-}: PageParams<PageProps>) {
+export default async function Page(props: PageParams<PageProps>) {
+  const params = await props.params;
+
+  const {
+    locale,
+    slug
+  } = params;
+
   unstable_setRequestLocale(locale);
 
   const blogPost = await getBlogPostBySlug(slug, locale);

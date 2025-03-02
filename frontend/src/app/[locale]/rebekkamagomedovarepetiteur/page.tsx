@@ -3,7 +3,13 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { RedirectType } from "next/navigation";
 import { PageParams } from "../layout";
 
-export default function Page({ params: { locale } }: PageParams) {
+export default async function Page(props: PageParams) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale);
 
   permanentRedirect("/rebekkamagomedova/", RedirectType.replace);

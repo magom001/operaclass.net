@@ -59,10 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page(
-  { params: { locale } }: PageParams,
-  data: FormData
-) {
+export default async function Page(params: PageParams, data: FormData) {
   const messages = await getMessages();
   const t = await getTranslations();
   async function sendFeedback(
@@ -75,7 +72,7 @@ export default async function Page(
     const errors: FormState["errors"] = {};
     // Get reCAPTCHA token
     const recaptchaToken = formData.get("recaptchaToken") as string;
-    console.log("xxx", formData);
+
     // Verify reCAPTCHA
     if (!recaptchaToken) {
       errors["recaptcha"] = t("Errors.recaptcha-required");
@@ -134,7 +131,9 @@ export default async function Page(
   return (
     <article className="mx-auto my-4 max-w-md p-2 h-full flex flex-col has-[[data-terminal='true']]:justify-center">
       <NextIntlClientProvider messages={messages}>
-        <ReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}>
+        <ReCaptchaProvider
+          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+        >
           <FeedbackForm action={sendFeedback} />
         </ReCaptchaProvider>
       </NextIntlClientProvider>
