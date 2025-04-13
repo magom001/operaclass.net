@@ -64,13 +64,13 @@ export default async function Page(props: PageParams) {
 
   return (
     <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      <div className="relative col-span-1 aspect-square md:aspect-auto lg:col-span-2 shadow overflow-hidden -order-1">
+      <div className="relative col-span-1 aspect-square md:aspect-auto lg:col-span-2 shadow-sm overflow-hidden -order-1">
         <Image
           className="absolute inset-0 object-fit h-full w-full grayscale object-cover"
           src={bannerImage}
           alt="banner"
         />
-        <div className="px-8 md:px-16 pt-12 md:pt-20 pb-16 md:pb-12 text-white absolute flex flex-col justify-between items-start inset-0 bg-gradient-to-b from-transparent to-neutral-950">
+        <div className="px-8 md:px-16 pt-12 md:pt-20 pb-16 md:pb-12 text-white absolute flex flex-col justify-between items-start inset-0 bg-linear-to-b from-transparent to-neutral-950">
           <div className="drop-shadow-xl">
             <h1 className="text-3xl font-bold">OperaClass.net</h1>
             <p className="font-semibold">{t("Main.slogan")}</p>
@@ -100,7 +100,7 @@ export default async function Page(props: PageParams) {
         </NextIntlClientProvider>
       ))}
       {founderPage && (
-        <div className="aspect-square order-3 col-span-1 md:col-span-2 md:aspect-[2/1] lg:order-5">
+        <div className="aspect-square order-3 col-span-1 md:col-span-2 md:aspect-2/1 lg:order-5">
           <NextIntlClientProvider messages={messages}>
             <FounderBlock data={founderPage} />
           </NextIntlClientProvider>
@@ -134,7 +134,7 @@ function RandomProfilePreview({
       </div>
       <Link
         href={`/profiles/${profile.slug}`}
-        className="text-gray-100 antialiased absolute inset-0 flex flex-col justify-between hover:from-neutral-900 transition-all px-6 py-8 md:px-12 md:py-8 bg-gradient-to-b from-neutral-950 to-transparent"
+        className="text-gray-100 antialiased absolute inset-0 flex flex-col justify-between hover:from-neutral-900 transition-all px-6 py-8 md:px-12 md:py-8 bg-linear-to-b from-neutral-950 to-transparent"
       >
         <div>
           <h1 className="text-3xl font-bold drop-shadow-lg">
@@ -185,7 +185,7 @@ function JoinOurCommunityBlock() {
   return (
     <Link
       href="/join-us"
-      className="w-full h-full flex items-center justify-center text-neutral-900 bg-gradient-to-br from-gray-100 to-neutral-400 group"
+      className="w-full h-full flex items-center justify-center text-neutral-900 bg-linear-to-br from-gray-100 to-neutral-400 group"
     >
       <span className="p-8 flex flex-col justify-center items-center group-hover:scale-[1.05] transition-all">
         <h2 className="text-xl capitalize drop-shadow-2xl font-bold">

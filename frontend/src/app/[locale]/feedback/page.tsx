@@ -129,7 +129,7 @@ export default async function Page(params: PageParams, data: FormData) {
   }
 
   return (
-    <article className="mx-auto my-4 max-w-md p-2 h-full flex flex-col has-[[data-terminal='true']]:justify-center">
+    <article className="mx-auto my-4 max-w-md p-2 h-full flex flex-col has-data-[terminal='true']:justify-center">
       <NextIntlClientProvider messages={messages}>
         <ReCaptchaProvider
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}

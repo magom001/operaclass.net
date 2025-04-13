@@ -52,7 +52,7 @@ export default function Header() {
       </header>
       <div
         onClick={toggleOpened}
-        className="fixed lg:hidden inset-0 backdrop-blur-sm bg-transparent z-30"
+        className="fixed lg:hidden inset-0 backdrop-blur-xs bg-transparent z-30"
         hidden={!opened}
       />
       <aside

@@ -60,7 +60,7 @@ export default async function Page(props: PageParams) {
   const t = await getTranslations();
 
   return (
-    <article className="mx-auto max-w-screen-lg px-2 lg:px-6 py-4 lg:py-12 text-center grid grid-cols-1 gap-y-8">
+    <article className="mx-auto max-w-(--breakpoint-lg) px-2 lg:px-6 py-4 lg:py-12 text-center grid grid-cols-1 gap-y-8">
       <section>
         <h1 className="text-3xl lg:text-4xl mb-4 text-center font-bold px-4">
           {t("JoinUs.title")}
@@ -72,7 +72,7 @@ export default async function Page(props: PageParams) {
           {Points.map(([key, description, [linkKey, linkUrlKey]], i) => (
             <li
               key={key}
-              className={`grid grid-rows-[auto_auto_1fr_auto] px-2 before:mx-auto before:shadow-2xl before:content-[attr(data-counter)] text-xl before:flex before:items-center before:justify-center before:w-20 before:h-20 before:text-gray-100 before:bg-gradient-to-br before:from-gray-600 before:to-gray-950 before:rounded-full`}
+              className={`grid grid-rows-[auto_auto_1fr_auto] px-2 before:mx-auto before:shadow-2xl before:content-[attr(data-counter)] text-xl before:flex before:items-center before:justify-center before:w-20 before:h-20 before:text-gray-100 before:bg-linear-to-br before:from-gray-600 before:to-gray-950 before:rounded-full`}
               data-counter={++i}
             >
               <h2 className="text-xl font-bold first-letter:capitalize pt-8 pb-4">

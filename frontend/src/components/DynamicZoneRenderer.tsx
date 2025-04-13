@@ -57,7 +57,7 @@ export function DynamicZoneRenderer({
               <li key={index}>
                 <iframe
                   title="Pianist preview video"
-                  className="rounded-lg w-full max-w-full aspect-[16/9]"
+                  className="rounded-lg w-full max-w-full aspect-16/9"
                   src={`${video.url}?controls=1`}
                 />
               </li>
