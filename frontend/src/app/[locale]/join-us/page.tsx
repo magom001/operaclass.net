@@ -3,7 +3,7 @@ import { NextIntlClientProvider, useTranslations } from "next-intl";
 import {
   getMessages,
   getTranslations,
-  unstable_setRequestLocale,
+  setRequestLocale,
 } from "next-intl/server";
 import Image from "next/image";
 import type { PageParams } from "../layout";
@@ -54,7 +54,7 @@ export default async function Page(props: PageParams) {
     locale
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const messages = await getMessages();
   const t = await getTranslations();

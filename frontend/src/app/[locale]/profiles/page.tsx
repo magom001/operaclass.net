@@ -10,7 +10,7 @@ import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,
   getTranslations,
-  unstable_setRequestLocale,
+  setRequestLocale,
 } from "next-intl/server";
 import { PageParams } from "../layout";
 import { Filters, FiltersMobile } from "./Filters";
@@ -52,7 +52,7 @@ export default async function Page(props: PageParams<{}, SearchParams>) {
     locale
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations("Profiles");
 

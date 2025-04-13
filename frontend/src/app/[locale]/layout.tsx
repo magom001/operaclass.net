@@ -1,7 +1,7 @@
 import { use } from "react";
 import "../globals.css";
 import { Locale, locales } from "@/i18n";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Header from "../../components/Header";
 import {
   AbstractIntlMessages,
@@ -52,7 +52,7 @@ export default function LocaleLayout(
     children
   } = props;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const messages = useMessages();
 
   return (
@@ -62,11 +62,12 @@ export default function LocaleLayout(
           messages={messages["Header"] as AbstractIntlMessages}
         >
           <Header />
+
+          <main className="pt-[64px] bg-[rgb(var(--background-rgb))]">
+            {children}
+          </main>
+          <Footer />
         </NextIntlClientProvider>
-        <main className="pt-[64px] bg-[rgb(var(--background-rgb))]">
-          {children}
-        </main>
-        <Footer />
       </body>
       <GoogleAnalytics gaId="G-CSF32HY45N" />
       <GoogleTagManager gtmId="GTM-WVPDL63H" />

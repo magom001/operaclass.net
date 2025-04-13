@@ -1,5 +1,5 @@
-import { permanentRedirect } from "@/i18n";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { permanentRedirect } from "@/i18n/index";
+import { setRequestLocale } from "next-intl/server";
 import { RedirectType } from "next/navigation";
 import { PageParams } from "../layout";
 
@@ -10,10 +10,13 @@ export default async function Page(props: PageParams) {
     locale
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   permanentRedirect(
-    "/profiles/?profileType=language-coach",
+    {
+      href: "/profiles/?profileType=language-coach",
+      locale,
+    },
     RedirectType.replace
   );
 }

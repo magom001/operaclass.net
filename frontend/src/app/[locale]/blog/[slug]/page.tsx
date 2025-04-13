@@ -3,7 +3,7 @@ import { ImageGallery } from "@/components/ImageGallery";
 import { Locale, redirect } from "@/i18n";
 import { getBlogPostBySlug } from "@/services/blogs";
 import { Metadata } from "next";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale  } from "next-intl/server";
 import type { PageParams } from "../../layout";
 
 export const dynamic = "force-dynamic";
@@ -49,12 +49,12 @@ export default async function Page(props: PageParams<PageProps>) {
     slug
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const blogPost = await getBlogPostBySlug(slug, locale);
 
   if (!blogPost || !blogPost?.attributes) {
-    return redirect("/blog/");
+    return redirect({ href: { pathname: "/blog/" }, locale});
   }
 
   return (
