@@ -12,7 +12,7 @@ export default function Loading() {
       <section>
         <div
           role="status"
-          className="flex items-center justify-center aspect-[16/9] rounded-lg animate-pulse bg-gray-900 mb-2"
+          className="flex items-center justify-center aspect-16/9 rounded-lg animate-pulse bg-gray-900 mb-2"
         >
           <svg
             className="w-10 h-10 text-gray-600"

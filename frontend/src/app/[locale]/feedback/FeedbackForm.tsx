@@ -86,7 +86,7 @@ export function FeedbackForm({ action }: Props) {
           {t("Feedback.name")}*
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded-sm w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-hidden focus:shadow-outline"
           type="text"
           name="name"
           id="name"
@@ -106,7 +106,7 @@ export function FeedbackForm({ action }: Props) {
           {t("Feedback.email")}
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded-sm w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-hidden focus:shadow-outline"
           type="email"
           name="email"
           id="email"
@@ -127,7 +127,7 @@ export function FeedbackForm({ action }: Props) {
         <textarea
           rows={10}
           name="message"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded-sm w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-hidden focus:shadow-outline"
           id="message"
           required
         />

@@ -1,4 +1,4 @@
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageParams } from "../layout";
 
 export default async function Page(props: PageParams) {
@@ -8,7 +8,7 @@ export default async function Page(props: PageParams) {
     locale
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = await getTranslations();
 
   return (

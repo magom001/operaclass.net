@@ -41,7 +41,7 @@ export function ShareButton({ title, text }: Props) {
       onClick={onClick}
       type="button"
       title="share"
-      className="flex items-center shadow-sm hover:shadow-lg hover:scale-[1.05] active:scale-[0.98] transition-all justify-center w-8 h-8 border-2 text-current border-current rounded-full"
+      className="flex items-center shadow-xs hover:shadow-lg hover:scale-[1.05] active:scale-[0.98] transition-all justify-center w-8 h-8 border-2 text-current border-current rounded-full"
     >
       <ShareIcon className="w-[70%] h-[70%] -translate-x-[1px]" />
     </button>

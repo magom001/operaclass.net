@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,
   getTranslations,
-  unstable_setRequestLocale,
+  setRequestLocale,
 } from "next-intl/server";
 import type { PageParams } from "../layout";
 import { BlogPostsList } from "./BlogPostsList";
@@ -41,7 +41,7 @@ export default async function Page(props: PageParams) {
     locale
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const message = await getMessages({ locale });
 
   const { articles, meta } = await getBlogPosts({ locale });

@@ -4,7 +4,7 @@ import { NextIntlClientProvider, useTranslations } from "next-intl";
 import {
   getMessages,
   getTranslations,
-  unstable_setRequestLocale,
+  setRequestLocale,
 } from "next-intl/server";
 import Image from "next/image";
 import { PageParams } from "../../layout";
@@ -65,7 +65,7 @@ export default async function Page(props: PageParams<PageProps>) {
     slug
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations();
   const messages = await getMessages();
@@ -96,7 +96,7 @@ export default async function Page(props: PageParams<PageProps>) {
         {pianist.previewVideo?.url ? (
           <iframe
             title="Pianist preview video"
-            className="rounded-lg max-w-full w-full aspect-[16/9] mb-2"
+            className="rounded-lg max-w-full w-full aspect-16/9 mb-2"
             src={`${pianist.previewVideo.url}?controls=1`}
           />
         ) : null}
@@ -135,7 +135,7 @@ export default async function Page(props: PageParams<PageProps>) {
               {[pianist.city, pianist.country].filter(Boolean).join(", ")}
             </p>
           </div>
-          <div className="h-3 bg-gradient-to-b from-white to-transparent" />
+          <div className="h-3 bg-linear-to-b from-white to-transparent" />
         </div>
 
         {pianist.contacts && pianist.contacts.length > 0 && (

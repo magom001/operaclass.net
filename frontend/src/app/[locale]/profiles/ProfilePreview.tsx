@@ -36,7 +36,7 @@ export const ProfilePreview = memo(function ProfilePreview({
   const profilePictureUrl = picture?.url;
 
   return (
-    <div className="w-full p-4 py-6 rounded-lg hover:shadow-md transition-shadow shadow flex flex-col justify-between">
+    <div className="w-full p-4 py-6 rounded-lg hover:shadow-md transition-shadow shadow-sm flex flex-col justify-between">
       <div
         style={{
           backgroundImage: `url(${
@@ -61,7 +61,7 @@ export const ProfilePreview = memo(function ProfilePreview({
       </div>
       <Link
         href={`/profiles/${slug}/${query}`}
-        className="max-w-full grid grid-cols-[1fr,auto] grid-rows-3 items-center justify-between mt-2"
+        className="max-w-full grid grid-cols-[1fr_auto] grid-rows-3 items-center justify-between mt-2"
       >
         <h3 className="text-sm text-nowrap font-bold overflow-hidden text-ellipsis">
           {fullName}

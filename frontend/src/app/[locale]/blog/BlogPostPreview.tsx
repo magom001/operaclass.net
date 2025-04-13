@@ -33,7 +33,7 @@ export function BlogPostPreview({ article, locale }: Props) {
   return (
     <div className="antialiased overflow-hidden h-full">
       <Image
-        className="aspect-[16/9] object-cover w-full"
+        className="aspect-16/9 object-cover w-full"
         src={url}
         width={width}
         height={height}

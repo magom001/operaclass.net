@@ -99,17 +99,17 @@ function PreviewWindow({ previewUrl, onClose }: PreviewWindowProps) {
         previewUrl
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
-      } bg-gray-600 bg-opacity-50 h-dvh max-h-[calc(100dvh-var(--header-height))] w-full z-[9999] p-2 md:p-4 lg:p-24 transition-all`}
+      } bg-gray-600 bg-opacity-50 h-dvh max-h-[calc(100dvh-var(--header-height))] w-full z-9999 p-2 md:p-4 lg:p-24 transition-all`}
     >
       <button
-        className="absolute right-3 top-3 z-[9999] rounded-full border-2 border-black"
+        className="absolute right-3 top-3 z-9999 rounded-full border-2 border-black"
         onClick={onClose}
         title="Close"
         role="button"
       >
         <XMarkIcon className="h-8 w-8" />
       </button>
-      <div ref={ref} className="w-full aspect-[16/9] max-h-full">
+      <div ref={ref} className="w-full aspect-16/9 max-h-full">
         {previewUrl && (
           <iframe
             title="Pianist preview video"

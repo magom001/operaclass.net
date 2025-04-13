@@ -1,7 +1,7 @@
 import { DynamicZoneRenderer } from "@/components/DynamicZoneRenderer";
 import { getFounderPage } from "@/services/founder-page";
 import { Metadata } from "next";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import type { PageParams } from "../layout";
 
@@ -38,7 +38,7 @@ export default async function Page(props: PageParams) {
     locale
   } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const data = await getFounderPage(locale);
 
