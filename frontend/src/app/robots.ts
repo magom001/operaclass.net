@@ -7,7 +7,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
 
   console.log('Host:', host); // Log the host for debugging
   // Allow indexing only if the host is 'operaclass.net'
-  if (host === 'operaclass.net') {
+  if (host === 'operaclass.net' || host === 'www.operaclass.net') {
     return {
       rules: {
         userAgent: '*',
