@@ -1,3 +1,5 @@
+export const runtime = 'nodejs' // Force Node.js runtime for this route
+
 import NextAuth from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { createTransport } from "nodemailer"

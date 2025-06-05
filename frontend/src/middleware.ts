@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import NextAuth from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route' // Adjust path if your route.ts is elsewhere
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import createIntlMiddleware from 'next-intl/middleware'
-import { i18n } from '@/i18n' // Assuming your i18n config (locales, defaultLocale, localePrefix) is here
+import { locales, localePrefix } from '@/i18n' // Corrected import
+
+// Define defaultLocale, as it's not exported from @/i18n
+const defaultLocale = locales[0] || "en"; // Fallback to "en" if locales array is empty, though unlikely
 
 const intlMiddleware = createIntlMiddleware({
-  locales: i18n.locales,
-  defaultLocale: i18n.defaultLocale,
-  localePrefix: i18n.localePrefix,
+  locales: locales,
+  defaultLocale: defaultLocale,
+  localePrefix: localePrefix,
 })
 
 const { auth } = NextAuth(authOptions)
@@ -31,8 +34,8 @@ export default auth((req) => {
       let signInUrl = `/${locale}/auth/signin`
 
       // Fallback to default locale if the extracted locale is not valid
-      if (!i18n.locales.includes(locale as any)) {
-        signInUrl = `/${i18n.defaultLocale}/auth/signin`
+      if (!locales.includes(locale as any)) {
+        signInUrl = `/${defaultLocale}/auth/signin`
       }
       return NextResponse.redirect(new URL(signInUrl, req.url))
     }
