@@ -11,6 +11,7 @@ import {
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import Providers from "../Providers";
 
 export async function generateMetadata(props: PageParams): Promise<Metadata> {
   const params = await props.params;
@@ -58,16 +59,18 @@ export default function LocaleLayout(
   return (
     <html lang={locale}>
       <body className="grid grid-rows-main">
-        <NextIntlClientProvider
-          messages={messages["Header"] as AbstractIntlMessages}
-        >
-          <Header />
+        <Providers>
+          <NextIntlClientProvider
+            messages={messages["Header"] as AbstractIntlMessages}
+          >
+            <Header />
 
-          <main className="pt-[64px] bg-[rgb(var(--background-rgb))]">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
+            <main className="pt-[64px] bg-[rgb(var(--background-rgb))]">
+              {children}
+            </main>
+            <Footer />
+          </NextIntlClientProvider>
+        </Providers>
       </body>
       <GoogleAnalytics gaId="G-CSF32HY45N" />
       <GoogleTagManager gtmId="GTM-WVPDL63H" />

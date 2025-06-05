@@ -4,6 +4,7 @@ import { Link, usePathname } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useReducer } from "react";
 import LanguageSwitcher from "../app/LanguageSwitcher";
+import AuthButtons from "./AuthButtons";
 
 const paths = [
   { href: "/profiles/", label: "profiles" },
@@ -43,6 +44,9 @@ export default function Header() {
             ))}
           </ul>
           <LanguageSwitcher className="text-xs" />
+          <div className="ml-4">
+            <AuthButtons />
+          </div>
         </nav>
         <BurgerButton
           opened={opened}
@@ -79,6 +83,9 @@ export default function Header() {
             ))}
           </ul>
         </nav>
+        <div className="mb-4"> {/* Added margin for spacing in mobile menu */}
+          <AuthButtons />
+        </div>
         <LanguageSwitcher className="text-xs" />
       </aside>
     </>
