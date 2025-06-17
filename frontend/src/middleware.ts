@@ -1,53 +1,27 @@
-import createMiddleware from "next-intl/middleware";
+import createIntlMiddleware from "next-intl/middleware";
 import { localePrefix, locales } from "./i18n";
-import { NextRequest } from "next/server";
+import { auth } from "./auth";
 
-export default async function middleware(request: NextRequest) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-  const cspHeader = `
-    default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https: http: 'unsafe-inline' ${
-    process.env.NODE_ENV === "production" ? "" : `'unsafe-eval'`
-  };
-    style-src 'self' 'nonce-${nonce}';
-    img-src 'self' blob: data: i.imgur.com;
-    font-src 'self' data:;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    block-all-mixed-content;
-    upgrade-insecure-requests;
-    frame-src 'self' https://www.youtube.com;
-`;
+const handleI18nRouting = createIntlMiddleware({
+  locales,
+  defaultLocale: "en",
+  localePrefix,
+});
 
-  // Replace newline characters and spaces
-  const contentSecurityPolicyHeaderValue = cspHeader
-    .replace(/\s{2,}/g, " ")
-    .trim();
 
-  const handleI18nRouting = createMiddleware({
-    // A list of all locales that are supported
-    locales,
+// Wrap the auth middleware to handle NextRequest properly
+export default auth((request) => {
+  // Check if this is an API route
+  if (request.nextUrl.pathname.startsWith("/api")) {
+    // For API routes, just apply auth (no i18n needed)
+    return;
+  }
 
-    // Used when no locale matches
-    defaultLocale: "en",
-
-    localePrefix,
-  });
-
-  const response = handleI18nRouting(request);
-
-  // response.headers.set(
-  //   "Content-Security-Policy",
-  //   contentSecurityPolicyHeaderValue
-  // );
-  // response.headers.set("x-nonce", nonce);
-
-  return response;
-}
+  // For non-API routes, apply i18n routing after auth
+  return handleI18nRouting(request);
+});
 
 export const config = {
-  //   Match only internationalized pathnames
-  matcher: ["/((?!api|_next|monitoring|.*\\..*).*)"],
+  // Apply to all routes (removed api exclusion)
+  matcher: ["/((?!_next|monitoring|.*\\..*).*)"],
 };

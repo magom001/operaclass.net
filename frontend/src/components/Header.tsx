@@ -4,6 +4,7 @@ import { Link, usePathname } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useReducer } from "react";
 import LanguageSwitcher from "../app/LanguageSwitcher";
+import { AuthenticatedUser } from "./AuthenticatedUser";
 
 const paths = [
   { href: "/profiles/", label: "profiles" },
