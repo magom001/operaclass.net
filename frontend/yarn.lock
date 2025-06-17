@@ -26,12 +26,23 @@
     preact "10.24.3"
     preact-render-to-string "6.5.11"
 
-"@auth/unstorage-adapter@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@auth/unstorage-adapter/-/unstorage-adapter-2.9.0.tgz#6d450b8c6abe11fb568439b70b0000c82cf59cc1"
-  integrity sha512-0IHiou8PMtQcIk2uwLFyvvDVJn8fhfKYa+2ffuUtzVqo62l5geqxVJUmn0zgSpF4aTH9jHC+/OZcLxfE+lOOPA==
+"@auth/core@0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@auth/core/-/core-0.39.1.tgz#2b42697154f29b9f8c4c76f6978ed94ea6e19219"
+  integrity sha512-McD8slui0oOA1pjR5sPjLPl5Zm//nLP/8T3kr8hxIsvNLvsiudYvPHhDFPjh1KcZ2nFxCkZmP6bRxaaPd/AnLA==
   dependencies:
-    "@auth/core" "0.39.0"
+    "@panva/hkdf" "^1.2.1"
+    jose "^6.0.6"
+    oauth4webapi "^3.3.0"
+    preact "10.24.3"
+    preact-render-to-string "6.5.11"
+
+"@auth/unstorage-adapter@^2.9.1":
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/@auth/unstorage-adapter/-/unstorage-adapter-2.9.1.tgz#22454681526114fec2afd62547fca083444421da"
+  integrity sha512-8Blk8ygNYuVpRBwzhb5EatGFkSHsRvtDmk4Ag2ZSNyeSSN7g4orsz89F4CAUJAx+Z+wxZFtyYPPAGscw0BkHIQ==
+  dependencies:
+    "@auth/core" "0.39.1"
 
 "@babel/code-frame@^7.26.2":
   version "7.26.2"
