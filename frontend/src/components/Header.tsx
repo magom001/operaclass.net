@@ -4,6 +4,8 @@ import { Link, usePathname } from "@/i18n";
 import { useTranslations } from "next-intl";
 import { useReducer } from "react";
 import LanguageSwitcher from "../app/LanguageSwitcher";
+import Image from "next/image";
+import icon0 from "../app/icon0.svg";
 
 const paths = [
   { href: "/profiles/", label: "profiles" },
@@ -25,7 +27,14 @@ export default function Header({ whatIsOnLink }: { whatIsOnLink?: string }) {
   return (
     <>
       <header className="bg-gray-900 shadow-md text-gray-100 fixed top-0 left-0 right-0 h-[var(--header-height)] flex items-center justify-between antialiased px-8 z-50">
-        <Link className="text-xl" href="/">
+        <Link className="text-xl flex items-center gap-2" href="/">
+          <Image 
+            src={icon0} 
+            alt="OperaClass.net logo" 
+            width={32} 
+            height={32}
+            className="rounded-full"
+          />
           OperaClass.net
         </Link>
         <nav className="hidden lg:flex flex-row items-center">
