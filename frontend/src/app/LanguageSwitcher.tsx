@@ -19,6 +19,7 @@ export default function LanguageSwitcher({ className }: Props) {
     >
       <li className={`px-4 ${locale === "en" ? "font-bold" : ""}`}>
         <button
+          className="cursor-pointer"
           type="button"
           onClick={() => router.replace(pathname, { locale: "en" })}
         >
@@ -27,6 +28,7 @@ export default function LanguageSwitcher({ className }: Props) {
       </li>
       <li className={`px-4 ${locale === "ru" ? "font-bold" : ""}`}>
         <button
+          className="cursor-pointer"
           type="button"
           onClick={() => router.replace(pathname, { locale: "ru" })}
         >

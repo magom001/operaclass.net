@@ -13,10 +13,14 @@ const paths = [
   { href: "/feedback/", label: "feedback" },
 ];
 
-export default function Header() {
+export default function Header({ whatIsOnLink }: { whatIsOnLink?: string }) {
   const [opened, toggleOpened] = useReducer((state) => !state, false);
   const t = useTranslations();
   const p = usePathname();
+
+  const menuItems = whatIsOnLink 
+    ? [{ href: whatIsOnLink, label: "what-is-on" }, ...paths]
+    : paths;
 
   return (
     <>
@@ -29,12 +33,16 @@ export default function Header() {
             onClick={toggleOpened}
             className="text-md [&>li]:first-letter:capitalize divide-x px-4 [&>li]:px-4 text-right pl-16 flex flex-row"
           >
-            {paths.map(({ href, label }) => (
+            {menuItems.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
                   className={`first-letter:capitalize ${
-                    p.startsWith(href) ? "font-bold" : ""
+                    label === "what-is-on"
+                      ? "font-bold text-yellow-400"
+                      : p.startsWith(href) 
+                      ? "font-bold" 
+                      : ""
                   }`}
                 >
                   {t(label)}
@@ -67,11 +75,17 @@ export default function Header() {
             onClick={toggleOpened}
             className="text-xl space-y-8 [&>li]:first-letter:capitalize text-right pl-16"
           >
-            {paths.map(({ href, label }) => (
+            {menuItems.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className={`${p.startsWith(href) ? "font-bold" : ""}`}
+                  className={`${
+                    label === "what-is-on"
+                      ? "font-bold text-yellow-400"
+                      : p.startsWith(href) 
+                      ? "font-bold" 
+                      : ""
+                  }`}
                 >
                   {t(label)}
                 </Link>
