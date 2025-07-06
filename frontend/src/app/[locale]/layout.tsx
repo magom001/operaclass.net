@@ -54,6 +54,7 @@ export default function LocaleLayout(
 
   setRequestLocale(locale);
   const messages = useMessages();
+  const whatIsOnLink = process.env.NEXT_PUBLIC_WHAT_IS_ON_LINK;
 
   return (
     <html lang={locale}>
@@ -61,7 +62,7 @@ export default function LocaleLayout(
         <NextIntlClientProvider
           messages={messages["Header"] as AbstractIntlMessages}
         >
-          <Header />
+          <Header whatIsOnLink={whatIsOnLink} />
 
           <main className="pt-[64px] bg-[rgb(var(--background-rgb))]">
             {children}
